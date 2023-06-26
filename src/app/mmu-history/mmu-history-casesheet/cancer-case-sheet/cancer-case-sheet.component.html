@@ -1,0 +1,11 @@
+
+
+<cancer-doctor-diagnosis-case-sheet [data]="caseSheetData"></cancer-doctor-diagnosis-case-sheet>
+<div class="page-break"></div>
+<ng-container *ngIf="printPagePreviewSelect.caseSheetHistory">
+  <cancer-history-case-sheet [data]="caseSheetData"></cancer-history-case-sheet>
+  <div class="page-break"></div>
+</ng-container>
+<ng-container *ngIf="printPagePreviewSelect.caseSheetExamination">
+  <cancer-examination-case-sheet [data]="caseSheetData"></cancer-examination-case-sheet>
+</ng-container>

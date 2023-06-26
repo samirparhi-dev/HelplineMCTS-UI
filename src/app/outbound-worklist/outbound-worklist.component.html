@@ -1,0 +1,172 @@
+<div class="overlay" *ngIf="showProgressBar">
+  <div>
+     <md-spinner></md-spinner>
+   </div>
+</div>
+<!--Search-->
+<div class="col-xs-8 col-sm-6" style="margin-left: 50%;">
+  <div class="sw">
+    <input
+     usernameValidator
+     type="search"
+     class="search"
+     autocomplete="off"
+     placeholder="{{currentLanguageSet?.inTableSearch}}"
+     name="filterTerm"
+     [(ngModel)]="filterTerm"
+     (keyup)="filterMotherList(filterTerm)"
+   />
+   <button class="go" (click)="filterMotherList(filterTerm)">
+     <span class="material-icons">search</span>
+   </button>
+  </div>
+</div>
+
+<!--End Search-->
+<h4 class="m-b-10">{{currentLanguageSet?.outboundWorklist}}</h4>
+<md-tab-group (focusChange)="tabChanged($event)">
+ <md-tab label="{{currentLanguageSet?.motherRecords}}">
+   <div class="table-responsive">
+     <table class="m-b-20 table table-striped table-hover" [md2Data]="motherOutboundWorklist" #md2MotherData="md2DataTable" [rowsPerPage]="5" aria-describedby="motherWorklist">
+       <thead>
+         <tr>
+           <th id="sno" style="width: 5%">{{currentLanguageSet?.sno}}</th>
+           <th id="motherID">{{currentLanguageSet?.motherId}}</th>
+           <th id="motherName">{{currentLanguageSet?.motherName}}</th>
+           <th id="callType">{{currentLanguageSet?.callType}}</th>
+           <th id="callStart" md2SortBy="callDateFrom">{{currentLanguageSet?.callStart}}</th>
+           <th id="attempts">{{currentLanguageSet?.noOfAttempts}}</th>
+           <th id="highRisk">{{currentLanguageSet?.highRisk}}</th>
+           <th id="phoneNoTypes">{{currentLanguageSet?.phoneNoType}}</th>
+           <th id="phoneNo">{{currentLanguageSet?.phoneNo}}</th>
+           <th id="remarks">{{currentLanguageSet?.remarks}}</th>
+           <th id="lastCall">{{currentLanguageSet?.lastCall}}</th>
+           <th id="action">{{currentLanguageSet?.action}}</th>
+         </tr>
+       </thead>
+       <tbody>
+         <tr *ngIf="md2MotherData.data?.length==0">
+           <td colspan="12" class="record-not-found">
+             {{currentLanguageSet?.noRecordFound}}
+           </td>
+         </tr>
+         <tr *ngFor="let listItem of md2MotherData.data| OrderBy: 'callDateFrom'; let i = index" [ngClass]="{'cursorPointer': isDialPreferenceManual == true}"
+           (click)="(isDialPreferenceManual == true) && viewHistory(listItem)">
+           <td>{{(md2MotherData.activePage-1)*(md2MotherData.rowsPerPage)+i+1}}</td>
+           <td>{{listItem?.mctsDataReaderDetail?.MCTSID_no}}</td>
+           <td>{{listItem?.mctsDataReaderDetail?.Name}}</td>
+           <td>{{listItem?.displayOBCallType ? listItem?.displayOBCallType : listItem?.outboundCallType}}</td>
+           <td>{{listItem?.callDateFrom| utcDate | date:'dd/MM/yyyy'}}</td>
+           <td>{{listItem?.noOfTrials}}</td>
+           <td>{{(listItem?.mctsDataReaderDetail?.High_Risk)?'Yes': 'No'}}</td>
+           <td>{{listItem?.mctsDataReaderDetail?.PhoneNo_Of_Whom}}</td>
+           <td>{{listItem?.mctsDataReaderDetail?.Whom_PhoneNo}}</td>
+           <td>{{listItem?.lastCallRemark}}</td>
+           <td>{{listItem?.lastCallTime| utcDate | date:'dd/MM/yyyy hh:mm a'}}</td>
+           <td>
+             <a class="pointer" *ngIf="isDialPreferenceManual == true">
+               <span (click)="transferToCallScreen(listItem,$event)">
+                 <img src="assets/images/transferCallIcon.png" md-tooltip="
+                 {{currentLanguageSet?.callBeneficiary}}" alt ="transferCallIcon" style ="float:center" />
+               </span>
+             </a>
+             <a *ngIf="isDialPreferenceManual == false">-</a>
+           </td>
+         </tr>
+       </tbody>
+       <tfoot *ngIf="md2MotherData.data?.length > 0">
+
+         <td colspan="5">
+           <md2-pagination></md2-pagination>
+
+         </td>
+         <td colspan="7">
+           <div *ngIf="isDialPreferenceManual == false">
+             <label *ngIf="time > 0" class="error_text">
+               <span>{{currentLanguageSet?.nextPreviewToStartIn}} {{time}} {{currentLanguageSet?.seconds}}</span>
+             </label>
+             <div [hidden]="autoChildCallFlag" class="pull-right">
+               <label *ngIf="motherStartCall">{{currentLanguageSet?.endCalling}}</label>
+               <md-slide-toggle ngDefaultControl name="motherStartCall" color="accent" (change)="startMotherCall($event)" [(ngModel)]="motherStartCall"></md-slide-toggle>
+               <label *ngIf="!motherStartCall">{{currentLanguageSet?.startCalling}}</label>
+             </div>
+           </div>
+         </td>
+       </tfoot>
+     </table>
+   </div>
+ </md-tab>
+ <md-tab label="{{currentLanguageSet?.childRecords}}">
+   <div class="table-responsive">
+     <div class="clearfix"></div>
+     <table class="m-b-20 table table-striped table-hover" [md2Data]="childOutboundWorklist" #md2ChildData="md2DataTable" [rowsPerPage]="5" aria-describedby="childWorklist">
+       <thead>
+         <tr>
+           <th id="sno" style="width: 5%">{{currentLanguageSet?.sno}}</th>
+           <th id="motherName">{{currentLanguageSet?.motherName}}</th>
+           <th id="childID">{{currentLanguageSet?.childId}}</th>
+           <th id="childName">{{currentLanguageSet?.childName}}</th>
+           <th id="callType">{{currentLanguageSet?.callType}}</th>
+           <th id="callStart"  md2SortBy="callDateFrom">{{currentLanguageSet?.callStart}}</th>
+           <th id="attempts"> {{currentLanguageSet?.noOfAttempts}}</th>
+           <th id="phoneNoTypes">{{currentLanguageSet?.phoneNoType}}</th>
+           <th id="phoneNo">{{currentLanguageSet?.phoneNo}}</th>
+           <th id="remarks">{{currentLanguageSet?.remarks}}</th>
+            <th id="lastCall">{{currentLanguageSet?.lastCall}}</th>
+           <th id="action">{{currentLanguageSet?.action}}</th>
+         </tr>
+       </thead>
+       <tbody>
+         <tr *ngIf="md2ChildData.data?.length==0">
+           <td colspan="12" class="record-not-found">
+             {{currentLanguageSet?.noRecordFound}}
+           </td>
+         </tr>
+         <tr *ngFor="let listItem of md2ChildData.data | OrderBy: 'callDateFrom'; let i = index " [ngClass]="{'cursorPointer': isDialPreferenceManual == true}"
+           (click)="(isDialPreferenceManual == true) && viewHistory(listItem)">
+           <td>{{(md2ChildData.activePage-1)*(md2ChildData.rowsPerPage)+i+1}}</td>
+           <td>{{(listItem?.childValidDataHandler)? listItem?.childValidDataHandler?.Mother_Name : listItem?.mctsDataReaderDetail?.Name}}</td>
+           <td>{{(listItem?.childValidDataHandler)? listItem?.childValidDataHandler?.MCTSID_no_Child_ID: listItem?.mctsDataReaderDetail?.Child_ID}}</td>
+           <td>{{(listItem?.childValidDataHandler)? listItem?.childValidDataHandler?.Child_Name: listItem?.mctsDataReaderDetail?.Child_Name}}</td>
+           <td>{{listItem?.displayOBCallType ? listItem?.displayOBCallType : listItem?.outboundCallType}}</td>
+           <td>{{listItem?.callDateFrom|utcDate | date:'dd/MM/yyyy'}}</td>
+           <td>{{listItem?.noOfTrials}}</td>
+           <td>{{(listItem?.childValidDataHandler)? listItem?.childValidDataHandler?.Phone_No_of : listItem?.mctsDataReaderDetail?.PhoneNo_Of_Whom}}</td>
+           <td>{{(listItem?.childValidDataHandler)? listItem?.childValidDataHandler?.Phone_No : listItem?.mctsDataReaderDetail?.Whom_PhoneNo}}</td>
+           <td>{{listItem?.lastCallRemark}}</td>
+           <td>{{listItem?.lastCallTime|utcDate | date:'dd/MM/yyyy hh:mm a'}}</td>
+           <td>
+             <a class="pointer" *ngIf="isDialPreferenceManual == true">
+               <span (click)="transferToCallScreen(listItem,$event)">
+                 <img src="assets/images/transferCallIcon.png" md-tooltip="
+                 {{currentLanguageSet?.callBeneficiary}}" alt="transferCallIcon" />
+               </span>
+             </a>
+             <a *ngIf="isDialPreferenceManual == false">-</a>
+           </td>
+         </tr>
+       </tbody>
+       <tfoot *ngIf="md2ChildData.data?.length > 0">
+
+         <td colspan="5">
+           <md2-pagination></md2-pagination>
+         </td>
+         <td colspan="7">
+           <div *ngIf="isDialPreferenceManual == false">
+             <label *ngIf="time > 0" class="error_text">
+               <span>{{currentLanguageSet?.nextPreviewToStartIn}} {{time}} {{currentLanguageSet?.seconds}}</span>
+             </label>
+             <div [hidden]="autoMotherCallFlag" class="pull-right">
+               <label *ngIf="childStartCall">{{currentLanguageSet?.endCalling}}</label>
+               <md-slide-toggle ngDefaultControl name="childStartCall" color="accent" (change)="startChildCall($event)" [(ngModel)]="childStartCall"></md-slide-toggle>
+               <label *ngIf="!childStartCall">{{currentLanguageSet?.startCalling}}</label>
+             </div>
+
+           </div>
+         </td>
+
+       </tfoot>
+     </table>
+   </div>
+ </md-tab>
+</md-tab-group>

@@ -1,0 +1,112 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <button type="button" class="close" md-dialog-close><span class="pull-right">&times;</span></button>
+        <h2 md-dialog-title class="f-c-o m-l-15">{{currentLanguageSet?.questionnaire}}</h2>
+        <md-dialog-content class="m-b-10">
+          <form #questionaireForm="ngForm" autocomplete="off">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <md-radio-group class="m-t-10" name="correctHusbandName" ngModel required>
+                {{currentLanguageSet?.correctHusbandNameYesNo}}
+                <md-radio-button value="Yes">{{currentLanguageSet?.yes}}</md-radio-button>
+                <md-radio-button value="No">{{currentLanguageSet?.no}}</md-radio-button>
+              </md-radio-group>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <md-radio-group class="m-t-10" name="correctSubCentreName" ngModel required>
+                {{currentLanguageSet?.correctSubCentreNameYesNo}}
+                <md-radio-button value="Yes">{{currentLanguageSet?.yes}}</md-radio-button>
+                <md-radio-button value="No">{{currentLanguageSet?.no}}</md-radio-button>
+              </md-radio-group>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <md-radio-group class="m-t-10" name="correctDistrictName" ngModel required>
+                {{currentLanguageSet?.correctDistrictNameYesNo}}
+                <md-radio-button value="Yes">{{currentLanguageSet?.yes}}</md-radio-button>
+                <md-radio-button value="No">{{currentLanguageSet?.no}}</md-radio-button>
+              </md-radio-group>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <md-radio-group class="m-t-10" name="benificiaryListenedPRVM" ngModel required>
+                {{currentLanguageSet?.whetherTheBeneficiaryCompletelyListenedThePreRecordedVoiceMessageYesNo}}
+                <md-radio-button value="Yes">{{currentLanguageSet?.yes}]</md-radio-button>
+                <md-radio-button value="No">{{currentLanguageSet?.no}}</md-radio-button>
+              </md-radio-group>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <md-radio-group class="m-t-10" name="women2ndANC" ngModel required>
+                {{currentLanguageSet?.whetherThePresentWomenAlreadyWentFor2ndAncYesNo}}
+                <md-radio-button value="Yes">{{currentLanguageSet?.yes}}</md-radio-button>
+                <md-radio-button value="No">{{currentLanguageSet?.no}}</md-radio-button>
+              </md-radio-group>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <md-radio-group class="m-t-10" name="safeMotherhoodProvided" ngModel required>
+                {{currentLanguageSet?.whetherMamoniBookletaPictorialBookletOnSafeMotherhoodProvidedOrNotYesNo}}
+                <md-radio-button value="Yes">{{currentLanguageSet?.yes}}</md-radio-button>
+                <md-radio-button value="No">{{currentLanguageSet?.no}}</md-radio-button>
+              </md-radio-group>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <md-radio-group class="m-t-10" name="correctName" ngModel required>
+                {{currentLanguageSet?.correctName}}
+                <md-radio-button value="Yes">{{currentLanguageSet?.yes}}</md-radio-button>
+                <md-radio-button value="No">{{currentLanguageSet?.no}}</md-radio-button>
+              </md-radio-group>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <md-radio-group class="m-t-10" name="correctVillageName" ngModel required>
+                {{currentLanguageSet?.correctVillageNameYesNo}}
+                <md-radio-button value="Yes">{{currentLanguageSet?.yes}}</md-radio-button>
+                <md-radio-button value="No">{{currentLanguageSet?.no}}</md-radio-button>
+              </md-radio-group>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <md-radio-group class="m-t-10" name="correctPHCName" ngModel required>
+                {{currentLanguageSet?.correctBlockPhcNameYesNo}}
+                <md-radio-button value="Yes">{{currentLanguageSet?.yes}}</md-radio-button>
+                <md-radio-button value="No">{{currentLanguageSet?.no}}</md-radio-button>
+              </md-radio-group>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <md-radio-group class="m-t-10" name="correctLMPDate" ngModel required>
+                {{currentLanguageSet?.correctLmpDateYesNo}}
+                <md-radio-button value="Yes">{{currentLanguageSet?.yes}}</md-radio-button>
+                <md-radio-button value="No">{{currentLanguageSet?.no}}</md-radio-button>
+              </md-radio-group>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <md-radio-group class="m-t-10" name="ashaContacted" ngModel required>
+                {{currentLanguageSet?.whetherAshaContactedHerYesNo}}
+                <md-radio-button value="Yes">{{currentLanguageSet?.yes}}</md-radio-button>
+                <md-radio-button value="No">{{currentLanguageSet?.no}}</md-radio-button>
+              </md-radio-group>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <md-radio-group class="m-t-10" name="bpChecked" ngModel required>
+                {{currentLanguageSet?.whetherAnmCheckedBloodPressureDuringAncCheckUpYesNo}}
+                <md-radio-button value="Yes">{{currentLanguageSet?.yes}}</md-radio-button>
+                <md-radio-button value="No">{{currentLanguageSet?.no}}</md-radio-button>
+              </md-radio-group>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <md-radio-group class="m-t-10" name="urineTestDone" ngModel required>
+                {{currentLanguageSet?.whetherUrineTestDoneDuringAncCheckUpYesNo}}
+                <md-radio-button value="Yes">{{currentLanguageSet?.yes}}</md-radio-button>
+                <md-radio-button value="No">{{currentLanguageSet?.no}}</md-radio-button>
+              </md-radio-group>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <md-radio-group class="m-t-10" name="correctVillageName" ngModel required>
+                {{currentLanguageSet?.whetherAnmAdvisedToTakeNutritionalFoodYesNo}}
+                <md-radio-button value="Yes">{{currentLanguageSet?.yes}}</md-radio-button>
+                <md-radio-button value="No">{{currentLanguageSet?.no}}</md-radio-button>
+              </md-radio-group>
+            </div>
+          </form>
+        </md-dialog-content>
+        <md-dialog-actions class="m-b-5">
+          <button md-raised-button class="btn btn-primary m-l-15 m-r-15 pull-right" [disabled]="!(questionaireForm.valid)" type="button" (click)="onSubmit()" >{{currentLanguageSet?.submit}}</button>
+          <button md-raised-button class="m-l-15 m-r-15 pull-right" md-dialog-close>{{currentLanguageSet?.close}}</button>
+        </md-dialog-actions>
+    </div>
+</div>

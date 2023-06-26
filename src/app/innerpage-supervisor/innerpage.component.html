@@ -1,0 +1,397 @@
+<div class="container-fluid p-a-0 header p-t-b-3 navbar-fixed-top">
+  <div class="header noprint">
+    <div class="col-xs-12 col-sm-12">
+      <div class="pull-left">
+        <img src="assets/images/smLogo.png" alt="Logo" title="Logo" />
+      </div>
+      <label class="f-c-w f-s-15 p-t-5">
+        {{currentLanguageSet?.mcts}} {{current_roleName}}</label>
+      <div class="pull-right p-t-1">
+        <ul class="list-inline list-unstyled topIcon pull-right m-l-20 m-b-0">
+          <span style="color: white"
+            >{{ currentLanguageSet?.selectLanguage }}:</span
+          >
+          <li>
+            <select
+              class="form-control drop-arrow border-radius-20 height-35"
+              name="app_language"
+              [(ngModel)]="app_language"
+              (change)="changeLanguage(app_language)"
+            >
+              <option
+                *ngFor="let language of languageArray"
+                [value]="language.languageName"
+              >
+                {{ language.languageName }}
+              </option>
+            </select>
+          </li>
+          
+          <li class="">
+            <img
+              src="assets/images/icon-user-active.png"
+              class="cursorPointer"
+              alt="User Icon"
+              title="{{currentLanguageSet?.userIcon}}"
+              [mdMenuTriggerFor]="menuNotification"
+            />
+          </li>
+          <md-menu #menuNotification x-position="before" class="m-t-40">
+            <md-list class="p-t-0">
+              <md-list-item>
+                <md-icon
+                  class="mat-icon material-icons"
+                  role="img"
+                  aria-hidden="true"
+                  >account_circle</md-icon
+                >
+                {{ data.userName }}</md-list-item
+              >
+              <md-list-item class="b-t-1-w"
+                >{{currentLanguageSet?.id}}: {{ id }}-{{ current_role }}-{{
+                  current_service
+                }}</md-list-item
+              >
+            </md-list>
+          </md-menu>
+          <li class="logout" tooltip="{{currentLanguageSet?.logout}}" (click)="logOut()">
+            <a class="">&nbsp;</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="m-t-5">
+  <div class="clearfix"></div>
+  <div class="col-xs-12 col-sm-12 m-t-50">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+            aria-controls="navbar">
+            <span class="sr-only">{{currentLanguageSet?.toggleNavigation}}</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a
+                href="#"
+                class="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >{{currentLanguageSet?.activities}}
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li
+                  style="cursor: pointer"
+                  routerLink="/InnerpageComponent"
+                  [queryParams]="{ number: 16 }"
+                >
+                  <a>{{currentLanguageSet?.agentStatus}}</a>
+                </li>
+                <li
+                  style="cursor: pointer"
+                  routerLink="/InnerpageComponent"
+                  [queryParams]="{ number: 17 }"
+                >
+                  <a>{{currentLanguageSet?.qualityAudit}}</a>
+                </li>
+                <li
+                  style="cursor: pointer"
+                  routerLink="/InnerpageComponent"
+                  [queryParams]="{ number: 2 }"
+                >
+                  <a>{{currentLanguageSet?.agentCallsAllocation}}</a>
+                </li>
+                <li class="dropdown-submenu">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                    >{{currentLanguageSet?.communication}} *</a
+                  >
+                  <ul class="dropdown-menu">
+                    <li
+                      style="cursor: pointer"
+                      routerLink="/InnerpageComponent"
+                      [queryParams]="{ number: 11 }"
+                    >
+                      <a>{{currentLanguageSet?.alertsNotifications}}</a>
+                    </li>
+                    <li
+                      style="cursor: pointer"
+                      routerLink="/InnerpageComponent"
+                      [queryParams]="{ number: 9 }"
+                    >
+                      <a>{{currentLanguageSet?.emergencyContacts}}</a>
+                    </li>
+                    <li
+                      style="cursor: pointer"
+                      routerLink="/InnerpageComponent"
+                      [queryParams]="{ number: 12 }"
+                    >
+                      <a>{{currentLanguageSet?.locationMessages}}</a>
+                    </li>
+                  </ul>
+                </li>
+                <li
+                  style="cursor: pointer"
+                  routerLink="/InnerpageComponent"
+                  [queryParams]="{ number: 1 }"
+                >
+                  <a>{{currentLanguageSet?.dataUpload}}</a>
+                </li>
+                <li
+                  style="cursor: pointer"
+                  routerLink="/InnerpageComponent"
+                  [queryParams]="{ number: 4 }"
+                >
+                  <a>{{currentLanguageSet?.reallocateCallsToAgents}}</a>
+                </li>
+                <li
+                  style="cursor: pointer"
+                  routerLink="/InnerpageComponent"
+                  [queryParams]="{ number: 15 }"
+                >
+                  <a>{{currentLanguageSet?.forceLogout}}</a>
+                </li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a
+                href="#"
+                class="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >{{currentLanguageSet?.reports}}
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li
+                  style="cursor: pointer"
+                  routerLink="/InnerpageComponent"
+                  [queryParams]="{ number: 14 }"
+                >
+                  <a>{{currentLanguageSet?.complaintReports}}</a>
+                </li>
+                <li
+                  style="cursor: pointer"
+                  routerLink="/InnerpageComponent"
+                  [queryParams]="{ number: 19 }"
+                >
+                  <a>{{currentLanguageSet?.dataReports}}</a>
+                </li>
+                <li class="dropdown-submenu">
+                  <a>{{currentLanguageSet?.callReports}}</a>
+                  <ul class="dropdown-menu">
+                    <li
+                      style="cursor: pointer"
+                      routerLink="/InnerpageComponent"
+                      [queryParams]="{ number: 21 }"
+                    >
+                      <a>{{currentLanguageSet?.callDetailsReports}}</a>
+                    </li>
+                    <li
+                      style="cursor: pointer"
+                      routerLink="/InnerpageComponent"
+                      [queryParams]="{ number: 31 }"
+                    >
+                      <a>{{currentLanguageSet?.callDetailsUniqueReports}}</a>
+                    </li>
+                    <li
+                      style="cursor: pointer"
+                      routerLink="/InnerpageComponent"
+                      [queryParams]="{ number: 23 }"
+                    >
+                      <a>{{currentLanguageSet?.callsAnsweredReport}}</a>
+                    </li>
+                    <li
+                      style="cursor: pointer"
+                      routerLink="/InnerpageComponent"
+                      [queryParams]="{ number: 24 }"
+                    >
+                      <a>{{currentLanguageSet?.callsNotAnsweredReport}}</a>
+                    </li>
+                  </ul>
+                </li>
+                <li
+                  style="cursor: pointer"
+                  routerLink="/InnerpageComponent"
+                  [queryParams]="{ number: 25 }"
+                >
+                  <a>{{currentLanguageSet?.highRiskReport}}</a>
+                </li>
+                <li
+                  style="cursor: pointer"
+                  routerLink="/InnerpageComponent"
+                  [queryParams]="{ number: 26 }"
+                >
+                  <a>{{currentLanguageSet?.congenitalAnomaliesReport}}</a>
+                </li>
+                <li
+                  style="cursor: pointer"
+                  routerLink="/InnerpageComponent"
+                  [queryParams]="{ number: 28 }"
+                >
+                  <a>{{currentLanguageSet?.invalidRecordsReport}}</a>
+                </li>
+                <li
+                  style="cursor: pointer"
+                  routerLink="/InnerpageComponent"
+                  [queryParams]="{ number: 29 }"
+                >
+                  <a>{{currentLanguageSet?.dailyReport}}</a>
+                </li>
+                <li
+                  style="cursor: pointer"
+                  routerLink="/InnerpageComponent"
+                  [queryParams]="{ number: 22 }"
+                >
+                  <a>{{currentLanguageSet?.nhmReports}}</a>
+                </li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a
+                href="#"
+                class="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >{{currentLanguageSet?.configurations}}
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li
+                  style="cursor: pointer"
+                  routerLink="/InnerpageComponent"
+                  [queryParams]="{ number: 6 }"
+                >
+                  <a>{{currentLanguageSet?.callConfiguration}}</a>
+                </li>
+                <li
+                  style="cursor: pointer"
+                  routerLink="/InnerpageComponent"
+                  [queryParams]="{ number: 30 }"
+                >
+                  <a>{{currentLanguageSet?.dialPreference}}</a>
+                </li>
+                <li
+                  style="cursor: pointer"
+                  routerLink="/InnerpageComponent"
+                  [queryParams]="{ number: 32 }"
+                >
+                  <a>{{currentLanguageSet?.smsTemplates}}</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <button class="pull-right m-t-8 " md-raised-button color="primary" (click)="moveToDashboard()">{{currentLanguageSet?.backToDashboard}}</button>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="clearfix"></div>
+  <div class="container-fluid">
+    <div class="col-xs-12 col-sm-12">
+      <md-card style="padding: 0px" class="row">
+        <div style="min-height: 480px">
+          <div [ngSwitch]="Activity_Number">
+            <app-uploadexcel *ngSwitchCase="1"></app-uploadexcel>
+            <app-agent-search-records
+              *ngSwitchCase="2"
+            ></app-agent-search-records>
+            <app-inner-question-type-detail
+              *ngSwitchCase="3"
+            ></app-inner-question-type-detail>
+            <app-reallocation-call-agent
+              *ngSwitchCase="4"
+            ></app-reallocation-call-agent>
+            <app-inner-mcts-callconfiguration
+              *ngSwitchCase="6"
+            ></app-inner-mcts-callconfiguration>
+            <app-inner-question-type-configuration
+              *ngSwitchCase="7"
+            ></app-inner-question-type-configuration>
+            <app-inner-knowledge-management
+              *ngSwitchCase="8"
+            ></app-inner-knowledge-management>
+            <app-supervisor-emergency-contacts
+              *ngSwitchCase="9"
+            ></app-supervisor-emergency-contacts>
+            <app-supervisor-training-resources
+              *ngSwitchCase="10"
+            ></app-supervisor-training-resources>
+            <app-supervisor-alerts-notifications
+              *ngSwitchCase="11"
+            ></app-supervisor-alerts-notifications>
+            <app-supervisor-location-communication
+              *ngSwitchCase="12"
+            ></app-supervisor-location-communication>
+            <!-- pd -->
+            <app-complaint-reports *ngSwitchCase="14"></app-complaint-reports>
+            <app-data-reports *ngSwitchCase="19"></app-data-reports>
+            <app-call-summary-reports
+              *ngSwitchCase="20"
+            ></app-call-summary-reports>
+            <app-call-details-report
+              *ngSwitchCase="21"
+            ></app-call-details-report>
+            <app-nhm-reports *ngSwitchCase="22"></app-nhm-reports>
+            <app-calls-answered-report
+              *ngSwitchCase="23"
+            ></app-calls-answered-report>
+            <app-calls-not-answered-report
+              *ngSwitchCase="24"
+            ></app-calls-not-answered-report>
+            <app-high-risk-reports *ngSwitchCase="25"></app-high-risk-reports>
+            <app-congenital-anomalies-report
+              *ngSwitchCase="26"
+            ></app-congenital-anomalies-report>
+            <app-valid-records-report
+              *ngSwitchCase="27"
+            ></app-valid-records-report>
+            <app-invalid-records-report
+              *ngSwitchCase="28"
+            ></app-invalid-records-report>
+            <app-daily-report *ngSwitchCase="29"></app-daily-report>
+            <app-call-details-unique-report
+              *ngSwitchCase="31"
+            ></app-call-details-unique-report>
+
+            <!-- dial -preference component -->
+            <app-dial-preference *ngSwitchCase="30"></app-dial-preference>
+            <app-force-logout *ngSwitchCase="15"></app-force-logout>
+
+            <app-agent-status *ngSwitchCase="16"></app-agent-status>
+            <app-quality-audit *ngSwitchCase="17"></app-quality-audit>
+            <app-supervisor-reports *ngSwitchCase="18"></app-supervisor-reports>
+            <app-sms-template *ngSwitchCase="32"></app-sms-template>
+          </div>
+        </div>
+      </md-card>
+    </div>
+  </div>
+</div>
+<footer class="footer noprint">
+    <div class="row">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+        <span class="footer-text">{{currentLanguageSet?.poweredByWipro}}</span>
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+        <p class="footer-text t-a-c">2019 <md-icon color="" class="copyright_icon">copyright</md-icon> {{currentLanguageSet?.psmri}}</p>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+      </div>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+  </div>
+</footer>

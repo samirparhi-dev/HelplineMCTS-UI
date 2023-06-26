@@ -1,0 +1,255 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" class="horizontal-scrolbar-hidden">
+    <h4 class="m-b-20 m-l-15">{{currentLanguageSet?.callClosureScreen}}</h4>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="table-responsive">
+      <table class="table table-bordered m-b-30" aria-describedby="motherDetails">
+        <thead>
+          <tr>
+            <th id="motherID">{{currentLanguageSet?.motherId}}</th>
+            <th id="motherName">{{currentLanguageSet?.motherName}}</th>
+            <th id="childID">{{currentLanguageSet?.childId}}</th>
+            <th id="childName">{{currentLanguageSet?.childName}}</th>
+            <th id="benID">{{currentLanguageSet?.beneficiaryId}}</th>
+            <th id="pHCName">{{currentLanguageSet?.phcName}}</th>
+            <th id="phoneNoType">{{currentLanguageSet?.phoneNoType}}</th>
+            <th id="phoneNo">{{currentLanguageSet?.phoneNo}}</th>
+            <th id="asha">{{currentLanguageSet?.asha}}</th>
+            <th id="anm">{{currentLanguageSet?.anm}}</th>
+            <th id="age" *ngIf="!showCongenitalQuestionaire">{{currentLanguageSet?.age}}</th>
+            <th id="ageOfmother" *ngIf="showCongenitalQuestionaire">{{currentLanguageSet?.ageOfMother}}</th>
+            <th id="edd" *ngIf="!showCongenitalQuestionaire">{{currentLanguageSet?.edd}}</th>
+            <th id="dob" *ngIf="showCongenitalQuestionaire">{{currentLanguageSet?.dob}}</th>
+            <th id="lmpDate">{{currentLanguageSet?.lmpDate}}</th>
+            <th id="nextANCPNCData">{{currentLanguageSet?.nextAncPncDate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{(benificiaryData?.childValidDataHandler) 
+              ? benificiaryData?.childValidDataHandler?.Mother_ID
+              : benificiaryData?.mctsDataReaderDetail?.MCTSID_no}}</td>
+            <td>{{(benificiaryData?.childValidDataHandler)? benificiaryData?.childValidDataHandler?.Mother_Name
+               : benificiaryData?.mctsDataReaderDetail?.Name}}</td>
+            <td>{{(benificiaryData?.childValidDataHandler)? benificiaryData?.childValidDataHandler?.MCTSID_no_Child_ID:
+              benificiaryData?.mctsDataReaderDetail?.Child_ID}}</td>
+            <td>{{(benificiaryData?.childValidDataHandler)? benificiaryData?.childValidDataHandler?.Child_Name:
+              benificiaryData?.mctsDataReaderDetail?.Child_Name}}</td>
+            <td>{{(benificiaryData?.childValidDataHandler)?
+              benificiaryData?.childValidDataHandler?.beneficiaryID:benificiaryData?.mctsDataReaderDetail?.beneficiaryID}}
+            </td>
+            <td>{{(benificiaryData?.childValidDataHandler)? benificiaryData?.childValidDataHandler?.PHC_Name
+               : benificiaryData?.mctsDataReaderDetail?.PHC_Name}}</td>
+            <td>{{(benificiaryData?.childValidDataHandler)? benificiaryData?.childValidDataHandler?.Phone_No_of
+              : benificiaryData?.mctsDataReaderDetail?.PhoneNo_Of_Whom}}</td>
+            <td>{{(benificiaryData?.childValidDataHandler)? benificiaryData?.childValidDataHandler?.Phone_No
+               : benificiaryData?.mctsDataReaderDetail?.Whom_PhoneNo}}</td>
+            <td>{{(benificiaryData?.childValidDataHandler)? benificiaryData?.childValidDataHandler?.ASHA_Name
+              : benificiaryData?.mctsDataReaderDetail?.ASHA_Name}}</td>
+            <td>{{(benificiaryData?.childValidDataHandler)?  benificiaryData?.childValidDataHandler?.ANM_Name
+              : benificiaryData?.mctsDataReaderDetail?.ANM_Name}}</td>
+            <td *ngIf="!showCongenitalQuestionaire">{{((benificiaryData?.childValidDataHandler)? benificiaryData?.childValidDataHandler?.age
+              : benificiaryData?.mctsDataReaderDetail.Age)}}</td>
+            <td *ngIf="showCongenitalQuestionaire">{{((benificiaryData?.childValidDataHandler)? benificiaryData?.childValidDataHandler?.age
+              : benificiaryData?.mctsDataReaderDetail.Age)}}</td>
+            <td *ngIf="!showCongenitalQuestionaire">{{((benificiaryData?.childValidDataHandler)?  benificiaryData?.childValidDataHandler?.edd
+              : benificiaryData?.mctsDataReaderDetail.EDD)|date:'dd/MM/yyyy'}}</td>
+            <td *ngIf="showCongenitalQuestionaire">{{((benificiaryData?.childValidDataHandler)?
+              benificiaryData?.childValidDataHandler?.DOB:
+              benificiaryData?.mctsDataReaderDetail?.DOB)|date:'dd/MM/yyyy'}}</td>
+            <td>{{((benificiaryData?.childValidDataHandler)? benificiaryData?.childValidDataHandler?.lmpDate
+               : benificiaryData?.mctsDataReaderDetail?.LMP_Date)|date:'dd/MM/yyyy'}}</td>
+            <td>{{nextCallDate|date:'dd/MM/yyyy'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 m-b-20">
+    <button md-raised-button color="primary" (click)="openComplaintDialog()"
+      [disabled]="!enableAddComplaint">{{currentLanguageSet?.addComplaints}}</button>
+  </div>
+  <div class="col-xs-12 col-sm-12 m-b-20" *ngIf="showCongenitalQuestionaire && call_answered_check=='yes'">
+    <h4>{{currentLanguageSet?.congenitalAnomalies}}</h4>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+        <md-select class="width100 p-t-14" [multiple]="true" [(ngModel)]="caDefectItem"
+          placeholder="{{currentLanguageSet?.selectAnomaly}}" (change)="onAnamolyChange()">
+          <md-option *ngFor="let item of caDefectList" [value]="item.congenitalAnomalies">{{item.congenitalAnomalies}}
+          </md-option>
+        </md-select>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3" *ngIf="showCauseOfDefect">
+        <md-input-container class="width100">
+          <input mdInput type="text" placeholder="{{currentLanguageSet?.causeOfDefect}}" name="otherDefect"
+            [(ngModel)]="otherDefect" required>
+        </md-input-container>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3" *ngIf="caDefectItem?.length>0">
+        <md-input-container class="width100">
+          <input mdInput  textAreaValidator  type="text" placeholder="{{currentLanguageSet?.remarks}}" name="remarks"
+            [(ngModel)]="caRemarks">
+        </md-input-container>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+        <span class="width40 f-l">{{currentLanguageSet?.callAnsweredQuestionMark}}</span>
+        <md-radio-group class="m-l-10" [(ngModel)]="call_answered_check"
+          (change)="is_call_answered(call_answered_check)" required>
+          <md-radio-button value="yes">{{currentLanguageSet?.yes}}</md-radio-button>
+          <md-radio-button value="no">{{currentLanguageSet?.no}}</md-radio-button>
+        </md-radio-group>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" *ngIf="askSelfNumberQuestion">
+        <span class="width40 f-l">{{currentLanguageSet?.selfNumberQuestionMark}}</span>
+        <md-radio-group class="m-l-10" [(ngModel)]="self_number_self_check"
+          (change)="is_number_self(self_number_self_check)">
+          <md-radio-button value="yes">{{currentLanguageSet?.yes}}</md-radio-button>
+          <md-radio-button value="no">{{currentLanguageSet?.no}}</md-radio-button>
+        </md-radio-group>
+      </div>
+
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 xs-m-t-10 sm-m-t-10" *ngIf="askRelationship">
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 m-t--15">{{currentLanguageSet?.phoneNumberOfWhomQuestionMark}}</div>
+          <div class="col-xs-12 col-sm-6 m-t--30 p-b-1-5">
+            <md-select class="width100 " [(ngModel)]="phoneNumber_of_whom">
+
+              <md-option value="Asha">
+
+                ASHA
+
+              </md-option>
+
+              <md-option value="Anm">
+
+                ANM
+
+              </md-option>
+
+              <md-option value="Spouse">
+
+                Spouse
+
+              </md-option>
+
+              <md-option value="Other">
+
+                Other
+
+              </md-option>
+
+              <md-option value=" Wrong Number">
+
+                Wrong Number
+
+              </md-option>
+
+              <md-option value="Neighbour Number">
+
+                Neighbour Number
+
+              </md-option>
+
+              <md-option value="Relative Number">
+
+                Relative Number
+
+              </md-option>
+
+              <md-option value="Anganwadi">
+
+                Anganwadi
+
+              </md-option>
+
+            </md-select>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" *ngIf="askSelfNumberQuestion">
+        <span class="width40 f-l">{{currentLanguageSet?.callVerifiedQuestionMark}}</span>
+        <md-radio-group class="m-l-10" [(ngModel)]="call_verified" required>
+          <md-radio-button value="true">{{currentLanguageSet?.yes}}</md-radio-button>
+          <md-radio-button value="false">{{currentLanguageSet?.no}}</md-radio-button>
+        </md-radio-group>
+      </div>
+      <form #callTypeForm="ngForm">
+
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" *ngIf="!askSelfNumberQuestion">
+
+          <div class="col-xs-12 col-sm-6">{{currentLanguageSet?.reasonForCallNotAnsweredQuestionMark}}</div>
+          <div class="col-xs-12 col-sm-6 m-t--20">
+            <md-select required  class="width100 " [(ngModel)]="call_not_answered"
+              placeholder="{{currentLanguageSet?.type}}" name="call_not_answered">
+              <md-option *ngFor="let callType of callTypeArrayWhenChanged"  [value]="callType">
+                {{callType.callType}}
+              </md-option>
+            </md-select>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15"
+      *ngIf="!(further_call_required) && (call_answered_check=='yes' || call_answered_check== undefined )">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-25">
+        <span class="width40 f-l">{{currentLanguageSet?.additionalCallRequiredQuestionMark}}</span>
+        <md-radio-group class="m-l-10" [(ngModel)]="call_required" (change)="is_call_required(call_required)">
+          <md-radio-button value="yes">{{currentLanguageSet?.yes}}</md-radio-button>
+          <md-radio-button value="no">{{currentLanguageSet?.no}}</md-radio-button>
+        </md-radio-group>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3  p-t-0" *ngIf="additional_call_is_required">
+        <md2-datepicker [openOnFocus]="true" restrictTyping type="date" placeholder="{{currentLanguageSet?.callDate}}"
+          [min]="today" [max]='maxEndDate' (keydown)="blockKey($event)" [(ngModel)]="additional_call_date">
+        </md2-datepicker>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15"
+      *ngIf="(call_answered_check=='yes' || call_answered_check == undefined ) && !(call_required=='yes')">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-25">
+        <md-checkbox class="font-weight-normal" [(ngModel)]="further_call_required" [align]="'end'"
+          (change)="onCallRequiredChange(further_call_required)">
+          {{currentLanguageSet?.noFurtherCallRequiredQuestionMark}}</md-checkbox>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8 p-a-15 m-t--13" *ngIf="further_call_required">
+        <md-input-container style="width: 100%">
+          <input mdInput inputFieldValidator placeholder="{{currentLanguageSet?.reasonForCallNotRequired}}"
+            [(ngModel)]="no_call_required_reason">
+        </md-input-container>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-15"
+      *ngIf="!(further_call_required) && (call_answered_check=='yes' || call_answered_check == undefined )">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+        <md-checkbox class="font-weight-normal" [(ngModel)]="sticky_agent" [align]="'end'">
+          {{currentLanguageSet?.stickyAgentRequiredQuestionMark}}</md-checkbox>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 ">
+        <md-input-container style="width: 100%">
+          <textarea mdInput textAreaValidator  placeholder="{{currentLanguageSet?.remarks}}" maxlength="150" rows="3" name="remarks"
+            [(ngModel)]="remarks" #Remarks="ngModel"></textarea>
+          <md-hint *ngIf="Remarks.errors && Remarks.touched">
+            <span class="error_text">{{currentLanguageSet?.remarksIsRequired}}</span>
+          </md-hint>
+          <md-hint align="end">
+            <span>{{remarks?.length}}/150</span>
+          </md-hint>
+        </md-input-container>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-b-10">
+        <button class="pull-right m-l-10 m-b-5" md-raised-button
+          [disabled]="callTypeForm.invalid || invalidTimeFlag || call_answered_check==undefined ||(showCauseOfDefect && (otherDefect==undefined || otherDefect==''))||(call_required=='yes' && additional_call_date==undefined)"
+          color="accent" (click)="onSubmit()">{{currentLanguageSet?.submit}}</button>
+        <button md-raised-button class="pull-right m-b-5"
+          (click)="navigateToPrev()">{{currentLanguageSet?.back}}</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<div>
+<div >
+    <button type="button" class="close" md-dialog-close>
+      <span class="pull-right">&times;</span>
+    </button>
+    <h4 md-dialog-title>{{currentLanguageSet?.deleteQuestionnaire}}</h4>
+  </div>
+<div class="table-responsive">    
+    <table [md2Data]="questionrows" #md2="md2DataTable" class="table table-striped table-hover" aria-describedby="questionRows">
+      <thead>
+        <tr>
+          <th style="width:5%" id="questionRank">{{currentLanguageSet?.questionRank}}</th>
+          <th style="width:40%" id="question">{{currentLanguageSet?.question}}</th>
+          <th style="width:5%" id="answertype">{{currentLanguageSet?.answerType}}</th>
+          <th style="width:5%" id="showText">{{currentLanguageSet?.showText}}</th>
+          <th style="width:6%" id="showTextFor">{{currentLanguageSet?.showTextFor}}</th>
+          <th style="width:5%" id="triggerFeedback">{{currentLanguageSet?.triggerFeedback}}</th>
+          <th style="width:5%" id="feedbackRequired">{{currentLanguageSet?.feedbackRequired}}</th>
+          <th style="width:5%" id="delete">{{currentLanguageSet?.delete}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="questionrows?.length == 0">
+          <td colspan="9" class="record-not-found">{{currentLanguageSet?.noRecordFound}}</td>
+        </tr>
+        <tr *ngFor="let row of md2.data ; let i =index ">
+          <td>{{row.questionnaireDetail.questionRank}}</td>
+          <td>{{row.questionnaireDetail.question}}</td>
+          <td>{{row.questionnaireDetail?.answerType}}</td>
+          <td>{{row.questionnaireDetail?.showText? 'Yes':'No'}}</td>
+          <td>{{row.questionnaireDetail?.showTextFor}}</td>
+          <td>{{row.questionnaireDetail?.triggerFeedback? 'Yes':'No'}}</td>
+          <td>{{row.questionnaireDetail?.triggerFeedbackFor}}</td>
+          <td><md-checkbox class="example-margin"  (change)="deleteSelected(row,i,$event)"></md-checkbox></td>
+        </tr>
+      </tbody>
+      <tfoot>        
+        <tr>
+          <td colspan="16" class="p-r-0">
+            <button md-raised-button class="m-l-10 pull-right" md-dialog-close>{{currentLanguageSet?.close}}</button>
+            <button md-raised-button color="primary" class="pull-right m-b-5" [disabled]="!deleteFlag" (click)="deleteOptions()">{{currentLanguageSet?.deleteSelected}}</button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

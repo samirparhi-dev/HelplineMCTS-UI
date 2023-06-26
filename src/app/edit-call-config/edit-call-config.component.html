@@ -1,0 +1,140 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-20">
+  <button type="button" class="close" md-dialog-close><span class="pull-right">&times;</span></button>
+  <h2 md-dialog-title>{{currentLanguageSet?.editCallConfiguration}}</h2>
+</div>
+<form #editConfigurationForm="ngForm">
+  <div class="col-xs-6 col-sm-6 ">
+    <md2-datepicker [openOnFocus]="true" class="width100" restrictTyping name="startDate" placeholder="{{currentLanguageSet?.effectiveStartDate}}" #startDate="ngModel" [(ngModel)]="effectiveFrom" (keydown)="blockKey($event)" disabled required></md2-datepicker>
+  </div>
+  <div class="col-xs-6 col-sm-6">
+    <md2-datepicker [openOnFocus]="true" class="width100" restrictTyping name="endDate" placeholder="{{currentLanguageSet?.effectiveEndDate}}" [min]="effectiveUptoMinDate" #endDate="ngModel" (keydown)="blockKey($event)" [(ngModel)]="effectiveUpto" required></md2-datepicker>
+    <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">{{currentLanguageSet?.dateIsRequired}}</span>
+  </div>
+  <div class="col-sm-12 col-xs-12 m-t-10 p-b-1-5">
+  
+      <md-select class="width100" placeholder="{{currentLanguageSet?.configTerms}}" name="configTerms" [(ngModel)]="configTerms" #ConfigTerms="ngModel" required>
+        <md-option value="Months">Months</md-option>
+        <md-option value="Weeks">Weeks</md-option>
+      </md-select>
+     
+  </div>
+  <div class="col-xs-6 col-sm-6 m-t-10">
+    <md-input-container class="width100" myMobileNumber>
+      <input mdInput type="number" min="0" placeholder="{{currentLanguageSet?.noOfAttempts}}" name="noOfAttempts" [(ngModel)]="noOfAttempts" (ngModelChange)="validate('noOfAttempts',$event)" #NoOfAttempts="ngModel" required>
+      <md-hint *ngIf="NoOfAttempts.errors && NoOfAttempts.touched">
+        <span class="error_text">{{currentLanguageSet?.noOfAttemptsIsRequired}}</span>
+      </md-hint>
+    </md-input-container>
+  </div>
+  <div class="col-xs-6 col-sm-6 m-t-10">
+    <md-input-container class="width100" myMobileNumber>
+      <input mdInput type="number" min="0" placeholder="{{currentLanguageSet?.nextCallAttemptPeriodInDays}}" name="nextAttemptPeriod" [(ngModel)]="nextAttemptPeriod" (ngModelChange)="validate('nextAttemptPeriod',$event)" #NextAttemptPeriod="ngModel" required>
+      <md-hint *ngIf="NextAttemptPeriod.errors && NextAttemptPeriod.touched">
+        <span class="error_text">{{currentLanguageSet?.nextAttemptPeriodIsRequired}}</span>
+      </md-hint>
+    </md-input-container>
+  </div>
+</form>
+
+<div class="m-b-10 col-xs-12 col-sm-12">
+  <form [formGroup]="callTypeForm">
+    <table class="table" aria-describedby="callConfigurationDetails">
+      <thead>
+        <tr>
+          <th id="outboundCallType">{{currentLanguageSet?.outboundCallType}}</th>
+          <th id="displayName">{{currentLanguageSet?.displayName}}</th>
+          <th id="fromTerms">{{currentLanguageSet?.fromTerms}}</th>
+          <th id="toTerms">{{currentLanguageSet?.toTerms}}</th>
+        </tr>
+      </thead>
+      <tbody formArrayName="ancs" *ngFor="let anc of ancArray.controls; let i = index ">
+        <tr [formGroupName]="i">
+          <td class="border-none">
+            <md-input-container>
+              <input mdInput placeholder="" name="outboundCallType" formControlName="outboundCallType">
+            </md-input-container>
+          </td>
+          <td class="border-none">
+            <md-input-container>
+              <input mdInput placeholder="" name="displayOBCallType" formControlName="displayOBCallType">
+            </md-input-container>
+          </td>
+          <td class="border-none">
+            <md-input-container myMobileNumber>
+              <input mdInput type="number" placeholder="" name="fromTerm" formControlName="fromTerm" required>
+              <md-hint *ngIf="errorObj.ancs[i].fromTerm && anc.get('fromTerm').touched">
+                <span class="error_text">{{currentLanguageSet?.fromTermShouldBeGreaterThanPreviousToTerm}}</span>
+              </md-hint>
+              <md-hint *ngIf="anc.get('fromTerm').hasError('max')">
+                <span class="error_text">{{currentLanguageSet?.maximumIs}} {{configTerms=="Months"? currentLanguageSet?.Twelvemonths : currentLanguageSet?.FortyEightweeks}}</span>
+              </md-hint>
+              <md-error *ngIf="anc.controls['fromTerm'].hasError('min')">
+                <span class="error_text">{{currentLanguageSet?.termsCannotBeNegative}}</span>
+              </md-error>
+            </md-input-container>
+          </td>
+          <td class="border-none">
+            <md-input-container myMobileNumber>
+              <input mdInput type="number" placeholder="" name="toTerm" [min]="anc.get('fromTerm').value + 1" formControlName="toTerm" required>
+              <md-hint *ngIf="errorObj.ancs[i].toTerm && anc.get('toTerm').touched">
+                <span class="error_text">{{currentLanguageSet?.toTermShouldBeGreaterThanFromTerm}}</span>
+              </md-hint>
+              <md-hint *ngIf="anc.get('toTerm').hasError('max')">
+                <span class="error_text">{{currentLanguageSet?.maximumValueIs}} {{configTerms=="Months"? currentLanguageSet?.Twelvemonths : currentLanguageSet?.FortyEightweeks}}</span>
+              </md-hint>
+              <md-error *ngIf="anc.controls['toTerm'].hasError('min')">
+                <span class="error_text">{{currentLanguageSet?.termsCannotBeNegative}}</span>
+              </md-error>
+            </md-input-container>
+          </td>
+        </tr>
+      </tbody>
+      <tbody formArrayName="pncs" *ngFor="let pnc of pncArray.controls; let i = index ">
+        <tr [formGroupName]="i">
+          <td class="border-none">
+            <md-input-container>
+              <input mdInput placeholder="" name="outboundCallType" formControlName="outboundCallType">
+            </md-input-container>
+          </td>
+          <td class="border-none">
+            <md-input-container>
+              <input mdInput placeholder="" name="displayOBCallType" formControlName="displayOBCallType">
+            </md-input-container>
+          </td>
+          <td class="border-none">
+            <md-input-container myMobileNumber>
+              <input mdInput type="number" placeholder="" name="fromTerm" formControlName="fromTerm">
+              <md-hint *ngIf="errorObj.pncs[i].fromTerm && pnc.get('fromTerm').touched">
+                <span class="error_text">{{currentLanguageSet?.fromTermShouldBeGreaterThanPreviousToTerm}}</span>
+              </md-hint>
+              <md-hint *ngIf="pnc.get('fromTerm').hasError('max')">
+                <span class="error_text">{{currentLanguageSet?.maximumValueIs}} {{configTerms=="Months"? currentLanguageSet?.Twelvemonths : currentLanguageSet?.FortyEightweeks}}</span>
+              </md-hint>
+              <md-error *ngIf="pnc.controls['fromTerm'].hasError('min')">
+                <span class="error_text">{{currentLanguageSet?.termsCannotBeNegative}}</span>
+              </md-error>
+            </md-input-container>
+          </td>
+          <td class="border-none">
+            <md-input-container myMobileNumber>
+              <input mdInput type="number" placeholder="" [min]="pnc.get('fromTerm').value + 1" name="toTerm" formControlName="toTerm">
+              <md-hint *ngIf="errorObj.pncs[i].toTerm && pnc.get('toTerm').touched">
+                <span class="error_text">{{currentLanguageSet?.toTermShouldBeGreaterThanFromTerm}}</span>
+              </md-hint>
+              <md-hint *ngIf="pnc.get('toTerm').hasError('max')">
+                <span class="error_text">{{currentLanguageSet?.maximumValueIs}} {{configTerms=="Months"? currentLanguageSet?.Twelvemonths : currentLanguageSet?.FortyEightweeks}}</span>
+              </md-hint>
+              <md-error *ngIf="pnc.controls['toTerm'].hasError('min')">
+                <span class="error_text">{{currentLanguageSet?.termsCannotBeNegative}}</span>
+              </md-error>
+            </md-input-container>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</div>
+<div class="m-b-10">
+  <button md-raised-button class="m-l-10 m-r-10 pull-right" color='accent' [disabled]="!(editConfigurationForm.valid) || !(callTypeForm.valid) || errorFlag" type="button" (click)="onSubmit()">{{currentLanguageSet?.update}}</button>
+  <button md-raised-button class="m-l-10 m-r-10 pull-right" md-dialog-close>{{currentLanguageSet?.close}}</button>
+</div>

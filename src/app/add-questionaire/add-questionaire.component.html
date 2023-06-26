@@ -1,0 +1,167 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <button type="button" class="close" md-dialog-close>
+    <span class="pull-right">&times;</span>
+  </button>
+  <h4 md-dialog-title>{{currentLanguageSet?.createQuestionnaire}}</h4>
+</div>
+
+<div class="m-b-10">
+  <form [formGroup]="questionsForm" autocomplete="off" autofocus>
+    <div formArrayName="newQuestions">
+      <div class="enclosingDiv b-b-c clearfix" *ngFor="let newQuestion of questionsForm.controls.newQuestions['controls'] ;let i= index; let isLast = last ">
+
+        <div [formGroupName]="i">
+
+            <div class="col-xs-12 col-sm-6 col-md-11 col-lg-11 p-t-4">
+            <md-input-container class="width50">
+              <input mdInput myMobileNumber type="number" minlength="10" maxlength="10" [min]="1" [max]="10000" placeholder="{{currentLanguageSet?.questionRank}}" name="questionRank" formControlName="questionRank" required>
+              <md-hint *ngIf="newQuestion.controls['questionRank'].hasError('required') && newQuestion.controls['questionRank'].touched">
+                <span class="error_text">{{currentLanguageSet?.questionRankIsRequired}}</span>
+              </md-hint>
+            </md-input-container>
+          </div>
+        <div class="col-xs-6 col-sm-6 m-t-20">
+            <md-checkbox class="font-weight-normal" name="mandatory" formControlName="mandatory">{{currentLanguageSet?.isMandatory}}</md-checkbox>
+            </div>
+          <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12 p-t-4">
+            <md-input-container class="width100">
+              <input mdInput questionnaireValidator  maxlength="300" placeholder="{{currentLanguageSet?.question}}" name="question" formControlName="question" required>
+              <md-hint *ngIf="newQuestion.controls['question'].hasError('required') && newQuestion.controls['question'].touched">
+                <span class="error_text">{{currentLanguageSet?.questionIsRequired}}</span>
+              </md-hint>
+            </md-input-container>
+          </div>
+
+
+          <div class="col-xs-6 col-sm-6 m-t--15">
+            <md-input-container class="hide_underline" [style.width]="'100%'">
+              <input mdInput style="display:none">
+              <md-select class="width100" placeholder="{{currentLanguageSet?.answerType}}" name="answerType" formControlName="answerType" required (change)='resetAnswerType(i)'>
+                <md-option value="Yes/No">Yes/No</md-option>
+                <md-option value="Text">Text</md-option>
+                <md-option value="DropDown">DropDown</md-option>
+                <md-option value="Multiple">Multiple</md-option>
+                <md-option value="Date">Date</md-option>
+                <md-option value="Time">Time</md-option>
+                <md-option value="Date & Time">Date & Time</md-option>
+              </md-select>
+            </md-input-container>
+          </div>
+          
+          <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12 p-t-4" formArrayName="newOption" *ngIf="newQuestion.controls.answerType.value =='DropDown' || newQuestion.controls.answerType.value =='Multiple' || newQuestion.controls.answerType.value =='Yes/No'">
+            <div  *ngFor="let newOption of newQuestion.get('newOption')['controls']; 
+              let j = index
+            " [formGroupName]="j">              
+                <md-form-field class="width50">
+                  <input mdInput  inputFieldValidator  type="text" placeholder="{{currentLanguageSet?.option}} {{j+1}}" name="dropDownOptions" formControlName="dropDownOptions" required>
+                </md-form-field>
+                <button md-mini-fab class="m-t-10" color="primary" (click)="onAddOption(newQuestion.get('newOption'),i)"
+                [disabled]="newOption.controls.isDisabled.value">
+                  <md-icon mdSuffix class="mat-icon material-icons" style="cursor: pointer">add</md-icon>
+                </button>
+                <button md-mini-fab class="m-t-10" color="primary" (click)="onRemoveOption(newQuestion.get('newOption'),j)" *ngIf="j>0">
+                  <md-icon mdSuffix class="mat-icon material-icons" style="cursor: pointer">remove</md-icon>
+                </button>
+            </div>
+          </div> 
+
+          <div class="col-xs-6 col-sm-6 m-t-30">
+            <md-checkbox class="font-weight-normal" name="showText" formControlName="showText" (change)='resetDependentOfShowText(newQuestion)'>{{currentLanguageSet?.showText}}</md-checkbox>
+          </div>
+
+          <div class="clearfix visible-xs visible-md visible-lg"></div>
+
+          <div class="col-xs-6 col-sm-6 m-t--15">
+            <md-input-container class="hide_underline" [style.width]="'100%'">
+              <input mdInput style="display:none">
+              <md-select class="width100" placeholder="{{currentLanguageSet?.showTextFor}}" name="showTextFor" formControlName="showTextFor" [disabled]="newQuestion.controls.answerType.value =='Text' || !(newQuestion.controls.showText.value)">
+                <md-option value="Yes">Yes</md-option>
+                <md-option value="No">No</md-option>
+              </md-select>
+            </md-input-container>
+          </div>
+
+          <div class="col-xs-6 col-sm-6 m-t-30">
+            <md-checkbox class="font-weight-normal" name="triggerFeedback" formControlName="triggerFeedback">{{currentLanguageSet?.triggerFeedback}}</md-checkbox>
+          </div>
+
+          <div class="clearfix visible-xs visible-md visible-lg"></div>
+
+          <div class="col-xs-6 col-sm-6 m-t--15">
+            <md-input-container class="hide_underline" [style.width]="'100%'">
+              <input mdInput style="display:none">
+              <md-select class="width100" placeholder="{{currentLanguageSet?.feedbackOption}}" name="triggerFeedbackFor" formControlName="triggerFeedbackFor"
+                [disabled]="newQuestion.controls.answerType.value =='Text' || !(newQuestion.controls.triggerFeedback.value)">
+                <md-option value="Yes">Yes</md-option>
+                <md-option value="No">No</md-option>
+              </md-select>
+            </md-input-container>
+          </div>
+
+          <div class="col-xs-6 col-sm-6 m-t--15">
+            <md-input-container class="hide_underline" [style.width]="'100%'">
+              <input mdInput style="display:none">
+              <md-select class="width100" placeholder="{{currentLanguageSet?.variableName}}" name="variableName" formControlName="variableName" [disabled]="!(newQuestion.controls.showText.value)">
+                <md-option *ngFor="let variableName of variableNames" [value]="variableName.dbColumnName">{{variableName.excelColumnName}}</md-option>
+              </md-select>
+            </md-input-container>
+          </div>
+
+          <div class="clearfix visible-xs visible-md visible-lg"></div>
+
+          <div class="col-xs-6 col-sm-6 m-t--15">
+            <md-input-container class="hide_underline" [style.width]="'100%'">
+              <input mdInput style="display:none">
+              <md-select class="width100" placeholder="{{currentLanguageSet?.variableDataType}}" name="variableDataType" formControlName="variableDataType" [disabled]="newQuestion.controls.variableName.value == null || !(newQuestion.controls.showText.value)"
+                [required]="!(newQuestion.controls.variableName.value == null)">
+                <md-option value="string">String</md-option>
+                <md-option value="numeric">Numeric</md-option>
+                <md-option value="date">Date</md-option>
+              </md-select>
+            </md-input-container>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12 p-t-4">
+            <md-input-container class="width100">
+              <textarea mdInput textAreaValidator  type="text" maxlength="750"
+              minlength="2" placeholder="{{currentLanguageSet?.interaction}}" name="interaction" formControlName="interaction" id='interaction' #Interaction required></textarea>
+              <md-hint>
+                <span *ngIf="newQuestion.controls['interaction'].errors && newQuestion.controls['interaction'].touched" class="error_text">
+                  {{currentLanguageSet?.interactionIsRequired}}</span>
+              </md-hint>
+              <md-hint align="end">
+                <span >{{Interaction?.value?.length}}/750</span>
+              </md-hint>
+            </md-input-container>
+          </div>
+
+          <div class="col-xs-6 col-sm-6">
+            <div class="row">
+
+              <div class="col-xs-3 col-sm-3">
+                <button md-mini-fab class="m-t-10 " color="primary" [disabled]='!newQuestion.valid' (click)="onAddRow()">
+                  <md-icon mdSuffix class="mat-icon material-icons" style="cursor: pointer">add</md-icon>
+                </button>
+              </div>
+
+              <div class="col-xs-3 col-sm-3 m-r-20">
+                <button md-mini-fab class="m-t-10" color="primary" *ngIf="i > 0 || ((i == 0 && newQuestion.touched))" [disabled]='(questionArrayList.length == 1)'
+                  (click)="onDeleteRow(i)">
+                  <md-icon mdSuffix class="mat-icon material-icons" style="cursor: pointer">remove</md-icon>
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="col-xs-12 col-sm-12 m-b-10 m-t-10 p-r-0">
+  <button md-raised-button class="m-l-10 pull-right" [disabled]="!(questionsForm.valid)" color="accent" (click)="onSubmit()">{{currentLanguageSet?.save}}</button>
+  <button md-raised-button class="m-l-10 pull-right" md-dialog-close>{{currentLanguageSet?.close}}</button>
+</div>

@@ -1,0 +1,113 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <button type="button" class="close" md-dialog-close>
+    <span class="pull-right">&times;</span>
+  </button>
+  <h4 md-dialog-title>{{currentLanguageSet?.complaints}}</h4>
+</div>
+<form #complaintForm="ngForm" autocomplete="off">
+  <div class="row">
+<div class="col-sm-12 col-xs-12">
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+    <md-select class="width100 p-t-14" name="State" [(ngModel)]="state" placeholder="{{currentLanguageSet?.state}}" (change)="getDistricts(state)" required>
+      <md-option *ngFor="let item of states" [value]="item.stateID">{{item.stateName}}</md-option>
+    </md-select>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+    <md-select class="width100 p-t-14" name="District" [(ngModel)]="district" placeholder="{{currentLanguageSet?.district}}" (change)="getTaluks(district)" required>
+      <md-option *ngFor="let item of districts" [value]="item.districtID">{{item.districtName}}</md-option>
+    </md-select>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+    <md-select class="width100 p-t-14" name="Taluk" [(ngModel)]="taluk" placeholder="{{currentLanguageSet?.taluk}}" (change)="getInstitutes(state,district,taluk)" required>
+      <md-option *ngFor="let item of taluks" [value]="item.blockID">{{item.blockName}}</md-option>
+    </md-select>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+    <md-select class="width100 p-t-14" name="Institution" [(ngModel)]="institution" placeholder="{{currentLanguageSet?.institutionName}}" required>
+      <md-option *ngFor="let item of institutes" [value]="item.institutionID">{{item.institutionName}}</md-option>
+    </md-select>
+  </div>
+
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+    <md-select class="width100 p-t-14" name="ComplaintType" [(ngModel)]="complaintType" placeholder="{{currentLanguageSet?.complaintType}}" required (change)="getComplaintNature(complaintType)">
+      <md-option *ngFor="let item of complaintTypes" [value]="item">{{item.feedbackTypeName}}</md-option>
+    </md-select>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+    <md-select class="width100 p-t-14" name="ComplaintNature" [(ngModel)]="complaintNature" placeholder="{{currentLanguageSet?.complaintNature}}" required>
+      <md-option *ngFor="let item of complaintNatures" [value]="item">{{item.feedbackNature}}</md-option>
+    </md-select>
+  </div>
+  
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">  
+      <md-input-container class="width100 "> 
+      <input mdInput inputFieldValidator  type="text" min="0" name="ComplaintAgainst" [(ngModel)]="complaintAgainst" placeholder="{{currentLanguageSet?.complaintAgainst}}" required>
+    </md-input-container> 
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+    <md-select class="width100 p-t-14" name="Designation" [(ngModel)]="designation" placeholder="{{currentLanguageSet?.designation}}" required>
+      <md-option *ngFor="let item of designations" [value]="item">{{item.designationName}}</md-option>
+    </md-select>
+  </div>
+<div class="clearfix visible-lg"></div>
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+    <md2-datepicker (keydown)="preventTyping($event)" [max]="today" class="width100" name="doc" required placeholder="{{currentLanguageSet?.incidentDate}}" [(ngModel)]="complaint_date"></md2-datepicker>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <md-input-container class="width100 ">
+      <input mdInput inputFieldValidator  type="text" min="0" placeholder="{{currentLanguageSet?.briefOfComplaint}}" name="Remarks" [(ngModel)]="remarks" required>
+   </md-input-container>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+    <button md-mini-fab color="primary" type="button" class="xs-pull-right sm-pull-right md-pull-right lg-pull-left" [disabled]="complaintForm.invalid" (click)="add_obj(complaintForm.value)">
+      <md-icon mdSuffix class="mat-icon material-icons" role="img" aria-hidden="true" style="cursor: pointer">add</md-icon>
+    </button>
+  </div>
+</div>
+  </div>
+</form>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="objs.length != 0">
+  <div
+    class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+    *ngFor="let obj of objs; let i = index"
+  >
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+      <md-chip-list>
+        <md-chip color="accent" selected="true">{{
+          obj.feedbackTypeName
+        }}</md-chip>
+      </md-chip-list>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t-10">
+      <md-chip-list>
+        <md-chip color="accent" selected="true">{{
+          obj.feedbackNature
+        }}</md-chip>
+      </md-chip-list>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 m-t-10">
+      <md-chip-list>
+        <md-chip color="accent" selected="true">{{
+          obj.designationName
+        }}</md-chip>
+      </md-chip-list>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 m-t-10">
+      <button md-mini-fab>
+        <md-icon
+          mdSuffix
+          class="mat-icon material-icons"
+          role="img"
+          aria-hidden="true"
+          style="cursor: pointer"
+          (click)="remove_obj(i)"
+          >remove</md-icon
+        >
+      </button>
+    </div>
+  </div>
+</div>
+<div class=" m-t-10 m-b-5">
+  <button md-raised-button color="accent" class="m-l-15 m-r-15 pull-right" [disabled]="(objs.length==0)" (click)="saveComplaints()">{{currentLanguageSet?.submit}}</button>
+  <button md-raised-button class="m-l-15 pull-right" md-dialog-close>{{currentLanguageSet?.close}}</button>
+</div>

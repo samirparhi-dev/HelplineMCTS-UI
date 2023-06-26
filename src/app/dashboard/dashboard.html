@@ -1,0 +1,79 @@
+<toaster-container [toasterconfig]="config"></toaster-container>
+<div class="container-fluid">
+  
+<div class="dashboard-m-t-45">
+        <div class="row" (click)="minimizeBar()">
+            <div class="leftMenu pull-left width-5" (mouseleave)="hamburgerHoverOut()">
+               
+                <ul class="leftMenuList">
+                    <li class="p-t-15" *ngIf="currentRole=='SUPERVISOR'" routerLink="/InnerpageComponent" [queryParams]="{ number : 1}">
+                        <a class="p-l-m-t-22" #dropdown1>
+                            <i class="material-icons" (click)="hamburgerClick()" aria-hidden="true" mdTooltip="{{currentLanguageSet?.activityArea}}">dashboard</i>
+                           
+                        </a>
+                    </li>
+                    <li class="p-t-15" (click)="routeToRoleSelection()">
+                        <a class="p-l-m-t-22" #dropdown2>
+                            <i class="material-icons" (click)="hamburgerClick()" aria-hidden="true" mdTooltip="{{currentLanguageSet?.switchRole}}">compare_arrows</i>
+                          
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="dashboard-content-area" class="col-xs-12 col-sm-12 pull-left width-95 p-b-lg-30 p-b-sm-30">
+
+                <div class="p-t-5">
+                <div class="pull-left ">
+                  
+                    <dashboard-user-id *ngIf="currentRole !='SUPERVISOR'"></dashboard-user-id>
+
+                </div>
+                <span class="clearfix"></span> 
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                    <app-call-statistics></app-call-statistics>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 p-r-lg-0">
+                    <alerts-notifications [alertRefresh]="alertRefresh"></alerts-notifications>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
+                    <app-dashboard-reports></app-dashboard-reports>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 p-r-lg-0">
+                    <activity-this-week></activity-this-week>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 ">
+                    <rating></rating>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+
+ 
+    <iframe [src]="ctiHandlerURL" width="230px" height="380px" title="ctiURL" class="czenrix-bar" [hidden]="barMinimized" (click)="toggleBar()"></iframe>
+
+    <footer class="footer" style="margin-left:-15px">
+    <div class="row">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+        <span class="footer-text">{{currentLanguageSet?.poweredByWipro}}</span>
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+        <p class="footer-text t-a-c">2019 <md-icon color="" class="copyright_icon">copyright</md-icon> {{currentLanguageSet?.psmri}}</p>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <button *ngIf="currentRole=='MO'" md-raised-button type="button" color="primary" class="footer-height pull-right czenrix-bar" (click)="toggleBar()">{{currentLanguageSet?.czentrix}}</button>
+      </div>
+    </div>
+</footer>

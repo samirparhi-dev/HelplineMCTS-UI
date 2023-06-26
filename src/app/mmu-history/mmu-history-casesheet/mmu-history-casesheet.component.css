@@ -1,0 +1,16 @@
+.modal-body { 
+    overflow-y:scroll;
+    height:500px;
+    margin: auto;
+    position: relative;
+}
+.fixed-head{
+    position: fixed;
+}
+
+.modal-header{
+    background-color: #253746;
+    text-align:center;
+    padding:5px 10px; /*border-bottom:1px solid #fff;*/ 
+    margin-right: 0px;
+}

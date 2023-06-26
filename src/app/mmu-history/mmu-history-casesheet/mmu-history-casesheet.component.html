@@ -1,0 +1,7 @@
+<div class = "col-lg-12 col-md-12 col-sm-12 col-xs-12 modal-body">
+  <app-cancer-case-sheet *ngIf="CancerScreening" [data]="data"></app-cancer-case-sheet>
+  <app-general-case-sheet *ngIf="General" [data]="data"></app-general-case-sheet>
+</div>
+<div>
+  <button color="primary" md-raised-button class="m-l-15 m-r-5 pull-right" md-dialog-close>{{currentLanguageSet?.close}}</button>
+</div>

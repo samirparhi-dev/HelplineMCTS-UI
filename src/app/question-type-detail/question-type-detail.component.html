@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 col-lg-offset-1 col-md-offset-1">
+      <button type="button" class="btn btn-success" (click)="OnAddRow()">{{currentLanguageSet?.addRow}}</button>
+      <form class="form-inline" #questionDetailForm="ngForm">
+        <div class="enclosingDiv" *ngFor="let row of rows;let i= index" ngModelGroup="rowData[{{i}}]">
+          <div class="form-group">
+            <label for="questionType">{{currentLanguageSet?.questionType}}</label>
+            <input type="text" id="questionType" class="form-control" name="questionType" [(ngModel)]="row.questionType" required>
+          </div>
+          <div class="form-group">
+            <label for="questionTypeDesc">{{currentLanguageSet?.questionTypeDescription}}</label>
+            <input type="text" id="questionTypeDesc" class="form-control" name="questionTypeDesc" [(ngModel)]="row.questionTypeDesc" required>
+          </div>
+          <button type="button" class="btn btn-danger" *ngIf="!(i==0)" (click)="OnDeleteRow(i)">{{currentLanguageSet?.delete}}</button>
+        </div>
+      </form>
+      <button type="button" class="btn btn-primary" (click)="OnSubmit()">{{currentLanguageSet?.submit}}</button>
+    </div>
+  </div>
+  

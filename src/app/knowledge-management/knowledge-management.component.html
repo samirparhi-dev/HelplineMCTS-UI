@@ -1,0 +1,50 @@
+<md-card>
+  <div class="container">
+    <div class="row">
+      <!--Form Start  -->
+      <form [formGroup]="knowledgeForm" (ngSubmit)="onSubmit(knowledgeForm)" novalidate>
+        <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 form-group">
+            <md-select placeholder="{{currentLanguageSet?.selectCategory}}" [style.width]="'100%'" name="category" formControlName="category" (change)="getSubCategory($event.value)">
+              <md-option *ngFor="let category of categories" [value]="category.categoryID">
+                {{category.categoryName}}
+              </md-option>
+            </md-select>
+            <!-- Validation Field -->
+            <div class="error" *ngIf="knowledgeForm.get('category').touched && knowledgeForm.get('category').hasError('required')">
+              {{currentLanguageSet?.categoryIsRequired}}
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 form-group">
+            <md-select placeholder="{{currentLanguageSet?.selectSubCategory}}" [style.width]="'100%'" formControlName="subCategory">
+              <md-option *ngFor="let subCategory of subCategories" [value]="subCategory.subCategoryID">
+                {{subCategory.subCategoryName}}
+              </md-option>
+            </md-select>
+            <!-- Validation Field -->
+            <div class="error" *ngIf="knowledgeForm.get('subCategory').touched && knowledgeForm.get('subCategory').hasError('required')">
+              {{currentLanguageSet?.subcategoryIsRequired}}
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 form-group">
+            <input type="file" class="form-control" name="file" (change)="changeListener($event)" />
+            <input type="hidden" name="fileHidden" formControlName="fileInput" />
+            <!-- Validation Field -->
+            <div class="error" *ngIf="knowledgeForm.get('fileInput').touched && knowledgeForm.get('fileInput').hasError('required')">
+              {{currentLanguageSet?.fileIsRequired}}
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 form-group pull-right">
+            <button type="submit" class="btn btn-primary pull-right" [disabled]="knowledgeForm.invalid">{{currentLanguageSet?.save}}</button>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 form-group">
+            </div>
+          </div>
+        </div>
+      </form>
+      <!--Form End  -->
+    </div>
+  </div>
+</md-card>

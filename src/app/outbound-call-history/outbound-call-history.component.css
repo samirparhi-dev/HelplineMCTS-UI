@@ -1,0 +1,18 @@
+.static-text {
+    font-weight: normal;
+    font-size: 13px;
+}
+
+.edit_button{
+    margin-top: 0px !important;
+}
+.md-small {
+    height: 25px;
+    padding: 0px;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+.horizontal-scrolbar-hidden {
+    overflow-x: hidden;
+}

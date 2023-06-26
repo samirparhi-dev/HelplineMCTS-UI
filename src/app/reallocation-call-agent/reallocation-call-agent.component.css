@@ -1,0 +1,14 @@
+.help-block {
+    color: red;
+    float: left;
+}
+.highlightTrBg {
+    background: #f5f5f5;
+}
+.md-small {
+    width: 20px;
+    height: 25px;
+    padding: 0px;
+    font-size: 12px;
+    line-height: 20px;
+}

@@ -1,0 +1,16 @@
+.help-block {
+    float: left;
+    color: red;
+}
+@media (min-width: 767px) {
+.align-mdInput {
+   
+    padding-top: 25px;
+}
+}
+@media (min-width: 992px) {
+    .align-mdInput {
+       
+        padding-top: 5px;
+    }
+}

@@ -1,0 +1,86 @@
+<div class="m-t-10" *ngIf='!interactionFlag'>
+  <h4>{{currentLanguageSet?.questionnaireConfiguration}}</h4>
+  <span class="m-t-10">{{currentLanguageSet?.selectedConfiguration}}:
+    <strong>{{configName}}</strong>
+  </span>
+  <form (ngSubmit)="onSubmit()" #questionTypeConfigForm="ngForm">
+    <div class="row">
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 m-t-10 p-b-1-5">
+
+        <md-select placeholder="{{currentLanguageSet?.callType}}" name="callType" [style.width]="'100%'" [(ngModel)]='questionCallType' #callType="ngModel"
+          required>
+          <md-option *ngFor="let callType of callTypes" [value]="callType.outboundCallType">{{callType?.displayOBCallType ? callType?.displayOBCallType : callType?.outboundCallType}}</md-option>
+        </md-select>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 m-t-10">
+        <button md-raised-button color="primary" [disabled]="!(questionTypeConfigForm.valid)" type="submit">{{currentLanguageSet?.submit}}</button>
+      </div>
+    </div>
+  </form>
+  <div class="table-responsive">
+    <table [md2Data]="questionrows" #md2="md2DataTable" *ngIf="listDisplay" class="table table-striped table-hover" [rowsPerPage]="5" aria-describedby="questionDetails">
+      <thead>
+        <tr>
+          <th style="width:5%" id="questionBank">{{currentLanguageSet?.questionRank}}</th>
+          <th style="width:30%" id="question">{{currentLanguageSet?.question}}</th>
+          <th style="width:5%" id="answerType">{{currentLanguageSet?.answerType}}</th>
+          <th style="width:5%" id="showText">{{currentLanguageSet?.showText}}</th>
+          <th style="width:6%" id="showTextFor">{{currentLanguageSet?.showTextFor}}</th>
+          <th style="width:5%" id="triggerFeedback">{{currentLanguageSet?.triggerFeedback}}</th>
+          <th style="width:5%" id="feedbackrequired">{{currentLanguageSet?.feedbackRequired}}</th>
+          <th style="width:5%" id="edit">{{currentLanguageSet?.edit}}</th>
+          <th style="width:5%" id="delete">{{currentLanguageSet?.delete}}</th>
+          <th style="width:6%" id="interactionConfiguration">{{currentLanguageSet?.interactionConfiguration}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="questionrows?.length == 0">
+          <td colspan="10" class="record-not-found">{{currentLanguageSet?.noRecordFound}}</td>
+        </tr>
+        <tr *ngFor="let row of md2.data ; let i =index ">
+          <td>{{row.questionnaireDetail.questionRank}}</td>
+          <td>{{row.questionnaireDetail.question}}</td>
+          <td>{{row.questionnaireDetail?.answerType}}</td>
+          <td>{{row.questionnaireDetail?.showText? 'Yes':'No'}}</td>
+          <td>{{row.questionnaireDetail?.showTextFor}}</td>
+          <td>{{row.questionnaireDetail?.triggerFeedback? 'Yes':'No'}}</td>
+          <td>{{row.questionnaireDetail?.triggerFeedbackFor}}</td>
+          <td>
+            <span (click)="onEditClick(row)">
+              <md-icon class="cursorPointer">mode_edit</md-icon>
+            </span>
+          </td>
+          <td>
+            <span (click)="onDeleteClick(row,$event)">
+              <md-icon class="cursorPointer">delete</md-icon>
+            </span>
+          </td>
+          <td>
+            <md-icon aria-hidden="true" class="mat-icon material-icons cursorPointer line-height-30 m-l-10 f-s-b" md-tooltip="{{currentLanguageSet?.addConfig}}"
+              role="img" (click)='addConfig(row,$event)'>add</md-icon>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="16">
+            <md2-pagination></md2-pagination>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="16" class="p-r-0">
+            <button md-raised-button color="primary" class="pull-left m-b-5" (click)="navigateToPrev()" >{{currentLanguageSet?.back}}</button>
+            <button md-raised-button class="pull-right" color="primary" (click)="onAddQuestions()" >{{currentLanguageSet?.addQuestions}}</button>
+            <button md-raised-button class="pull-right m-b-15" color="primary" (click)="onMapQuestions()" style="margin-right: 1%;">{{currentLanguageSet?.mapQuestions}}</button>
+            <button md-raised-button class="pull-right m-b-20" color="primary" (click)="onDeleteMultiple()" style="margin-right: 1%;">{{currentLanguageSet?.deleteMultiple}}</button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+</div>
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf='interactionFlag'>
+  <app-interation-configuration (showPrev)="showPrevt($event)" [interactionData]="interactionData"></app-interation-configuration>
+</div>

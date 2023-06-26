@@ -1,0 +1,176 @@
+<h4 class="m-t-10">{{currentLanguageSet?.agentCallAllocation}}</h4>
+<div class="row">
+ 
+  <form #f="ngForm">
+    <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3 p-l-0 ">
+      <md2-datepicker [openOnFocus]="true" class="width100" restrictTyping name="fromDate" placeholder="{{currentLanguageSet?.fromDate}}" [(ngModel)]="sDate" [min]="minDate" (change)="setStartDate(sDate);validateDateRange(sDate, eDate)" (keydown)="blockKey($event)" #startDate="ngModel" ngModel required></md2-datepicker>
+      <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">{{currentLanguageSet?.dateIsRequired}}</span>
+    </div>
+    <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3 p-l-0">
+      <md2-datepicker [openOnFocus]="true" class="width100" restrictTyping name="toDate" placeholder="{{currentLanguageSet?.toDate}}" [(ngModel)]="eDate" [min]="startDate.value"(change)="setEndDate(eDate); validateDateRange(sDate, eDate)" (keydown)="blockKey($event)" #endDate="ngModel" ngModel required> </md2-datepicker>
+      <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">{{currentLanguageSet?.dateIsRequired}}</span>
+      <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value) && endDate.dirty">{{currentLanguageSet?.endDateCannotBeBeforeStartDate}}</span>
+      <span class="error_text f-s-10 p-l-10" *ngIf="showDateValidation"> Date Range can not be greater than one week </span>
+    </div>
+  </form>
+  <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+    <button md-raised-button class="m-t-15 m-b-10 xs-pull-right sm-pull-left md-pull-left lg-pull-left" color="primary" [disabled]="!f.valid || (endDate.value < startDate.value) || showDateValidation" (click)="onSubmit()">{{currentLanguageSet?.submit}}</button>
+  </div>
+  <div class="clearfix"></div>
+    <div class="col-xs-12 col-sm-6 m-t-15 border-r-1">
+      <md-tab-group>
+        <md-tab label="{{currentLanguageSet?.motherRecords}}">
+          <div class="table-responsive">
+            <table id="outbondListTable" class="table table-bordered table-hover" aria-describedby="motherRecords">
+              <tbody>
+                <tr>
+                  <td>{{currentLanguageSet?.totalMotherRecords}}</td>
+                  <td>{{tot_mother_unAllocatedCalls}}
+                    <button type="button" md-raised-button color="primary" (click)="allocateCalls(mother_unAllocatedCalls, $event)" class="md-small pull-right" [disabled]="!(tot_mother_unAllocatedCalls)">{{currentLanguageSet?.allocate}}</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>{{currentLanguageSet?.motherRecordsSelfNo}}</td>
+                  <td>{{tot_mother_selfNoCalls_NRM}}
+                    <button type="button" md-raised-button color="primary" (click)="allocateCalls(_mother_selfNoCalls_NRM, $event)" class="md-small pull-right" [disabled]="!(tot_mother_selfNoCalls_NRM)">{{currentLanguageSet?.allocate}}</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>{{currentLanguageSet?.motherRecordsOtherNo}}</td>
+                  <td>{{tot_mother_otherNoCalls_NRM}}
+                    <button type="button" md-raised-button color="primary" (click)="allocateCalls(_mother_otherNoCalls_NRM, $event)" class="md-small pull-right" [disabled]="!(tot_mother_otherNoCalls_NRM)">{{currentLanguageSet?.allocate}}</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>{{currentLanguageSet?.highRiskRecordsSelfNo}}</td>
+                  <td>{{tot_mother_selfNoCalls_HRS}}
+                    <button type="button" md-raised-button color="primary" (click)="allocateCalls(_mother_selfNoCalls_HRS, $event)" class="md-small pull-right" [disabled]="!(tot_mother_selfNoCalls_HRS)">{{currentLanguageSet?.allocate}}</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>{{currentLanguageSet?.highRiskRecordsOtherNo}}</td>
+                  <td>{{tot_mother_otherNoCalls_HRS}}
+                    <button type="button" md-raised-button color="primary" (click)="allocateCalls(_mother_otherNoCalls_HRS, $event)" class="md-small pull-right" [disabled]="!(tot_mother_otherNoCalls_HRS)">{{currentLanguageSet?.allocate}}</button>
+                  </td>
+                </tr>
+                <tr>
+                    <td>{{currentLanguageSet?.allocatedMotherRecords}}</td>
+                    <td>{{tot_mother_allocated_calls}} </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="col-xs-12 col-sm-12 m-b-20 p-l-0 p-r-0">
+              <mat-expansion-panel expanded="true">
+                <mat-expansion-panel-header class="m-b-5 bg-f2">
+                  <mat-panel-title>
+                    {{currentLanguageSet?.callTypeInformation}}
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                
+                  <div class="table-responsive">
+                  <table class="table table-striped table-bordered table-hover" aria-describedby="ancCallTypes">
+                    <thead>
+                      <tr>
+                        <th id="empty"></th>
+                        <th id="ancCallTypes" *ngFor="let callType of ancCallTypes">{{callType.displayOBCallType}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{{currentLanguageSet?.totalMotherRecords}}</td>
+                        <td *ngFor="let total of mother_callSplit">{{total}}</td>
+                      </tr>
+                      <tr>
+                        <td>{{currentLanguageSet?.motherRecordsSelfNo}}</td>
+                        <td *ngFor="let total of _mother_selfNoCalls_NRM_callSplit">{{total}}</td>
+                      </tr>
+                      <tr>
+                        <td>{{currentLanguageSet?.motherRecordsOtherNo}}</td>
+                        <td *ngFor="let total of _mother_otherNoCalls_NRM_callSplit">{{total}}</td>
+                      </tr>
+                      <tr>
+                        <td>{{currentLanguageSet?.highRiskRecordsSelfNo}}</td>
+                        <td *ngFor="let total of _mother_selfNoCalls_HRS_callSplit">{{total}}</td>
+                      </tr>
+                      <tr>
+                        <td>{{currentLanguageSet?.highRiskRecordsOtherNo}}</td>
+                        <td *ngFor="let total of _mother_otherNoCalls_HRS_callSplit">{{total}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              
+              </mat-expansion-panel>
+            </div>
+          </div>
+        </md-tab>
+        <md-tab label="{{currentLanguageSet?.childRecords}}">
+          <div class="table-responsive">
+            <table id="outbondListTable1" class="table table-striped table-bordered table-hover" aria-describedby="totalChildRecords">
+              <tbody>
+                <tr>
+                  <td>{{currentLanguageSet?.totalChildRecords}}</td>
+                  <td>{{tot_child_unAllocatedCalls}}
+                    <button type="button" md-raised-button color="primary" (click)="allocateCalls(child_unAllocatedCalls, $event)" class="md-small pull-right" [disabled]="!(tot_child_unAllocatedCalls)">{{currentLanguageSet?.allocate}}</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>{{currentLanguageSet?.childRecordsSelfNo}}</td>
+                  <td>{{tot_child_selfNoCalls}}
+                    <button type="button" md-raised-button color="primary" (click)="allocateCalls(_child_selfNoCalls, $event)" class="md-small pull-right" [disabled]="!(tot_child_selfNoCalls)">{{currentLanguageSet?.allocate}}</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>{{currentLanguageSet?.childRecordsOtherNo}}</td>
+                  <td>{{tot_child_otherNoCalls}}
+                    <button type="button" md-raised-button color="primary" (click)="allocateCalls(_child_otherNoCalls, $event)" class="md-small pull-right" [disabled]="!(tot_child_otherNoCalls)">{{currentLanguageSet?.allocate}}</button>
+                  </td>
+                </tr>
+                <tr>
+                    <td>{{currentLanguageSet?.allocatedChildRecords}}</td>
+                    <td>{{tot_child_allocated_calls}}</td>
+                 </tr>
+              </tbody>
+            </table>
+            <div class="col-xs-12 col-sm-12 m-b-20 p-l-0 p-r-0">
+              <mat-expansion-panel expanded="true">
+                <mat-expansion-panel-header class="m-b-5 bg-f2">
+                  <mat-panel-title>
+                    {{currentLanguageSet?.callTypeInformation}} 
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                
+                  <table class="table table-striped table-bordered table-hover" aria-describedby="pncCallTypes">
+                    <thead>
+                      <tr>
+                        <th id="empty"></th>
+                        <th id="pncCalltypes" *ngFor="let callType of pncCallTypes">{{callType.displayOBCallType}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{{currentLanguageSet?.totalChildRecords}}</td>
+                        <td *ngFor="let total of child_callSplit">{{total}}</td>
+                      </tr>
+                      <tr>
+                        <td>{{currentLanguageSet?.childRecordsSelfNo}}</td>
+                        <td *ngFor="let total of _child_selfNoCalls_callSplit">{{total}}</td>
+                      </tr>
+                      <tr>
+                        <td>{{currentLanguageSet?.childRecordsOtherNo}}</td>
+                        <td *ngFor="let total of _child_otherNoCalls_callSplit">{{total}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                
+              </mat-expansion-panel>
+            </div>
+          </div>
+        </md-tab>
+      </md-tab-group>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-t-20" *ngIf="showFlag">
+      <app-agent-allocate-records [mctsOutboundCalls]="records" (refreshScreen)="allocationDone()" [canAllocateToAll]="allocateAllFlag"></app-agent-allocate-records>
+    </div>
+ 
+</div>

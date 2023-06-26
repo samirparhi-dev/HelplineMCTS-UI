@@ -1,0 +1,15 @@
+.help-block {
+    color: red;
+}
+.file-upload{
+    color: grey;
+}
+.form-group {
+    margin-bottom: 30px;
+}
+.csss {
+    border: 2px solid lightgray;
+    margin: 5px 5px 0px 5px;
+    border-radius: 20px;
+}
+

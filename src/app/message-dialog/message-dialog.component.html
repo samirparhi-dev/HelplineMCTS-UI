@@ -1,0 +1,22 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding: 0px">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding: 0px">
+    <h3 class="pull-left">{{data.type}}</h3>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10" style="float:center">
+    <p class="f-s-17">{{data.message}}</p>
+    <p *ngIf="data.kmFilePath"><a href="{{data?.kmFilePath}}" target="_blank">
+      {{currentLanguageSet?.clickHereForMoreInfo}}</a></p>
+    
+     
+      <ul *ngIf="urls.length>0" class="list-unstyled">
+        <li *ngIf="urls.length>1">{{currentLanguageSet?.referTheLinksBelow}}</li>
+        <li *ngIf="urls.length===1">{{currentLanguageSet?.referTheLinkBelow}}</li>
+        <li *ngFor="let url of urls"><a target="_blank" href="{{url}}">{{url}}</a></li>
+      </ul>
+    
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-10 btn">
+    <button md-raised-button class="m-l-10 m-b-10 pull-right" color="primary" [md-dialog-close]="true">{{currentLanguageSet?.ok}}</button>
+    <button *ngIf="data.cancel"  class="m-b-10 pull-right" md-raised-button color="primary" md-dialog-close>{{currentLanguageSet?.cancel}}</button>
+  </div>
+</div>

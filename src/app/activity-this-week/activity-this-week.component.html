@@ -1,0 +1,9 @@
+
+<div class="panel panel-default m-b-10">
+	<div class="panel-heading p-t-b-3 f-s-16 bg-white">{{currentLanguageSet?.activityForThisWeek}} <span class="pull-right"><img src="../../assets/images/activityIcon.png" alt="Activity"></span></div>
+	<div class="panel-body">
+		<ol class="p-l-15" *ngIf="role!='SUPERVISOR'">
+			<li><a routerLink="/outboundCallWorklist"  routerLinkActive="active">{{currentLanguageSet?.outboundWorklist}}</a></li>
+		</ol>
+	</div>
+</div>

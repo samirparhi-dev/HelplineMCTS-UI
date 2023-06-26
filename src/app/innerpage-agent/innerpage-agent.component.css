@@ -1,0 +1,15 @@
+.modal-header { border: none; }
+
+.row {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+i.fa {
+  font-size: 20px!important;
+}
+.top3 {
+  top: 3 !important;
+}
+.lightgreen {
+  color: lightgreen;
+}

@@ -1,0 +1,42 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <button type="button" class="close" md-dialog-close>
+    <span class="pull-right">&times;</span>
+  </button>
+  <h4 md-dialog-title>{{currentLanguageSet?.editInteraction}}</h4>
+</div>
+<div class="m-b-10">
+  <form [formGroup]='editInteractionForm'>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <md-input-container [style.width]="'100%'">
+          <textarea mdInput textAreaValidator type="text" maxlength="750" name="interaction" placeholder="{{currentLanguageSet?.interaction}}" minlength="2" id='interaction' formControlName='interaction' rows="4" #Interaction required></textarea>
+        <md-hint>
+          <span *ngIf="editInteractionForm.get('interaction').errors && editInteractionForm.get('interaction').touched" class="error_text">
+            {{currentLanguageSet?.interactionIsRequired}}</span>
+        </md-hint>
+        <md-hint align="end">
+          <span >{{Interaction?.value?.length}}/750</span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 p-b-1-5">
+        <md-select class="width100" placeholder="{{currentLanguageSet?.variableName}}" name='variableName' id='variableName' formControlName='variableName'>
+          <md-option *ngFor='let variableName of variableNamesList' [value]="variableName.dbColumnName">{{variableName.excelColumnName}}</md-option>
+        </md-select>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 p-b-1-5">
+        <md-select class="width100" placeholder="{{currentLanguageSet?.variableDatatype}}" name='variableDataType' id='variableDataType' formControlName='variableDataType'>
+          <md-option value="string">String</md-option>
+          <md-option value="numeric">Numeric</md-option>
+          <md-option value="date">Date</md-option>
+        </md-select>
+    </div>
+    <div class="clearfix"></div>
+  </form>
+  <div class="col-xs-12 col-sm-12 m-t-10 m-b-5">
+    <button md-raised-button color="accent" class="m-l-15  pull-right" [disabled]="!(editInteractionForm.valid)" (click)="updateInteraction()">
+      {{currentLanguageSet?.update}}</button>
+    <button md-raised-button class="m-l-15 pull-right" md-dialog-close>
+      {{currentLanguageSet?.close}}</button>
+  </div>
+</div>

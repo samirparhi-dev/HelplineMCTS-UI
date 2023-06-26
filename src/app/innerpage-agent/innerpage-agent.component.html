@@ -1,0 +1,233 @@
+<div class="container-fluid p-a-0 header p-t-b-3 navbar-fixed-top">
+  <div class="header">
+    <div class="col-xs-12 col-sm-12">
+      <div class="pull-left">
+        <img
+          src="assets/images/smLogo.png"
+          alt="Logo"
+          title="{{ currentLanguageSet?.logo }}"
+        />
+      </div>
+      <label class="f-c-w f-s-15 p-t-5">
+        {{ currentLanguageSet?.mcts }} {{ current_roleName }}</label
+      >
+      <ul class="list-inline list-unstyled pull-left m-b-0">
+        <li class="m-l-lg-40 m-t-5" *ngIf="call_started">
+          <span class="m-l-lg-20 f-s-14 font-Semibold lightgreen f-c-green"
+            ><strong>{{ callStatus }}</strong></span
+          >
+        </li>
+        <li class="m-l-lg-40">
+          <span class="m-l-lg-20 f-s-14 whiteC font-Semibold">{{
+            callDuration
+          }}</span>
+        </li>
+      </ul>
+      <div class="pull-right p-t-1">
+        <ul class="list-inline list-unstyled topIcon pull-right m-l-20 m-b-0">
+          <li class="">
+            <img
+              src="assets/images/icon-user-active.png"
+              class="cursorPointer"
+              alt="User Icon"
+              title="{{currentLanguageSet?.userIcon}}"
+              [mdMenuTriggerFor]="menuNotification"
+            />
+          </li>
+          <md-menu #menuNotification x-position="before" class="m-t-40">
+            <md-list class="p-t-0">
+              <md-list-item>
+                <md-icon
+                  class="mat-icon material-icons"
+                  role="img"
+                  aria-hidden="true"
+                  >account_circle</md-icon
+                >
+                {{ data.userName }}</md-list-item
+              >
+              <md-list-item class="b-t-1-w"
+                >{{currentLanguageSet?.id}}: {{ id }}-{{ current_role }}-{{
+                  current_service
+                }}</md-list-item
+              >
+            </md-list>
+          </md-menu>
+          <li class="logout" tooltip="{{currentLanguageSet?.logout}}" (click)="logOut()">
+            <a class="">&nbsp;</a>
+          </li>
+        </ul>
+        <ul class="list-inline list-unstyled topIcon pull-right m-l-20 m-b-0">
+          <span style="color: white"
+            >{{ currentLanguageSet?.selectLanguage }}:</span
+          >
+          <li>
+            <select
+              class="form-control drop-arrow border-radius-20 height-35"
+              name="app_language"
+              [(ngModel)]="app_language"
+              (change)="changeLanguage(app_language)"
+            >
+              <option
+                *ngFor="let language of languageArray"
+                [value]="language.languageName"
+              >
+                {{ language.languageName }}
+              </option>
+            </select>
+          </li>
+        </ul>
+        <ul class="list-inline list-unstyled pull-right m-t-5 m-l-20 m-b-0">
+          <li class="m-l-lg-40 m-t-5">
+            <span class="m-l-lg-20 f-s-14 whiteC font-Semibold"
+              >{{ currentLanguageSet?.totalCalls }} :
+              {{ completed_calls }}</span
+            >
+            <span class="m-l-lg-20 f-s-14 whiteC font-Semibold"
+              >{{ currentLanguageSet?.totalCallsDurations }} :
+              {{ total_call_duration }}</span
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-xs-12 col-sm-12" (click)="minimizeBar()">
+  <div class="row m-t-50">
+    <div class="col-xs-12 col-sm-12">
+      <div class="row b-t-2-w">
+        <div class="col-xs-12 col-sm-12">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12">
+              <ul class="list-inline list-unstyled m-b-3">
+                <li
+                  *ngIf="!isOnCall && !autodialFlag"
+                  class="cursorPointer pull-right"
+                  [routerLink]="[
+                    '/MultiRoleScreenComponent',
+                    { outlets: { postLogin_router: ['dashboard'] } }
+                  ]"
+                >
+                  <button
+                    class="pull-right m-b-5"
+                    md-raised-button
+                    color="primary"
+                  >
+                    {{ currentLanguageSet?.backToDashboard }}
+                  </button>
+                </li>
+                <li>
+                  <span class="pull-right" *ngIf="ticks > 0" class="pull-right">
+                    {{ currentLanguageSet?.timeRemaining }} :<strong>{{
+                      ticks
+                    }}</strong>
+                  </span>
+                </li>
+                <li class="f-s-16 font-Semibold pull-left p-t-8">
+                  {{ currentLanguageSet?.myId }} : {{ id }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="container-fluid">
+      <div class="col-xs-12 col-sm-12">
+        <md-card style="padding: 0px" class="row m-b-40">
+          <div class="min-h-480">
+            <div
+              id="myCarousel"
+              class="carousel slide"
+              data-ride="carousel"
+              data-interval="false"
+              data-wrap="false"
+            >
+              <div class="carousel-inner">
+                <div class="item active">
+                  <app-outbound-call-worklist
+                    [refreshScreen]="refreshWorklist"
+                    (onTableRowSelection)="fetchModalData($event)"
+                    (transferScreen)="transferToCallScreen($event)"
+                    (autodial)="autodial($event)"
+                  ></app-outbound-call-worklist>
+                </div>
+                <div class="item">
+                  <app-outbound-call-history
+                    [historyDetails]="historyObj"
+                    (showNext)="viewCallScreen()"
+                    (showPrev)="viewOutboundWorkLIst()"
+                    [blockBack]="blockWorklist"
+                  ></app-outbound-call-history>
+                </div>
+                <div class="item">
+                  <app-outbound-call-screen
+                    [benificiaryData]="historyObj"
+                    [callTypesPreLoad]="callTypes"
+                    [updateFlag]="updateCallResponse"
+                    [refreshScreen]="refreshQuestionaire"
+                    [onChangeCalled]="count"
+                    (viewClosureWindow)="viewClosure($event)"
+                    (showHistory)="viewHistoryScreen($event)"
+                    (updated_ben_data)="updateBenData_inHistoryScreen($event)"
+                  ></app-outbound-call-screen>
+                </div>
+                <div class="item">
+                  <app-closure-outboundcall
+                    [benificiaryData]="historyObj"
+                    [transferCallFlag]="transferCallFlag"
+                    [transferCallToANMFlag]="transferCallToANMFlag"
+                    [transferCallTo104Flag]="transferCallTo104Flag"
+                    [transferCallTo104Flag]="transferCallTo104Flag"
+                    [transferCallTo108Flag]="transferCallTo108Flag"
+                    [skill]="skill"
+                    [defaultFlag]="callAnsweredFlag"
+                    (moveToWorklist)="viewWorklistScreen()"
+                    (moveToCallScreen)="viewCallScreen()"
+                    [wrapup_exceeded]="wrapup_exceeded"
+                  ></app-closure-outboundcall>
+                </div>
+              </div>
+            </div>
+          </div>
+        </md-card>
+      </div>
+    </div>
+  </div>
+</div>
+<iframe
+  [src]="ctiHandlerURL"
+  width="230px"
+  height="380px"
+  class="czenrix-bar"
+  [hidden]="barMinimized"
+  (click)="toggleBar()"
+  title="czentrixBar"
+></iframe>
+<footer class="footer">
+  <div class="row">
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+      <span class="footer-text">{{ currentLanguageSet?.poweredByWipro }}</span>
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+      <p class="footer-text t-a-c">
+        2019
+        <md-icon color="" class="copyright_icon">copyright</md-icon>
+        {{ currentLanguageSet?.psmri }}
+      </p>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+      <button
+        md-raised-button
+        type="button"
+        color="primary"
+        class="footer-height pull-right czenrix-bar"
+        *ngIf="id != undefined || id != null"
+        (click)="toggleBar()"
+      >
+        {{ currentLanguageSet?.czentrix }}
+      </button>
+    </div>
+  </div>
+</footer>

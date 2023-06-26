@@ -1,0 +1,422 @@
+<!--SEARCH MOTHER  -->
+<div *ngIf="is_motherRecord">
+  <h4>{{currentLanguageSet?.searchMother}}</h4>
+  <form #searchForm="ngForm" autocomplete="off"><div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"><md-input-container myName [style.width]="'100%'">
+        <input
+          mdInput
+          placeholder="{{currentLanguageSet?.firstName}}"
+          required
+          minlength="2"
+          maxlength="25"
+          name="Firstname"
+          [(ngModel)]="firstname"
+          #firstN="ngModel"
+        />
+        <md-hint [hidden]="firstN.valid">
+          <span
+            class="error_text"
+            *ngIf="!firstN.required && (firstN.dirty || firstN.touched)"
+            >{{currentLanguageSet?.enterAtleast3Characters}}</span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <md-input-container myName [style.width]="'100%'">
+        <input
+          mdInput
+          placeholder="{{currentLanguageSet?.lastName}}"
+          maxlength="25"
+          name="Lastname"
+          [(ngModel)]="lastname"
+        />
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 p-b-1-5">
+      <md-select
+        required
+        [style.width]="'100%'"
+        placeholder="Gender"
+        [(ngModel)]="gender"
+        name="{{currentLanguageSet?.gender}}"
+        #genderSelected="ngModel"
+      >
+        <md-option *ngFor="let gen of genders" [value]="gen.genderID">
+          {{ gen.genderName }}
+        </md-option>
+      </md-select>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <md-input-container [style.width]="'100%'" myMobileNumber>
+        <input
+          mdInput
+          placeholder="{{currentLanguageSet?.contactNumber}}"
+          maxlength="10"
+          name="ContactNumber"
+          [(ngModel)]="contactNumber"
+        />
+      </md-input-container>
+    </div>
+    <div class="clearfix visible-sm visible-md visible-lg"></div>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <md-input-container [style.width]="'100%'" myMobileNumber>
+        <input
+          mdInput
+          placeholder="{{currentLanguageSet?.beneficiaryId}}"
+          maxlength="12"
+          name="BeneficiaryID"
+          [(ngModel)]="beneficiaryID"
+        />
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 p-b-1-5">
+      <md-select
+        [style.width]="'100%'"
+        required
+        placeholder="{{currentLanguageSet?.state}}"
+        [(ngModel)]="state"
+        name="State"
+      >
+        <md-option
+          *ngFor="let state of states"
+          [value]="state.stateName"
+          (click)="getDistricts(state.stateID)"
+        >
+          {{ state.stateName }}
+        </md-option>
+      </md-select>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 p-b-1-5">
+      <md-select
+        [style.width]="'100%'"
+        required
+        [(ngModel)]="district"
+        placeholder="{{currentLanguageSet?.district}}"
+        name="District"
+      >
+        <md-option
+          *ngFor="let district of districts"
+          [value]="district.districtName"
+        >
+          {{ district.districtName }}
+        </md-option>
+      </md-select>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-t-lg-20">
+      <button
+        md-raised-button
+        color="primary"
+        type="button"
+        class="font-regular f-s-18 m-r-5 pull-right"
+        (click)="searchForm.reset()"
+      >
+      {{currentLanguageSet?.clear}}
+      </button>
+      <button
+        md-raised-button
+        color="accent"
+        [disabled]="searchForm.invalid"
+        type="button"
+        class="pull-right font-regular f-s-18 m-r-5"
+        value="search"
+        (click)="searchBeneficiary(searchForm.value, true)"
+      >
+      {{currentLanguageSet?.search}}
+      </button>
+    </div>
+  </form>
+</div>
+<!--SEARCH CHILD  -->
+<div *ngIf="!is_motherRecord">
+  <h4>{{currentLanguageSet?.searchChild}}</h4>
+  <form #searchForm="ngForm" autocomplete="off">
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <md-input-container myName [style.width]="'100%'">
+        <input
+          mdInput
+          placeholder="{{currentLanguageSet?.firstName}}"
+          required
+          minlength="3"
+          maxlength="25"
+          name="Firstname"
+          [(ngModel)]="firstname"
+          #firstN="ngModel"
+        />
+        <md-hint [hidden]="firstN.valid">
+          <span
+            class="error_text"
+            *ngIf="!firstN.required && (firstN.dirty || firstN.touched)"
+            >{{currentLanguageSet?.enterAtleast3Characters}}</span
+          >
+        </md-hint>
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <md-input-container myName [style.width]="'100%'">
+        <input
+          mdInput
+          placeholder="{{currentLanguageSet?.lastName}}"
+          maxlength="25"
+          name="Lastname"
+          [(ngModel)]="lastname"
+        />
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 p-b-1-5">
+      <md-select
+        required
+        [style.width]="'100%'"
+        placeholder="{{currentLanguageSet?.gender}}"
+        [(ngModel)]="gender"
+        name="Gender"
+        #genderSelected="ngModel"
+      >
+        <md-option *ngFor="let gen of genders" [value]="gen.genderID">
+          {{ gen.genderName }}
+        </md-option>
+      </md-select>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <md-input-container [style.width]="'100%'" myMobileNumber>
+        <input
+          mdInput
+          placeholder="{{currentLanguageSet?.contactNumber}}"
+          maxlength="10"
+          name="ContactNumber"
+          [(ngModel)]="contactNumber"
+          required
+        />
+      </md-input-container>
+    </div>
+    <div class="clearfix visible-sm visible-md visible-lg"></div>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <md-input-container [style.width]="'100%'" myMobileNumber>
+        <input
+          mdInput
+          placeholder="{{currentLanguageSet?.beneficiaryId}}"
+          maxlength="12"
+          name="BeneficiaryID"
+          [(ngModel)]="beneficiaryID"
+        />
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 p-b-1-5">
+      <md-select
+        [style.width]="'100%'"
+        required
+        placeholder="{{currentLanguageSet?.state}}"
+        [(ngModel)]="state"
+        name="State"
+      >
+        <md-option
+          *ngFor="let state of states"
+          [value]="state.stateName"
+          (click)="getDistricts(state.stateID)"
+        >
+          {{ state.stateName }}
+        </md-option>
+      </md-select>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 p-b-1-5">
+      <md-select
+        [style.width]="'100%'"
+        required
+        [(ngModel)]="district"
+        placeholder="{{currentLanguageSet?.district}}"
+        name="District"
+      >
+        <md-option
+          *ngFor="let district of districts"
+          [value]="district.districtName"
+        >
+          {{ district.districtName }}
+        </md-option>
+      </md-select>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-t-lg-20">
+      <button
+        md-raised-button
+        color="primary"
+        type="button"
+        class="font-regular f-s-18 m-r-5 pull-right"
+        (click)="searchForm.reset()"
+      >
+      {{currentLanguageSet?.clear}}
+      </button>
+      <button
+        md-raised-button
+        color="accent"
+        [disabled]="searchForm.invalid"
+        type="button"
+        class="pull-right font-regular f-s-18 m-r-5"
+        value="search"
+        (click)="searchBeneficiary(searchForm.value, false)"
+      >
+      {{currentLanguageSet?.search}}
+      </button>
+    </div>
+  </form>
+</div>
+<!--#########################################################################-->
+<div *ngIf="is_motherRecord">
+  <div class="clearfix"></div>
+  <h4>{{currentLanguageSet?.generateBeneficiaryIdForMother}}</h4>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
+        <table
+          class="m-b-20 table table-striped table-hover"
+          [md2Data]="motherReportList"
+          #md2motherData="md2DataTable"
+          [rowsPerPage]="3"
+          aria-describedby="motherReportList"
+        >
+          <thead>
+            <tr>
+              <th id="benName">{{currentLanguageSet?.beneficiaryName}}</th>
+              <th id="husbandName">{{currentLanguageSet?.husbandName}}</th>
+              <th id="action">{{currentLanguageSet?.action}}</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="md2motherData.data?.length == 0">
+            <tr>
+              <td colspan="3" class="record-not-found">{{currentLanguageSet?.noRecordFound}}</td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="md2motherData.data?.length != 0">
+            <tr *ngFor="let motherReport of md2motherData.data">
+              <td>{{ motherReport.Name }}</td>
+              <td>{{ motherReport.Husband_Name }}</td>
+              <td>
+                <button
+                  md-raised-button
+                  color="primary"
+                  *ngIf="
+                    motherReport.BeneficiaryRegID != undefined &&
+                    motherReport.beneficiaryID != undefined
+                  "
+                  class="pull-right m-b-5"
+                  (click)="
+                    createBeneficiaryID_forFoundResult_mother(
+                      motherReport.BeneficiaryRegID,
+                      motherReport.beneficiaryID
+                    )
+                  "
+                >
+                {{currentLanguageSet?.associate}}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3">
+                <md2-pagination></md2-pagination>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-b-10">
+        <button
+          class="pull-right m-l-20 m-b-5"
+          md-raised-button
+          color="primary"
+          (click)="closure()"
+        >
+        {{currentLanguageSet?.closure}}
+        </button>
+        <button
+          md-raised-button
+          color="accent"
+          [disabled]="!ben_searched"
+          class="pull-right m-b-5"
+          (click)="createBeneficiaryID_forMother()"
+        >
+        {{currentLanguageSet?.generateBeneficiaryId}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ************CHILD AREA***********  -->
+
+<div *ngIf="!is_motherRecord">
+  <div class="clearfix"></div>
+  <h4>{{currentLanguageSet?.generateBeneficiaryIdForChild}}</h4>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
+      <table
+        class="m-b-20 table table-striped table-hover"
+        [md2Data]="childReportList"
+        #md2childData="md2DataTable"
+        [rowsPerPage]="3"
+        aria-describedby="childReportList"
+      >
+        <thead>
+          <tr>
+            <th id="childName">{{currentLanguageSet?.childName}}</th>
+            <th id="motherName">{{currentLanguageSet?.motherName}}</th>
+            <th id="action">{{currentLanguageSet?.action}}</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="md2childData.data?.length == 0">
+          <tr>
+            <td colspan="10" class="record-not-found">{{currentLanguageSet?.noRecordFound}}</td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="md2childData.data?.length != 0">
+          <tr *ngFor="let childReport of md2childData.data">
+            <td>{{ childReport.Child_Name }}</td>
+            <td>{{ childReport.Mother_Name }}</td>
+            <td>
+              <button
+                md-raised-button
+                color="primary"
+                *ngIf="
+                  childReport.BeneficiaryRegID != undefined &&
+                  childReport.beneficiaryID != undefined
+                "
+                class="pull-right m-b-5"
+                (click)="
+                  createBeneficiaryID_forFoundResult_child(
+                    childReport.BeneficiaryRegID,
+                    childReport.beneficiaryID
+                  )
+                "
+              >
+              {{currentLanguageSet?.associate}}
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3">
+              <md2-pagination></md2-pagination>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-b-10">
+      <button
+        class="pull-right m-l-20 m-b-5"
+        md-raised-button
+        color="primary"
+        (click)="closure()"
+      >
+      {{currentLanguageSet?.closure}}
+      </button>
+      <button
+        md-raised-button
+        color="accent"
+        [disabled]="!ben_searched"
+        class="pull-right m-b-5"
+        (click)="createBeneficiaryID_forChild()"
+      >
+      {{currentLanguageSet?.generateBeneficiaryId}}
+      </button>
+    </div>
+  </div>
+</div>

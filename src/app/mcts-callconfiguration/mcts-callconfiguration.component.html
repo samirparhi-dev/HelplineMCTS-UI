@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <h4 class="m-b-20">
+      <span class="pull-left">{{currentLanguageSet?.callConfiguration}}</span>
+      <button md-raised-button class="pull-right" color="primary" (click)="onCreateNewConfig()">{{currentLanguageSet?.createConfiguration}}</button>
+    </h4>
+  </div>
+
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-10">
+    <div class=" c-b" *ngIf="recordsLength==0">
+      <h4 class="t-a-c">{{currentLanguageSet?.noRecordFound}}</h4>
+    </div>
+    <div class="panel-group c-b" id="accordion" *ngIf="!(recordsLength==0)">
+      <div class="panel panel-default" *ngFor="let configkey of configKeysList;let i = index ">
+        <div class="panel-heading">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{i+1}}">
+            <h4 class="panel-title line-height-30">
+              Configuration {{i+1}}
+              <md-icon *ngIf="configList[configkey][0].effectiveFrom>currentDate" mdSuffix class="mat-icon material-icons line-height-30 pull-right m-l-10 f-s-b cursorPointer" role="img" aria-hidden="true"
+              md-tooltip="{{currentLanguageSet?.deleteQuestionnaire}}" (click)="deleteQuestionaire(configList[configkey],(i+1),$event)">delete</md-icon>
+              <md-icon mdSuffix class="mat-icon material-icons line-height-30 pull-right m-l-10 cursorPointer" role="img" aria-hidden="true"
+                md-tooltip="{{currentLanguageSet?.editConfiguration}}" (click)="editConfig(configList[configkey],$event)">mode_edit</md-icon>
+              <md-icon mdSuffix class="mat-icon material-icons line-height-30 pull-right m-l-10 f-s-b cursorPointer" role="img" aria-hidden="true"
+                md-tooltip="{{currentLanguageSet?.addQuestionnaire}}" (click)="addQuestionaire(configList[configkey],(i+1),$event)">add</md-icon>
+                
+            </h4>
+          </a>
+        </div>
+        <div id="collapse{{i+1}}" class="panel-collapse collapse" [ngClass]="{in : i==0} ">
+          <div class="panel-body">
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered table-hover" aria-describedby="outboundDates">
+                <thead>
+                  <tr>
+                    <th id="outnoundCallType">{{currentLanguageSet?.outboundCallType}}</th>
+                    <th id="startDate">{{currentLanguageSet?.effectiveStartDate}}</th>
+                    <th id="endDate">{{currentLanguageSet?.effectiveEndDate}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let config of configList[configkey]">
+                    <td>{{config?.displayOBCallType ? config?.displayOBCallType : config?.outboundCallType}}</td>
+                    <td>{{config.effectiveFrom|date:'dd/MM/yyyy'}}</td>
+                    <td>{{config.effectiveUpto|date:'dd/MM/yyyy'}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,102 @@
+<div class="col-xs-12 col-sm-12">
+
+  <h4>{{currentLanguageSet?.callHistory}}</h4>
+</div>
+
+<div class="">
+   <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <div class="form-group" >
+        <label class="control-label" for="motherID">{{currentLanguageSet?.motherId}}:</label>
+        <label class="control-label static-text">M1234567</label>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <div class="form-group" >
+        <label class="control-label" for="motherName">{{currentLanguageSet?.motherName}}:</label>
+        <label class="control-label static-text">{{historyDetails.Name}}</label>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <div class="form-group" >
+        <label class="control-label" for="PHCName">{{currentLanguageSet?.phcName}}:</label>
+        <label class="control-label static-text">{{currentLanguageSet?.shailajaSubramanium}}</label>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <div class="form-group" >
+        <label class="control-label" for="phoneNo">{{currentLanguageSet?.phoneNo}}:</label>
+        <label class="control-label static-text">9876539012</label>
+      </div>
+    </div>
+    
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <div class="form-group" >
+        <label class="control-label" for="ASHA">{{currentLanguageSet?.asha}}: </label>
+        <label class="control-label static-text">{{currentLanguageSet?.asha}} </label>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <div class="form-group" >
+        <label class="control-label" for="ANM">{{currentLanguageSet?.anm}}:</label>
+        <label class="control-label static-text">{{currentLanguageSet?.anm}} </label>
+      </div>
+    </div>
+    
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <div class="form-group" >
+        <label class="control-label" for="lmpDate">{{currentLanguageSet?.lmpDate}}:</label>
+        <label class="control-label static-text">{{currentLanguageSet?.lmpDate}}</label>
+      </div>
+    </div>
+    
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <div class="form-group" >
+        <label class="control-label" for="nextANCPNCCallDate">{{currentLanguageSet?.nextAncPncCallDate}}: </label>
+        <label class="control-label static-text">{{currentLanguageSet?.dateOfCall}}</label>
+      </div>
+    </div>
+  </div>
+
+<div class="col-xs-8 col-sm-8">
+   <div class="table-responsive">
+            <table id="outbondListTable" class="table table-bordered" aria-describedby="congentialAnomalies">
+                <thead>
+                <tr>
+                   <th id="sno">{{currentLanguageSet?.sNo}}</th>
+                    <th id="callType">{{currentLanguageSet?.callType}}</th>
+                    <th id="dateTime">{{currentLanguageSet?.dateAndTime}}</th>
+                     <th id="mctsCallNo">{{currentLanguageSet?.mctsCallNo}}</th>
+                    <th id="complaints">{{currentLanguageSet?.complaints}}</th>
+                </tr>
+                </thead>
+            <tbody>
+                <tr >
+                    <th  scope="row">1</th>
+                    <td>{{currentLanguageSet?.anc}}1</td>
+                    <td>12-2-2017</td>
+                    <td>9876543210</td>
+                    <td>{{currentLanguageSet?.noComplaints}}</td>
+                </tr>
+               <tr >
+                    <th  scope="row">1</th>
+                    <td>{{currentLanguageSet?.anc}}2</td>
+                    <td>12-8-2017</td>
+                    <td>9876543210</td>
+                    <td>{{currentLanguageSet?.noComplaints}}</td>
+                </tr>
+                <tr >
+                    <th  scope="row">1</th>
+                    <td>{{currentLanguageSet?.anc}}3</td>
+                    <td>12-11-2017</td>
+                    <td>9876543210</td>
+                    <td>{{currentLanguageSet?.noComplaints}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+</div>
+<div class="col-xs-12 col-sm-12">
+   <button type="button" (click)="navigateToNext()" class="btn cu-blue-btn edit_button
+  font-regular f-s-18 m-t-lg-20" id="" >{{currentLanguageSet?.edit}}</button>
+</div>
+

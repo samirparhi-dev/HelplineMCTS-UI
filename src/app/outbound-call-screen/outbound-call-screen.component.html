@@ -1,0 +1,892 @@
+<h4>{{currentLanguageSet?.callQuestionnaireScreen}}</h4>
+
+<div class="row">
+  <table class="table table-bordered" aria-describedby="mctsData">
+    <tbody>
+      <tr class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <td>
+          <strong>{{currentLanguageSet?.motherId}}</strong>
+        </td>
+        <td>
+          {{
+            benificiaryData?.childValidDataHandler
+            ? benificiaryData?.childValidDataHandler?.Mother_ID
+              : benificiaryData?.mctsDataReaderDetail?.MCTSID_no
+            
+          }}
+        </td>
+      </tr>
+      <tr class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <td>
+          <strong>{{currentLanguageSet?.motherName}}</strong>
+        </td>
+        <td>
+          {{
+            benificiaryData?.childValidDataHandler
+            ? benificiaryData?.childValidDataHandler?.Mother_Name
+              : benificiaryData?.mctsDataReaderDetail?.Name
+             
+          }}
+        </td>
+      </tr>
+      <tr class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <td>
+          <strong>{{currentLanguageSet?.beneficiaryId}}</strong>
+        </td>
+        <td>
+          {{
+            benificiaryData?.childValidDataHandler
+              ? benificiaryData?.childValidDataHandler?.beneficiaryID
+              : benificiaryData?.mctsDataReaderDetail?.beneficiaryID
+          }}
+        </td>
+      </tr>
+      <tr class="col-lg-3 col-md-3 col-sm-3 col-xs-12" *ngIf="!pncFlag">
+        <td>
+          <strong>{{currentLanguageSet?.husbandName}}</strong>
+        </td>
+        <td>
+          {{
+            benificiaryData?.childValidDataHandler
+            ? benificiaryData?.childValidDataHandler?.husbandName
+              : benificiaryData?.mctsDataReaderDetail?.Husband_Name
+             
+          }}
+        </td>
+      </tr>
+      <tr class="col-lg-3 col-md-3 col-sm-3 col-xs-12" *ngIf="pncFlag">
+        <td>
+          <strong>{{currentLanguageSet?.ageOfMother}}</strong>
+        </td>
+        <td>
+          {{
+            benificiaryData?.childValidDataHandler
+            ? benificiaryData?.childValidDataHandler?.age
+             : benificiaryData?.mctsDataReaderDetail?.Age
+              
+          }}
+        </td>
+      </tr>
+      <tr class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <td>
+          <strong>{{currentLanguageSet?.districtName}}</strong>
+        </td>
+        <td>
+          {{
+            benificiaryData?.childValidDataHandler
+            ? benificiaryData?.childValidDataHandler?.District_Name
+              : benificiaryData?.mctsDataReaderDetail?.District_Name
+             
+          }}
+        </td>
+      </tr>
+
+      <tr class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <td>
+          <strong>{{currentLanguageSet?.talukaName}}</strong>
+        </td>
+        <td>
+          {{
+            benificiaryData?.childValidDataHandler
+            ? benificiaryData?.childValidDataHandler?.Taluka_Name
+              : benificiaryData?.mctsDataReaderDetail?.Taluka_Name
+            
+          }}
+        </td>
+      </tr>
+      <tr class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <td>
+          <strong>{{currentLanguageSet?.healthBlock}}</strong>
+        </td>
+        <td>
+          {{
+            benificiaryData?.childValidDataHandler
+            ? benificiaryData?.childValidDataHandler?.Block_Name
+              : benificiaryData?.mctsDataReaderDetail?.Block_Name
+          }}
+        </td>
+      </tr>
+      <tr class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <td>
+          <strong>{{currentLanguageSet?.phcName}}</strong>
+        </td>
+        <td>
+          {{
+            benificiaryData?.childValidDataHandler
+              ? benificiaryData?.childValidDataHandler?.PHC_Name
+              : benificiaryData?.mctsDataReaderDetail?.PHC_Name
+          }}
+        </td>
+      </tr>
+      <tr class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <td>
+          <strong>{{currentLanguageSet?.subfacilitySubcenter}}</strong>
+        </td>
+        <td>
+          {{
+            benificiaryData?.childValidDataHandler
+            ? benificiaryData?.childValidDataHandler?.SubCenter_Name
+              : benificiaryData?.mctsDataReaderDetail?.SubCenter_Name
+             
+          }}
+        </td>
+      </tr>
+      <tr class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <td>
+          <strong>{{currentLanguageSet?.gpVillage}}</strong>
+        </td>
+        <td>
+          {{
+            benificiaryData?.childValidDataHandler
+            ? benificiaryData?.childValidDataHandler?.GP_Village
+              : benificiaryData?.mctsDataReaderDetail?.GP_Village
+             
+          }}
+        </td>
+      </tr>
+
+      <tr class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <td>
+          <strong>{{currentLanguageSet?.phoneNo}}</strong>
+        </td>
+        <td>
+          {{
+            benificiaryData?.childValidDataHandler
+            ?  benificiaryData?.childValidDataHandler?.Phone_No
+              : benificiaryData?.mctsDataReaderDetail?.Whom_PhoneNo
+             
+          }}
+        </td>
+      </tr>
+      <tr class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <td>
+          <strong>{{currentLanguageSet?.phoneNoSelfOther}}</strong>
+        </td>
+        <td>
+          {{
+            benificiaryData?.childValidDataHandler
+            ? benificiaryData?.childValidDataHandler?.Phone_No_of
+              : benificiaryData?.mctsDataReaderDetail?.PhoneNo_Of_Whom
+              
+          }}
+        </td>
+      </tr>
+      <tr class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <td>
+          <strong>{{currentLanguageSet?.ashaName}}</strong>
+        </td>
+        <td>
+          {{
+            benificiaryData?.childValidDataHandler
+              ? benificiaryData?.childValidDataHandler?.ASHA_Name
+              : benificiaryData?.mctsDataReaderDetail?.ASHA_Name
+          }}
+        </td>
+      </tr>
+      <tr class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <td>
+          <strong>{{currentLanguageSet?.anmName}}</strong>
+        </td>
+        <td>
+          {{
+            benificiaryData?.childValidDataHandler
+            ? benificiaryData?.childValidDataHandler?.ANM_Name
+              : benificiaryData?.mctsDataReaderDetail?.ANM_Name
+             
+          }}
+        </td>
+      </tr>
+      <tr class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <td>
+          <strong>{{currentLanguageSet?.ashaPhoneNo}}</strong>
+        </td>
+        <td>
+          {{
+            benificiaryData?.childValidDataHandler
+            ? benificiaryData?.childValidDataHandler?.ASHA_Phone_No
+              : benificiaryData?.mctsDataReaderDetail?.ASHA_Ph
+             
+          }}
+        </td>
+      </tr>
+      <tr class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <td>
+          <strong>{{currentLanguageSet?.anmPhoneNo}}</strong>
+        </td>
+        <td>
+          {{
+            benificiaryData?.childValidDataHandler
+            ? benificiaryData?.childValidDataHandler?.ANM_Phone_No
+              : benificiaryData?.mctsDataReaderDetail?.ANM_Ph
+              
+          }}
+        </td>
+      </tr>
+      <tr class="col-lg-3 col-md-3 col-sm-3 col-xs-12" *ngIf="pncFlag">
+        <td>
+          <strong>{{currentLanguageSet?.childName}}</strong>
+        </td>
+        <td>
+          {{
+            benificiaryData?.childValidDataHandler
+              ? benificiaryData?.childValidDataHandler?.Child_Name
+              : benificiaryData?.mctsDataReaderDetail?.Child_Name
+          }}
+        </td>
+      </tr>
+      <tr class="col-lg-3 col-md-3 col-sm-3 col-xs-12" *ngIf="pncFlag">
+        <td>
+          <strong>{{currentLanguageSet?.childId}}</strong>
+        </td>
+        <td>
+          {{
+            benificiaryData?.childValidDataHandler
+              ? benificiaryData?.childValidDataHandler?.MCTSID_no_Child_ID
+              : benificiaryData?.mctsDataReaderDetail?.Child_ID
+          }}
+        </td>
+      </tr>
+      <tr class="col-lg-3 col-md-3 col-sm-3 col-xs-12" *ngIf="!pncFlag">
+        <td>
+          <strong>{{currentLanguageSet?.lmpDate}}</strong>
+        </td>
+        <td>
+          {{
+            (benificiaryData?.childValidDataHandler
+              ? benificiaryData?.childValidDataHandler?.lmpDate
+              : benificiaryData?.mctsDataReaderDetail?.LMP_Date
+            )
+              | utcDate
+              | date: "dd/MM/yyyy"
+          }}
+        </td>
+      </tr>
+      <tr class="col-lg-3 col-md-3 col-sm-3 col-xs-12" *ngIf="!pncFlag">
+        <td>
+          <strong>{{currentLanguageSet?.edd}}</strong>
+        </td>
+        <td>
+          {{
+            (benificiaryData?.childValidDataHandler
+            ? benificiaryData?.childValidDataHandler?.edd
+              : benificiaryData?.mctsDataReaderDetail?.EDD
+            )
+              | utcDate
+              | date: "dd/MM/yyyy"
+          }}
+        </td>
+      </tr>
+      <tr class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <td>
+          <strong>{{currentLanguageSet?.dob}}</strong>
+        </td>
+        <td>
+          {{
+            (benificiaryData?.childValidDataHandler
+              ? benificiaryData?.childValidDataHandler?.DOB
+              : benificiaryData?.mctsDataReaderDetail?.Birth_Date
+            )
+              | utcDate
+              | date: "dd/MM/yyyy"
+          }}
+        </td>
+      </tr>
+      <tr class="col-lg-3 col-md-3 col-sm-3 col-xs-12" *ngIf="!pncFlag">
+        <td>
+          <strong>{{currentLanguageSet?.age}}</strong>
+        </td>
+        <td>
+          {{
+            benificiaryData?.childValidDataHandler
+            ? benificiaryData?.childValidDataHandler?.age
+              : benificiaryData?.mctsDataReaderDetail?.Age
+          }}
+        </td>
+      </tr>
+      <tr class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <td>
+          <strong>{{currentLanguageSet?.address}}</strong>
+        </td>
+        <td>
+          {{
+            benificiaryData?.childValidDataHandler
+            ? benificiaryData?.childValidDataHandler?.Address
+              : benificiaryData?.mctsDataReaderDetail?.Address
+              
+          }}
+        </td>
+      </tr>
+      <tr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <button
+          md-raised-button
+          class="pull-right m-b-20 m-l-5 m-r-5"
+          color="primary"
+          (click)="viewChangeLogDeatils()"
+        >
+          {{currentLanguageSet?.changeLog}}
+        </button>
+        <button
+          md-raised-button
+          class="pull-right m-b-20 m-l-5 m-r-5"
+          color="primary"
+          (click)="openEditBenDialog()"
+        >
+          {{currentLanguageSet?.editBeneficiary}}
+        </button>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div>
+  <button
+    md-raised-button
+    class="pull-right"
+    color="primary"
+    (click)="navigateToPrev()"
+  >
+    {{currentLanguageSet?.beneficiaryHistory}}
+  </button>
+</div>
+<div class="row">
+  <div class="col-sm-3 col-xs-3 m-b-4">
+    <form class="p-t-30" #callTypeForm="ngForm">
+      <md-select
+        *ngIf="!pncFlag"
+        placeholder="{{currentLanguageSet?.callType}}"
+        name="callType"
+        class="width100"
+        (change)="onCallTypeChange()"
+        ngModel
+        #callType="ngModel"
+        required
+      >
+        <md-option
+          *ngFor="let callType of callTypes"
+          [value]="callType.outboundCallType"
+          >{{
+            callType?.displayOBCallType
+              ? callType?.displayOBCallType
+              : callType?.outboundCallType
+          }}</md-option
+        >
+      </md-select>
+      <md-select
+        *ngIf="pncFlag"
+        placeholder="{{currentLanguageSet?.callType}}"
+        name="callType"
+        class="width100"
+        (change)="onCallTypeChange()"
+        [(ngModel)]="pncCallType"
+        #pncallType="ngModel"
+        required
+      >
+        <md-option
+          *ngFor="let callType of pncCallTypes"
+          [value]="callType.outboundCallType"
+          >{{
+            callType?.displayOBCallType
+              ? callType?.displayOBCallType
+              : callType?.outboundCallType
+          }}</md-option
+        >
+      </md-select>
+
+    </form>
+  </div>
+  <div class="col-sm-3 col-xs-3 m-t-50">
+    <h4>
+      {{currentLanguageSet?.currentCall}}:
+      <span>
+        <strong>{{
+          displayCallType ? displayCallType : selectedCallType
+        }}</strong>
+      </span>
+    </h4>
+  </div>
+</div>
+
+<div class="row m-b-20">
+  <form class="p-t-20" #transferCallForm="ngForm">
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 p-t-7" *ngIf="!pncFlag">
+      <md-checkbox
+        color="primary"
+        class="font-weight-normal"
+        name="highRisk"
+        [(ngModel)]="high_risk"
+        [align]="'end'"
+        >{{currentLanguageSet?.highRiskPregnancy}}</md-checkbox
+      >
+    </div>
+    <div
+      class="col-lg-3 col-md-3 col-sm-6 col-xs-12"
+      *ngIf="!pncFlag && high_risk"
+    >
+      <md-input-container class="width100 md-padding">
+        <input
+          mdInput
+          inputFieldValidator 
+          placeholder="{{currentLanguageSet?.reasonForHighRisk}}"
+          name="highRiskReason"
+          [(ngModel)]="reason_for_high_risk"
+        />
+      </md-input-container>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 m-t--13">
+      <md-select
+        placeholder="{{currentLanguageSet?.callTransfer}}"
+        name="callTransfer"
+        class="width100"
+        (change)="transferCall()"
+        [(ngModel)]="campaign_id"
+        #callTransfer="ngModel"
+      >
+        <md-option
+          *ngFor="let campaigns of transferableCampaigns"
+          [value]="campaigns.campaign_id"
+          >{{ campaigns.campaign_name }}</md-option
+        >
+      </md-select>
+    </div>
+    <div
+      class="col-lg-3 col-md-3 col-sm-6 col-xs-12 m-t--13"
+      *ngIf="skillVisible"
+    >
+      <md-select
+        placeholder="{{currentLanguageSet?.transferSkill}}"
+        name="transferSkill"
+        class="width100"
+        (change)="onSubmitTransfer()"
+        [(ngModel)]="TransferSkill"
+        #transferSkill="ngModel"
+      >
+        <md-option
+          *ngFor="let skill of transferSkills"
+          [value]="skill.skill_name"
+          >{{ skill.skill_name }}</md-option
+        >
+      </md-select>
+    </div>
+
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" *ngIf="role == 'MO'">
+      <button
+        md-raised-button
+        class="btn-sm pull-right"
+        color="primary"
+        (click)="sendSms()"
+      >
+        {{currentLanguageSet?.sendAdvice}}
+      </button>
+    </div>
+  </form>
+</div>
+<div>
+  <h4 *ngIf="interaction">{{currentLanguageSet?.interactionSession}}</h4>
+</div>
+
+<div
+  class="p-a-10 clearfix border-a-1 height-120 overflow-auto"
+  *ngIf="interaction"
+>
+  <span>{{ interaction }}</span>
+</div>
+<div class="m-t-20">
+  <h4>{{currentLanguageSet?.callQuestionnaire}}</h4>
+</div>
+<div *ngIf="listDisplay">
+  <div class="border-a-1">
+    <form [formGroup]="questionaireForm">
+      <div *ngIf="questionaireForm.get('questions').controls?.length == 0">
+        <h4 class="t-a-c">**{{currentLanguageSet?.noQuestionaireForCalltype}}**</h4>
+      </div>
+      <div
+        class="m-b-0"
+        *ngIf="questionaireForm.get('questions').controls?.length != 0"
+      >
+        <div class="table-responsive">
+          <table
+            class="table m-b-0 CallQuestionnaire"
+            [md2Data]="questionaireForm.get('questions').controls"
+            #md2QuestionsData="md2DataTable" 
+            aria-describedby="callQuestionnarie"
+          >
+            <thead>
+              <tr>
+                <th style="width:70%" class="col-xs-12 col-sm-6" id="question">
+                  {{currentLanguageSet?.question}}</th>
+                <th style="width:20%" class="col-xs-12 col-sm-2" id="answer">
+                  {{currentLanguageSet?.answer}}</th>
+                <th style="width:10%" class="col-xs-12 col-sm-4" id="remarks">
+                  {{currentLanguageSet?.remarks}}</th>
+              </tr>
+            </thead>
+            <tbody formArrayName="questions">
+              <ng-container
+                *ngFor="let question of md2QuestionsData.data; let i = index"
+              >
+                <tr class="infoTable">
+                  <ng-container
+                    [formGroupName]="
+                      questionaireForm
+                        .get('questions')
+                        .controls.indexOf(question)
+                    "
+                  >
+                    <td>
+                      <!--this div for mandatory questions-->
+
+                      <div
+                        *ngIf="
+                          questionrows[i].questionnaireDetail.isMandatory;
+                          else noMandatory
+                        "
+                      >
+                        <div class="sameLine">
+                          <div style="color: red;"> {{currentLanguageSet?.mandatory}}</div>
+                          <div>
+                            <md-input-container
+                              [style.width]="'90%'"
+                              class="hide_underline"
+                            >
+                              <textarea
+                                mdInput
+                                restrictTyping
+                                style="border: none;"
+                                class="default_color hideTextAreaDots"
+                                draggable="false"
+                                rows="2"
+                                cols="80"
+                                name="question"
+                                wrap="hard"
+                                formControlName="question"
+                              >
+                              </textarea>
+                            </md-input-container>
+                          </div>
+                        </div>
+
+                        <div
+                          *ngIf="
+                            questionrows[i].questionnaireDetail.interaction
+                          "
+                        >
+                          <strong>{{currentLanguageSet?.interaction}} :</strong>
+                          {{ questionrows[i].questionnaireDetail.interaction }}
+                        </div>
+                      </div>
+
+                      <!-- Non mandatroy questions-->
+                      <ng-template #noMandatory>
+                        <md-input-container
+                          [style.width]="'90%'"
+                          class="hide_underline"
+                        >
+                          <textarea
+                            mdInput
+                            restrictTyping
+                            style="border: none;"
+                            class="default_color hideTextAreaDots"
+                            draggable="false"
+                            rows="2"
+                            cols="80"
+                            name="question"
+                            wrap="hard"
+                            formControlName="question"
+                          >
+                          </textarea>
+                        </md-input-container>
+                        <div
+                          *ngIf="
+                            questionrows[i].questionnaireDetail.interaction
+                          "
+                        >
+                          <strong>{{currentLanguageSet?.interaction}} :</strong>
+                          {{ questionrows[i].questionnaireDetail.interaction }}
+                        </div>
+                      </ng-template>
+                    </td>
+                    <td style="width:30%">
+                      <div
+                        *ngIf="
+                          questionaireForm.controls.questions.controls[i]
+                            .controls.answerType.value == 'Yes/No'
+                        "
+                      >
+                        <md-radio-group
+                          formControlName="answer"
+                          [style.width]="'100%'"
+                          (change)="
+                            addChild(
+                              i,
+                              $event.value,
+                              questionrows[i].questionnaireDetail.questionID
+                            );
+                            changeUpdateBtnFlag($event.value)
+                          "
+                        >
+                          <span
+                            *ngFor="
+                              let options of questionrows[i].questionnaireDetail
+                                .mctsQuestionValues;
+                              let i = index
+                            "
+                          >
+                            <md-radio-button
+                              *ngIf="!options.deleted"
+                              [value]="options.dropDownOptions"
+                            >
+                              {{ options.dropDownOptions }}
+                            </md-radio-button>
+                          </span>
+                        </md-radio-group>
+                      </div>
+                      <div
+                        *ngIf="
+                          questionaireForm.controls.questions.controls[i]
+                            .controls.answerType.value == 'DropDown'
+                        "
+                      >
+                        <md-select
+                          placeholder="{{currentLanguageSet?.option}}"
+                          name="callTransfer"
+                          class="width100"
+                          formControlName="answer"
+                          (change)="
+                            addChild(
+                              i,
+                              $event.value,
+                              questionrows[i].questionnaireDetail.questionID
+                            );
+                            changeUpdateBtnFlag($event.value)
+                          "
+                        >
+                          <span
+                            *ngFor="
+                              let dropdown of questionrows[i]
+                                .questionnaireDetail.mctsQuestionValues
+                            "
+                          >
+                            <md-option
+                              *ngIf="!dropdown.deleted"
+                              [value]="dropdown.dropDownOptions"
+                            >
+                              {{ dropdown.dropDownOptions }}
+                            </md-option>
+                          </span>
+                        </md-select>
+                      </div>
+                      <div
+                        *ngIf="
+                          questionaireForm.controls.questions.controls[i]
+                            .controls.answerType.value == 'Multiple'
+                        "
+                        (change)="changeUpdateBtnFlag($event.value)"
+                      >
+                        <md-select
+                          multiple
+                          class="width100"
+                          formControlName="answer"
+                          placeholder="{{currentLanguageSet?.select}}"
+                        >
+                          <span
+                            *ngFor="
+                              let multiSelect of questionrows[i]
+                                .questionnaireDetail.mctsQuestionValues
+                            "
+                          >
+                            <md-option
+                              *ngIf="!multiSelect.deleted"
+                              [value]="multiSelect.dropDownOptions"
+                              >{{ multiSelect.dropDownOptions }}</md-option
+                            >
+                          </span>
+                        </md-select>
+                      </div>
+                      <div
+                        *ngIf="
+                          questionaireForm.controls.questions.controls[i]
+                            .controls.answerType.value == 'Text'
+                        "
+                      >
+                        <md-input-container>
+                          <input
+                            mdInput
+                            #text
+                            maxlength="1000"
+                            (change)="changeUpdateBtnFlag(text.value)"
+                            formControlName="answer"
+                          />
+                        </md-input-container>
+                      </div>
+                      <div
+                        *ngIf="
+                          questionaireForm.controls.questions.controls[i]
+                            .controls.answerType.value === 'Date'
+                        "
+                      >
+                        <md2-datepicker
+                          [openOnFocus]="true"
+                          restrictTyping
+                          placeholder="{{currentLanguageSet?.selectDate}}"
+                          formControlName="answer"
+                          (change)="
+                            CheckFormat($event.value);
+                            changeUpdateBtnFlag($event.value)
+                          "
+                        >
+                        </md2-datepicker>
+                      </div>
+                      <div
+                        *ngIf="
+                          questionaireForm.controls.questions.controls[i]
+                            .controls.answerType.value === 'Time'
+                        "
+                      >
+                        <md2-datepicker
+                          type="time"
+                          [openOnFocus]="true"
+                          restrictTyping
+                          placeholder="{{currentLanguageSet?.selectTime}}"
+                          formControlName="answer"
+                          (change)="
+                            CheckFormat($event.value);
+                            changeUpdateBtnFlag($event.value)
+                          "
+                        >
+                        </md2-datepicker>
+                      </div>
+                      <div
+                        *ngIf="
+                          questionaireForm.controls.questions.controls[i]
+                            .controls.answerType.value === 'Date & Time'
+                        "
+                      >
+                        <md2-datepicker
+                          type="datetime"
+                          [openOnFocus]="true"
+                          restrictTyping
+                          formControlName="answer"
+                          placeholder="{{currentLanguageSet?.selectDateTime}}"
+                          (change)="
+                            dateTimePatch($event.value);
+                            changeUpdateBtnFlag($event.value)
+                          "
+                        >
+                        </md2-datepicker>
+                      </div>
+                    </td>
+                    <ng-container *ngIf = "questionaireForm.controls.questions.controls[i]
+                    .controls.answerType.value == 'Yes/No' || questionaireForm.controls.questions.controls[i]
+                    .controls.answerType.value == 'DropDown'">
+                    <td>
+                        <md-input-container
+                          *ngIf="
+                            questionaireForm.controls.questions.controls[i]
+                              .controls.showText.value &&
+                             ((questionaireForm.controls.questions.controls[i]
+                              .controls.answer?.value == '' ? '' : questionaireForm.controls.questions.controls[i]
+                              .controls.answer?.value | lowercase) ===
+                              (questionaireForm.controls.questions.controls[i]
+                                .controls.showTextFor?.value  == '' ? '' : questionaireForm.controls.questions.controls[i]
+                                .controls.showTextFor?.value | lowercase))  &&
+                            questionaireForm.controls.questions.controls[i]
+                              .controls.variableDataType.value == ''
+                          "
+                        >
+                          <input mdInput formControlName="feedback" />
+                        </md-input-container>
+                        <md-input-container
+                          *ngIf="
+                            questionaireForm.controls.questions.controls[i]
+                              .controls.showText.value &&
+                              ((questionaireForm.controls.questions.controls[i]
+                              .controls.answer?.value == '' ? '' : questionaireForm.controls.questions.controls[i]
+                              .controls.answer?.value | lowercase) ===
+                              (questionaireForm.controls.questions.controls[i]
+                                .controls.showTextFor?.value  == '' ? '' : questionaireForm.controls.questions.controls[i]
+                                .controls.showTextFor?.value | lowercase))&&
+                            questionaireForm.controls.questions.controls[i]
+                              .controls.variableDataType.value == 'string'
+                          "
+                        >
+                          <input mdInput type="text" formControlName="feedback" />
+                        </md-input-container>
+                        <md-input-container
+                          *ngIf="
+                            questionaireForm.controls.questions.controls[i]
+                              .controls.showText.value &&
+                              ((questionaireForm.controls.questions.controls[i]
+                              .controls.answer?.value == '' ? '' : questionaireForm.controls.questions.controls[i]
+                              .controls.answer?.value | lowercase) ===
+                              (questionaireForm.controls.questions.controls[i]
+                                .controls.showTextFor?.value  == '' ? '' : questionaireForm.controls.questions.controls[i]
+                                .controls.showTextFor?.value | lowercase)) &&
+                            questionaireForm.controls.questions.controls[i]
+                              .controls.variableDataType.value == 'numeric'
+                          "
+                        >
+                          <input
+                            mdInput
+                            type="number"
+                            formControlName="feedback"
+                          />
+                        </md-input-container>
+                        <md2-datepicker
+                          [openOnFocus]="true"
+                          restrictTyping
+                          *ngIf="
+                            questionaireForm.controls.questions.controls[i]
+                              .controls.showText.value &&
+                              ((questionaireForm.controls.questions.controls[i]
+                              .controls.answer?.value == '' ? '' : questionaireForm.controls.questions.controls[i]
+                              .controls.answer?.value | lowercase) ===
+                              (questionaireForm.controls.questions.controls[i]
+                                .controls.showTextFor?.value  == '' ? '' : questionaireForm.controls.questions.controls[i]
+                                .controls.showTextFor?.value | lowercase)) &&
+                            questionaireForm.controls.questions.controls[i]
+                              .controls.variableDataType.value == 'date'
+                          "
+                          (keydown)="blockKey($event)"
+                          formControlName="feedback"
+                        ></md2-datepicker>
+                      </td>
+                    </ng-container>
+                    
+                  </ng-container>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="clearfix"></div>
+<div class="m-t-10">
+  <button
+    md-raised-button
+    class="pull-right m-b-30 m-l-10"
+    color="primary"
+    (click)="moveToClosurePage()"
+  >
+    {{currentLanguageSet?.closure}}
+  </button>
+  <button
+    md-raised-button
+    class="pull-right m-b-30"
+    color="accent"
+    *ngIf="!updateFlag"
+    (click)="onSave()"
+  >
+    {{currentLanguageSet?.submit}}
+  </button>
+  <button
+    md-raised-button
+    class="pull-right m-b-30"
+    color="accent"
+    *ngIf="updateFlag"
+    (click)="onSave()"
+  >
+    {{currentLanguageSet?.update}}
+  </button>
+</div>

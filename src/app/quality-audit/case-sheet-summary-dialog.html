@@ -1,0 +1,706 @@
+<!-- new content for Casesheet-->
+<div class="row p-r-30">
+  <div class="col-xs-12 col-sm-12">
+    <h4 class="pull-left">{{currentLanguageSet?.caseSheet}}</h4>
+    <button
+      md-raised-button
+      color="primary"
+      class="pull-right noprint"
+      (click)="hideCaseSheetFunction()"
+    >
+      {{currentLanguageSet?.back}}
+    </button>
+  </div>
+  <div class="col-xs-12 col-sm-12">
+    <h4 class="col-xs-12 col-sm-12 m-t-10">
+    {{currentLanguageSet?.serviceTypeMcts}}
+    <ul class="pull-right list-inline list-unstyled noprint">
+      <li class="f-s-14 noprint">
+        <i
+          class="noprint fa fa-download cursorPointer"
+          aria-hidden="true"
+          (click)="print()"
+        ></i>
+      </li>
+      <li class="f-s-14">
+        <strong> {{currentLanguageSet?.date}} :</strong>
+        <span> {{current_date|date:'dd/MM/yyyy'}}</span>
+      </li>
+    </ul>
+  </h4>
+  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-t-10"></div>
+  </div>
+  <div class="" *ngIf="motherData">
+    <div class="col-xs-12 col-sm-12 border-a-1 m-b-20 m-l-15">
+      <h4 class="m-t--15">
+        <span class="caseSheetHeader">{{currentLanguageSet?.callAndAgentDetails}}</span>
+      </h4>
+      <div class="table-responsive">
+        <table class="table printTable m-b-0" aria-describedby="callID">
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> {{currentLanguageSet?.callId}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{data?.mctsOutboundCallDetail?.czentrixCallID}}
+            </td>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong>{{currentLanguageSet?.callDateAndTime}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{data?.mctsOutboundCallDetail?.createdDate| utcDate |
+              date:'dd/MM/yyyy hh:mm a'}}
+            </td>
+          </tr>
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong>{{currentLanguageSet?.agentId}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{data?.mctsOutboundCallDetail?.agentID}}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 border-a-1 m-b-20 m-l-15">
+      <h4 class="m-t--15">
+        <span class="caseSheetHeader">{{currentLanguageSet?.beneficiaryDetails}}</span>
+      </h4>
+      <div class="table-responsive">
+        <table class="table printTable m-b-0" aria-describedby="motherDetails">
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> {{currentLanguageSet?.motherId}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.MCTSID_no}}
+            </td>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong>{{currentLanguageSet?.motherName}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">{{beneficiaryDetails?.Name}}</td>
+          </tr>
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> {{currentLanguageSet?.beneficiaryId}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.beneficiaryID}}
+            </td>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> {{currentLanguageSet?.husbandName}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.Husband_Name}}
+            </td>
+          </tr>
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> {{currentLanguageSet?.districtName}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.District_Name}}
+            </td>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong>{{currentLanguageSet?.talukaName}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.Taluka_Name}}
+            </td>
+          </tr>
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> {{currentLanguageSet?.childId}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.MCTSID_no_Child_ID?beneficiaryDetails?.MCTSID_no_Child_ID:'-'}}
+            </td>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong>{{currentLanguageSet?.childName}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.Child_Name?beneficiaryDetails?.Child_Name:'-'}}
+            </td>
+          </tr>
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> {{currentLanguageSet?.healthBlock}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.Block_Name}}
+            </td>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong>{{currentLanguageSet?.phcName}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">{{beneficiaryDetails?.PHC_Name}}</td>
+          </tr>
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> {{currentLanguageSet?.subfacilitySubcenter}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.SubCenter_Name}}
+            </td>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong>{{currentLanguageSet?.gpVillage}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{data?.mctsOutboundCallDetail?.mctsOutboundCall?.mctsDataReaderDetail?.GP_Village}}
+            </td>
+          </tr>
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> {{currentLanguageSet?.phoneNumber}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.Whom_PhoneNo}}
+            </td>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong>{{currentLanguageSet?.numberType}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.PhoneNo_Of_Whom}}
+            </td>
+          </tr>
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> {{currentLanguageSet?.ashaName}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.ASHA_Name}}
+            </td>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong>{{currentLanguageSet?.anmName}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">{{beneficiaryDetails?.ANM_Name}}</td>
+          </tr>
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> {{currentLanguageSet?.ashaPhoneNumber}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">{{beneficiaryDetails?.ASHA_Ph}}</td>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong>{{currentLanguageSet?.anmPhoneNumber}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">{{beneficiaryDetails?.ANM_Ph}}</td>
+          </tr>
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> {{currentLanguageSet?.lmpDate}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.LMP_Date|utcDate|date:'dd/MM/yyyy hh:mm a'}}
+            </td>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong>{{currentLanguageSet?.edd}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.EDD|utcDate|date:'dd/MM/yyyy hh:mm a'}}
+            </td>
+          </tr>
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> {{currentLanguageSet?.age}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">{{age}}</td>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> {{currentLanguageSet?.gender}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.Gender?beneficiaryDetails?.Gender:'Female'}}
+            </td>
+          </tr>
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> {{currentLanguageSet?.address}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.Address}},{{beneficiaryDetails?.Block_Name}},{{beneficiaryDetails?.Taluka_Name}},{{beneficiaryDetails?.District_Name}}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 border-a-1 m-b-20 m-l-15">
+      <h4 class="m-t--15">
+        <span class="caseSheetHeader"
+          >{{data?.mctsOutboundCallDetail?.outboundCallType}}</span
+        >
+      </h4>
+      <div class="table-responsive">
+        <table class="table" aria-describedby="questionarrie">
+          <thead>
+            <tr>
+              <th id="question">{{currentLanguageSet?.question}}</th>
+              <th id="answer">{{currentLanguageSet?.answer}}</th>
+              <th id="remarks">{{currentLanguageSet?.remarks}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of data?.callResponseDetails">
+              <td>
+                {{row.questionnaireDetail.question?row.questionnaireDetail.question:'-'}}
+              </td>
+              <td>{{row.answer?row.answer:'-'}}</td>
+              <td>{{row.remarks?row.remarks:'-'}}</td>
+            </tr>
+            <tr *ngIf="data?.callResponseDetails?.length===0">
+              <td colspan="3" class="record-not-found">{{currentLanguageSet?.recordNotFound}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-xs-12 col-sm-12 border-a-1 m-b-20">
+        <h4 class="">
+          <span class="">{{currentLanguageSet?.complaintsDetails}}</span>
+        </h4>
+        <table class="table" aria-describedby="complaintDetails">
+          <tr *ngFor="let item of complaints">
+            <td>
+              <table class="table t-b-t-n" aria-describedby="feedbackDetails">
+                <tr>
+                  <td class="col-xs-3 col-sm-3">
+                    <strong>{{currentLanguageSet?.complaintType}} :</strong>
+                  </td>
+                  <td class="col-xs-3 col-sm-3">
+                    <span class="pull-left"
+                      >{{item.feedbackType?.feedbackTypeName}}</span
+                    >
+                  </td>
+                  <td class="col-xs-3 col-sm-3">
+                    <strong>{{currentLanguageSet?.nature}} :</strong>
+                  </td>
+                  <td class="col-xs-3 col-sm-3">
+                    {{item.feedbackNatureDetail?.feedbackNature}}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="col-xs-3 col-sm-3">
+                    <strong>{{currentLanguageSet?.against}} : </strong>
+                  </td>
+                  <td class="col-xs-3 col-sm-3">{{item.feedbackAgainst}}</td>
+                  <td class="col-xs-3 col-sm-3">
+                    <strong>{{currentLanguageSet?.complaint}} : </strong>
+                  </td>
+                  <td class="col-xs-3 col-sm-3">{{item.feedback}}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div
+        class="col-xs-12 col-sm-12 border-a-1 m-b-20"
+        *ngIf="isPNC && data?.childCongenitalAnomaliesDetails!=undefined"
+      >
+        <h4 class="">
+          <span class="">{{currentLanguageSet?.congenitalAnomalies}}</span>
+        </h4>
+        <table class="table" aria-describedby="anomaly">
+          <tr
+            *ngFor="let anomaly of data?.childCongenitalAnomaliesDetails;let i=index "
+          >
+            <td class="col-xs-2 col-sm-2">
+              <strong>{{currentLanguageSet?.anomaly}} {{i+1}}.</strong>
+            </td>
+            <td class="col-xs-2 col-sm-2">
+              <span class="pull-left">{{anomaly.congenitalAnomalies}}</span>
+            </td>
+            <td class="col-xs-2 col-sm-2">
+              <strong>{{currentLanguageSet?.remarks}} :</strong>
+            </td>
+            <td class="col-xs-2 col-sm-2">{{anomaly.remarks}}</td>
+          </tr>
+          <tr *ngIf="data?.childCongenitalAnomaliesDetails?.length==0">
+            <td class="no-record-found">{{currentLanguageSet?.recordNotFound}}</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 border-a-1 m-b-20">
+        <div class="table-responsive">
+          <table class="table" aria-describedby="callAnswered">
+            <tr>
+              <td class="col-xs-4 col-sm-3">
+                <strong>{{currentLanguageSet?.callAnswered}} :</strong>
+              </td>
+              <td colspan="3">
+                {{data?.mctsOutboundCallDetail?.callType.callType}}
+              </td>
+            </tr>
+            <tr>
+              <td class="col-xs-4 col-sm-3">
+                <strong>{{currentLanguageSet?.selfNo}} :</strong>
+              </td>
+              <td colspan="3">{{beneficiaryDetails?.PhoneNo_Of_Whom}}</td>
+              <td class="col-xs-4 col-sm-3">
+                <strong>{{currentLanguageSet?.callVerified}}:</strong>
+              </td>
+              <td colspan="3">
+                {{data?.mctsOutboundCallDetail?.isVerified==true?'Yes':'No'}}
+              </td>
+            </tr>
+            <tr>
+              <td class="col-xs-4 col-sm-3">
+                <strong>{{currentLanguageSet?.additionalCallRequired}} :</strong>
+              </td>
+              <td colspan="3">
+                {{data?.mctsOutboundCall?.prefferedCallDate?'Yes':'No'}}
+              </td>
+              <td class="col-xs-4 col-sm-3">
+                <strong>{{currentLanguageSet?.date}} :</strong>
+              </td>
+              <td colspan="3">
+                {{data?.mctsOutboundCall?.prefferedCallDate|utcDate|date:'dd/MM/yyyy
+                hh:mm a'}}
+              </td>
+            </tr>
+            <tr>
+              <td class="col-xs-4 col-sm-3">
+                <strong>{{currentLanguageSet?.remarks}} :</strong>
+              </td>
+              <td colspan="3">
+                {{data?.mctsOutboundCallDetail?.remark?data?.mctsOutboundCallDetail?.remark:'-'}}
+              </td>
+              <td class="col-xs-4 col-sm-3"></td>
+              <td colspan="3"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="" *ngIf="!motherData">
+    <div class="col-xs-12 col-sm-12 border-a-1 m-b-20 m-l-15">
+      <h4 class="m-t--15">
+        <span class="caseSheetHeader">{{currentLanguageSet?.callAndAgentDetails}}</span>
+      </h4>
+      <div class="table-responsive">
+        <table class="table printTable m-b-0" aria-describedby="callAndAgentDetails">
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> {{currentLanguageSet?.callId}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{data?.mctsOutboundCallDetail?.czentrixCallID}}
+            </td>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong>{{currentLanguageSet?.callDateAndTime}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{data?.mctsOutboundCallDetail?.createdDate| utcDate |
+              date:'dd/MM/yyyy hh:mm a'}}
+            </td>
+          </tr>
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong>{{currentLanguageSet?.agentId}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{data?.mctsOutboundCallDetail?.agentID}}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 border-a-1 m-b-20 m-l-15">
+      <h4 class="m-t--15">
+        <span class="caseSheetHeader">{{currentLanguageSet?.beneficiaryDetails}}</span>
+      </h4>
+      <div class="table-responsive">
+        <table class="table printTable m-b-0" aria-describedby="beneficiaryDetails">
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> {{currentLanguageSet?.motherId}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.Mother_ID}}
+            </td>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong>{{currentLanguageSet?.motherName}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.Mother_Name}}
+            </td>
+          </tr>
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> {{currentLanguageSet?.beneficiaryId}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.beneficiaryID}}
+            </td>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong>{{currentLanguageSet?.ageOfMother}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.beneficiaryID}}
+            </td>
+          </tr>
+
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> {{currentLanguageSet?.districtName}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.District_Name}}
+            </td>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong>{{currentLanguageSet?.talukaName}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.Taluka_Name}}
+            </td>
+          </tr>
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> {{currentLanguageSet?.childId}}:</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.MCTSID_no_Child_ID}}
+            </td>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong>{{currentLanguageSet?.childName}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.Child_Name}}
+            </td>
+          </tr>
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> {{currentLanguageSet?.healthBlock}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.Block_Name}}
+            </td>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong>{{currentLanguageSet?.phcName}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">{{beneficiaryDetails?.PHC_Name}}</td>
+          </tr>
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> {{currentLanguageSet?.subfacilitySubcenter}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.SubCenter_Name}}
+            </td>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong>{{currentLanguageSet?.gpVillage}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{data?.mctsOutboundCallDetail?.mctsOutboundCall?.childValidDataHandler?.GP_Village}}
+            </td>
+          </tr>
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> {{currentLanguageSet?.phoneNumber}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">{{beneficiaryDetails?.Phone_No}}</td>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong>{{currentLanguageSet?.numberType}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.Phone_No_of}}
+            </td>
+          </tr>
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> {{currentLanguageSet?.ashaName}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.ASHA_Name}}
+            </td>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong>{{currentLanguageSet?.anmName}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">{{beneficiaryDetails?.ANM_Name}}</td>
+          </tr>
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> {{currentLanguageSet?.ashaPhoneNumber}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.ASHA_Phone_No}}
+            </td>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong>{{currentLanguageSet?.anmPhoneNumber}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.ANM_Phone_No}}
+            </td>
+          </tr>
+
+          <tr>
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> {{currentLanguageSet?.dob}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.DOB|utcDate|date:'dd/MM/yyyy hh:mm a'}}
+            </td>
+
+            <td class="col-xs-12 col-sm-3 p-l-0">
+              <strong> {{currentLanguageSet?.address}} :</strong>
+            </td>
+            <td class="col-xs-12 col-sm-3">
+              {{beneficiaryDetails?.Address}},{{beneficiaryDetails?.Block_Name}},{{beneficiaryDetails?.Taluka_Name}},{{beneficiaryDetails?.District_Name}}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 border-a-1 m-b-20 m-l-15">
+      <h4 class="m-t--15">
+        <span class="caseSheetHeader"
+          >{{data?.mctsOutboundCallDetail?.outboundCallType}}</span
+        >
+      </h4>
+      <div class="table-responsive">
+        <table class="table" aria-describedby="questionarie">
+          <thead>
+            <tr>
+              <th id="question">{{currentLanguageSet?.question}}</th>
+              <th id="answer">{{currentLanguageSet?.answer}}</th>
+              <th id="remarks">{{currentLanguageSet?.remarks}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of data?.callResponseDetails">
+              <td>
+                {{row.questionnaireDetail.question?row.questionnaireDetail.question:'-'}}
+              </td>
+              <td>{{row.answer?row.answer:'-'}}</td>
+              <td>{{row.remarks?row.remarks:'-'}}</td>
+            </tr>
+            <tr *ngIf="data?.callResponseDetails?.length==0">
+              <td colspan="3" class="no-record-found">{{currentLanguageSet?.recordNotFound}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-xs-12 col-sm-12 border-a-1 m-b-20">
+        <h4 class="">
+          <span class="">{{currentLanguageSet?.complaintsDetails}}</span>
+        </h4>
+        <table class="table" aria-describedby="complaintDetails">
+          <tr *ngFor="let item of complaints">
+            <td>
+              <table class="table t-b-t-n" aria-describedby="complaintType">
+                <tr>
+                  <td class="col-xs-3 col-sm-3">
+                    <strong>{{currentLanguageSet?.complaintType}} :</strong>
+                  </td>
+                  <td class="col-xs-3 col-sm-3">
+                    <span class="pull-left"
+                      >{{item.feedbackType?.feedbackTypeName}}</span
+                    >
+                  </td>
+                  <td class="col-xs-3 col-sm-3">
+                    <strong>{{currentLanguageSet?.nature}} :</strong>
+                  </td>
+                  <td class="col-xs-3 col-sm-3">
+                    {{item.feedbackNatureDetail?.feedbackNature}}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="col-xs-3 col-sm-3">
+                    <strong>{{currentLanguageSet?.against}} : </strong>
+                  </td>
+                  <td class="col-xs-3 col-sm-3">{{item.feedbackAgainst}}</td>
+                  <td class="col-xs-3 col-sm-3">
+                    <strong>{{currentLanguageSet?.complaint}} : </strong>
+                  </td>
+                  <td class="col-xs-3 col-sm-3">{{item.feedback}}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 border-a-1 m-b-20">
+        <h4 class="">
+          <span class="">{{currentLanguageSet?.congenitalAnomalies}}</span>
+        </h4>
+        <table class="table" aria-describedby="congenitalAnomalies">
+          <tr
+            *ngFor="let anomaly of data?.childCongenitalAnomaliesDetails;let i=index "
+          >
+            <td class="col-xs-2 col-sm-2">
+              <strong>{{currentLanguageSet?.anomaly}} {{i+1}}.</strong>
+            </td>
+            <td class="col-xs-2 col-sm-2">
+              <span class="pull-left">{{anomaly.congenitalAnomalies}}</span>
+            </td>
+            <td class="col-xs-2 col-sm-2">
+              <strong>{{currentLanguageSet?.remarks}} :</strong>
+            </td>
+            <td class="col-xs-2 col-sm-2">{{anomaly.remarks}}</td>
+          </tr>
+          <tr *ngIf="data?.childCongenitalAnomaliesDetails?.length==0">
+            <td class="no-record-found">{{currentLanguageSet?.recordNotFound}}</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 border-a-1 m-b-20">
+        <div class="table-responsive">
+          <table class="table" aria-describedby="callAnswered">
+            <tr>
+              <td class="col-xs-4 col-sm-3">
+                <strong>{{currentLanguageSet?.callAnswered}} :</strong>
+              </td>
+              <td colspan="3">
+                {{data?.mctsOutboundCallDetail?.callType?.callType}}
+              </td>
+            </tr>
+            <tr>
+              <td class="col-xs-4 col-sm-3">
+                <strong>{{currentLanguageSet?.selfNo}} :</strong>
+              </td>
+              <td colspan="3">{{beneficiaryDetails?.Phone_No_of}}</td>
+              <td class="col-xs-4 col-sm-3">
+                <strong>{{currentLanguageSet?.callVerified}} :</strong>
+              </td>
+              <td colspan="3">
+                {{data?.mctsOutboundCallDetail?.isVerified==true?'Yes':'No'}}
+              </td>
+            </tr>
+            <tr>
+              <td class="col-xs-4 col-sm-3">
+                <strong>{{currentLanguageSet?.additionalCallRequired}} :</strong>
+              </td>
+              <td colspan="3">
+                {{data?.mctsOutboundCall.prefferedCallDate?'Yes':'No'}}
+              </td>
+              <td class="col-xs-4 col-sm-3">
+                <strong>{{currentLanguageSet?.date}} :</strong>
+              </td>
+              <td colspan="3">
+                {{data?.mctsOutboundCall.prefferedCallDate|utcDate|date:'dd/MM/yyyy
+                hh:mm a'}}
+              </td>
+            </tr>
+
+            <tr>
+              <td class="col-xs-4 col-sm-3">
+                <strong>{{currentLanguageSet?.remarks}} :</strong>
+              </td>
+              <td colspan="3">
+                {{data?.mctsOutboundCallDetail?.remark?data?.mctsOutboundCallDetail?.remark:'-'}}
+              </td>
+              <td class="col-xs-4 col-sm-3"></td>
+              <td colspan="3"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

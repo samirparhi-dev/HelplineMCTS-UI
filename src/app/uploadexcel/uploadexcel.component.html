@@ -1,0 +1,45 @@
+<h4 class="m-t-10">
+  {{currentLanguageSet?.dataUpload}}</h4>
+<form (ngSubmit)="onSubmit()" #uploadForm="ngForm">
+  <div class=" m-t-25">
+    <md-radio-group name="choice" ngModel required>
+      <md-radio-button *ngFor="let choice of choices" class="m-r-10" [value]="choice" color="primary">
+        {{choice}}
+      </md-radio-button>
+    </md-radio-group>
+  </div>
+  <div class=" m-t-20">
+    <label for="upload-file" *ngIf="file!=undefined">{{currentLanguageSet?.uploadFile}}{{currentLanguageSet?.size}} :{{((file.size / 1024) / 1024)}}/{{maxFileSize}}{{currentLanguageSet?.mb}})</label>
+    <label for="upload-file" *ngIf="file==undefined">{{currentLanguageSet?.uploadFile}}{{currentLanguageSet?.size}} :0/{{maxFileSize}}{{currentLanguageSet?.mb}}),Supported File Formats(.xls, .xlsx, .xlsm, .xlsb)</label>
+    <input class="m-t-10" type="file" accept=".xls, .xlsx, .xlsm, .xlsb" size="100" placeholder="{{currentLanguageSet?.uploadFile}}" id="upload-file"
+      (change)="onFileUpload($event)" name="fileList" ngModel #uploadfile="ngModel">
+      <span class="help-block" *ngIf="inValidFileName">Invalid file name</span>
+      <span class="help-block" *ngIf="invalid_file_flag">Supported File Formats(.xls, .xlsx, .xlsm, .xlsb)</span>
+      <span class="file-upload" *ngIf="error1">{{currentLanguageSet?.pleaseChooseAFileForUpload}}</span>
+      <span class="help-block" *ngIf="error2">{{currentLanguageSet?.fileSizeShouldNotExceed}} {{maxFileSize}}</span>
+  </div>
+  <div class="m-t-20">
+    <button md-raised-button class="pull-left" color="accent" type="submit" [disabled]="!(uploadForm.valid) || invalid_file_flag || error2 || inValidFileName">{{currentLanguageSet?.upload}}</button>
+  </div>
+</form>
+<div class="clearfix"></div>
+<div class="row csss">
+  <div  class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="status == 'InProgress' || status == 'New' || status == 'Completed' || status == 'Failed'">
+      <h5><strong><span>{{currentLanguageSet?.fileID}} - {{fileRes.fileID}}, {{fileRes.fileName}} - {{modDate |utcDate |date: 'dd/MM/yyyy' }} </span></strong></h5>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 m-t-5" *ngIf="status == 'InProgress' || status == 'New'">
+      <md-progress-bar mode="determinate" value={{value}} color="primary" class="m-t-15" mdTooltip="{{value}}%"></md-progress-bar>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" *ngIf="status == 'InProgress' || status == 'New'">
+
+    <button md-button color="primary" *ngIf="!refresh" (click)="autoRefresh(true)">{{currentLanguageSet?.enableAutoRefresh}}</button>
+    <button md-button color="primary" *ngIf="refresh" (click)="autoRefresh(false)">{{currentLanguageSet?.disableAutoRefresh}}</button>
+  </div>
+  <div class="col-xs-12 col-md-12 col-sm-9 col-lg-9" >
+    <h5 *ngIf="status == 'Completed'">{{currentLanguageSet?.fileUploadedSuccessfully}} {{fileRes?.statusReason}}
+    </h5>
+    <h5 *ngIf="status == 'Failed'">{{currentLanguageSet?.lastFileUploadFailed}}.     
+    </h5>
+  </div>
+
+</div>

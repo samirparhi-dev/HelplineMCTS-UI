@@ -1,0 +1,307 @@
+<div class="row" [hidden]="showCaseSheet">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <label class="pull-left">
+      <h4 class="f-s-b m-b-10 m-t-20">{{currentLanguageSet?.callAuditing}}</h4>
+    </label>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <form #qaForm="ngForm" autocomplete="off">
+      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+        <md2-datepicker
+        name="startDate"
+        (keydown)="blockey($event)"
+        [(ngModel)]="validFrom"
+        placeholder="{{currentLanguageSet?.validFrom}}"
+        #startDate="ngModel"
+        ngModel
+        required
+        [max]="today"
+        [style.width]="'100%'"
+        (change)="setEndDate()"
+      ></md2-datepicker>
+        <span
+          class="error_text f-s-10 p-l-10"
+          *ngIf="startDate.touched && startDate.errors?.required"
+          >{{currentLanguageSet?.startDateIsRequired}}</span
+        >
+      </div>
+      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+        <md2-datepicker
+          name="endDate"
+          (keydown)="blockey($event)"
+          [(ngModel)]="validTill"
+          [min]="startDate.value"
+          [max]="maxEndDate"
+          placeholder="{{currentLanguageSet?.validTill}}"
+          #endDate="ngModel"
+          ngModel
+          required
+          [style.width]="'100%'"
+          (change)="resetValuesOnchange()"
+        ></md2-datepicker>
+        <span
+          class="error_text f-s-10 p-l-10"
+          *ngIf="endDate.touched && endDate.errors?.required"
+          >{{currentLanguageSet?.endDateIsRequired}}</span
+        >
+        <span
+          class="error_text f-s-10 p-l-10"
+          *ngIf="endDate.value < startDate.value && endDate.dirty"
+          >{{currentLanguageSet?.endDateCanNotBeBeforeStartDate}}</span
+        >
+        <span
+          class="error_text f-s-10 p-l-10"
+          *ngIf="max < endDate.value && endDate.dirty"
+          >{{currentLanguageSet?.startDateandEndDateCanHaveMax15DaysGap}}</span
+        >
+      </div>
+      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 p-b-1-5">
+        <md-select
+          placeholder="{{currentLanguageSet?.serviceLine}}"
+          [style.width]="'100%'"
+          [(ngModel)]="serviceID"
+          name="ServiceLine"
+          required
+        >
+          <md-option *ngFor="let item of servicelines" [value]="item.serviceID">
+            {{ item.serviceName }}
+          </md-option>
+        </md-select>
+      </div>
+      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 p-b-1-5">
+        <md-select
+          placeholder="{{currentLanguageSet?.role}}"
+          [style.width]="'100%'"
+          [(ngModel)]="role"
+          name="Role"
+          (change)="getRoleSpecificAgents(role, roles)"
+        >
+          <md-option *ngFor="let item of roles" [value]="item.roleName">
+            {{ item.roleName }}
+          </md-option>
+        </md-select>
+      </div>
+      <div class="clearfix visible-lg"></div>
+      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 p-b-1-5">
+        <md-select
+          placeholder="{{currentLanguageSet?.inboundoutboundCall}}"
+          [style.width]="'100%'"
+          [(ngModel)]="ioc"
+          name="InboundOutbound"
+          (change)="resetWorklistData()"
+        >
+          <md-option value="inbound"> Inbound </md-option>
+          <md-option value="outbound"> Outbound </md-option>
+        </md-select>
+      </div>
+      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 p-b-1-5">
+        <md-select
+          placeholder="{{currentLanguageSet?.agent}}"
+          [style.width]="'100%'"
+          [(ngModel)]="agent"
+          name="Agent"
+          (change)="resetWorklistData()"
+        >
+          <md-option *ngFor="let item of agentIDs" [value]="item.agentID">
+            {{ item.agentID }}
+          </md-option>
+        </md-select>
+      </div>
+      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" myMobileNumber>
+        <md-input-container [style.width]="'100%'">
+          <input
+            mdInput
+            placeholder="{{currentLanguageSet?.beneficiaryPhoneNumber}}"
+            [(ngModel)]="phno"
+            minlength="10"
+            maxlength="10"
+            name="benPhoneNo"
+          />
+        </md-input-container>
+      </div>
+      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 p-b-1-5">
+        <md-select
+          placeholder="{{currentLanguageSet?.callType}}"
+          [style.width]="'100%'"
+          name="CallType"
+          [(ngModel)]="callGroupType"
+          (change)="populateCallSubTypes(callGroupType)"
+          required
+        >
+          <md-option
+            *ngFor="let item of callTypes"
+            [value]="item.callGroupType"
+          >
+            {{ item.callGroupType }}
+          </md-option>
+        </md-select>
+      </div>
+      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 p-b-1-5">
+        <md-select
+          placeholder="{{currentLanguageSet?.callSubtype}}"
+          [style.width]="'100%'"
+          [(ngModel)]="callsubtype"
+          [disabled]="callGroupType === 'All'"
+          name="CallSubType"
+          (change)="resetWorklistData()"
+          required
+        >
+          <md-option
+            *ngFor="let item of callSubTypes"
+            [value]="item.callTypeID"
+          >
+            {{ item.callType }}
+          </md-option>
+        </md-select>
+      </div>
+      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+        <button
+          md-raised-button
+          color="accent"
+          class="m-t-10"
+          (click)="callRecordingRequestFordate(1, qaForm.value); resetFlag()"
+          [disabled]="qaForm.invalid || endDate.value < startDate.value"
+        >
+          {{currentLanguageSet?.search}}
+        </button>
+        <button
+          md-raised-button
+          color="primary"
+          class="m-t-10"
+          (click)="reset(); resetFlag()"
+        >
+          {{currentLanguageSet?.reset}}
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
+    <table
+      class="table table-hover table-striped"
+      [md2Data]="filteredCallList"
+      #md2="md2DataTable"
+      aria-describedby="call worklist"
+    >
+      <thead>
+        <tr>
+          <th id="sNo">{{currentLanguageSet?.sno}}</th>
+          <th id="callID">{{currentLanguageSet?.callId}}</th>
+          <th id="callDate">{{currentLanguageSet?.callDateTime}}</th>
+          <th id="benID">{{currentLanguageSet?.beneficiaryid}}</th>
+          <th id="benName">{{currentLanguageSet?.beneficiaryName}}</th>
+          <th id="benPhoneNo">{{currentLanguageSet?.beneficiaryPhoneNo}}</th>
+          <th id="remarks">{{currentLanguageSet?.callRemarks}}</th>
+          <th id="callTypes">{{currentLanguageSet?.callType}}</th>
+          <th id="caseSheet">{{currentLanguageSet?.caseSheet}}</th>
+          <th id="voiceRecord">{{currentLanguageSet?.voiceRecord}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="md2.data?.length == 0">
+          <td class="record-not-found" colspan="10">{{currentLanguageSet?.noRecordsFound}}</td>
+        </tr>
+        <tr *ngFor="let record of md2.data; let i = index">
+          <td>{{ (md2.activePage - 1) * md2.rowsPerPage + i + 1 }}</td>
+          <td>{{ record.benCallID ? record.benCallID : "-" }}</td>
+          <td>{{ record.callTime | utcDate | date: "dd/MM/yyyy hh:mm a" }}</td>
+          <td>{{ record.beneficiaryID ? record.beneficiaryID : "-" }}</td>
+          <td>{{ record.name ? record.name : "-" }}</td>
+          <td>{{ record.phoneNo ? record.phoneNo : "-" }}</td>
+          <td>{{ record.remarks ? record.remarks : "-" }}</td>
+          <td>{{ record.callType ? record.callType : "-" }}</td>
+          <td>
+            <i
+              class="
+                fa fa-file-text-o
+                f-s-20
+                m-t--8
+                pull-left
+                f-c-g
+                cursorPointer
+              "
+              aria-hidden="true"
+              (click)="invokeCaseSheetDialog(record.benCallID, record)"
+            ></i>
+          </td>
+          <td>
+            <img
+              *ngIf="
+                !(dispFlag == (md2.activePage - 1) * md2.rowsPerPage + i + 1)
+              "
+              style="width: 30px; height: 30px"
+              (click)="
+                check(
+                  record.agentID,
+                  record.callID,
+                  (md2.activePage - 1) * md2.rowsPerPage + i + 1
+                )
+              "
+              src="assets/images/playicon.jpg"
+              alt="Play"
+              title="{{currentLanguageSet?.play}}"
+            />
+
+            <audio
+              *ngIf="dispFlag == (md2.activePage - 1) * md2.rowsPerPage + i + 1"
+              controls
+              autoplay
+              preload="none"
+            >
+              <source src="{{ audioResponse }}" type="audio/ogg" />
+              <source src="{{ audioResponse }}" type="audio/mpeg" />
+            </audio>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr *ngIf="md2.data?.length > 0">
+          <td
+            colspan="4"
+            class="m-t-5"
+            *ngIf="pager?.pages && pager?.pages.length"
+          >
+            <label>{{currentLanguageSet?.totalPages}} : </label>
+            {{ pageCount }}
+          </td>
+          <td colspan="6">
+            <ul
+              *ngIf="pager?.pages && pager?.pages.length"
+              class="pagination pull-right"
+            >
+              <li [ngClass]="{ disabled: pager.currentPage <= 1 }">
+                <a (click)="setPage(1, qaForm.value)"> << </a>
+              </li>
+              <li [ngClass]="{ disabled: pager.currentPage <= 1 }">
+                <a (click)="setPage(pager.currentPage - 1, qaForm.value)">
+                  <
+                </a>
+              </li>
+              <li
+                *ngFor="let page of pager.pages"
+                [ngClass]="{ active: pager.currentPage === page }"
+              >
+                <a (click)="setPage(page, qaForm.value)">{{ page }}</a>
+              </li>
+              <li
+                [ngClass]="{ disabled: pager.currentPage >= pager.totalPages }"
+              >
+                <a (click)="setPage(pager.currentPage + 1, qaForm.value)">></a>
+              </li>
+              <li
+                [ngClass]="{ disabled: pager.currentPage >= pager.totalPages }"
+              >
+                <a (click)="setPage(pager.totalPages, qaForm.value)">>></a>
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+
+<app-case-sheet-summary-dialog
+  *ngIf="showCaseSheet"
+  (hideCaseSheet)="getevent($event)"
+  [resForCaseSheet]="resForCaseSheet"
+></app-case-sheet-summary-dialog>

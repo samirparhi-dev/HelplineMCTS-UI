@@ -1,0 +1,75 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12">
+    <h4>{{currentLanguageSet?.reallocateCallsToAgents}}</h4>
+    <div class="row m-t-20 m-b-10">
+      <md-radio-group [(ngModel)]="agentChoice1" name="agentChoice1" (change)="searchReqObjChange(agentChoice1)">
+          <md-radio-button class="m-l-15 m-r-15" color="primary" *ngFor="let roleObj of roleObjArray" [value]="roleObj.roleID">{{roleObj.roleName}}</md-radio-button>
+      </md-radio-group>
+    </div>
+    <div class="row">
+      <form #reallocationForm="ngForm">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+            <md-select class="width100" placeholder="{{currentLanguageSet?.agentName}}" [multiple]="true" name="agentName" ngModel #agentName="ngModel" required>
+              <md-option *ngFor="let user of users" [value]="user.userID">{{user.firstName+ " "+user.lastName}}</md-option>
+            </md-select>
+        </div>
+        
+        
+        
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+          <md2-datepicker [openOnFocus]="true" class="width100" restrictTyping name="startDate" (change)="setStartDate(sDate)"  [(ngModel)]="sDate" placeholder="{{currentLanguageSet?.startDate}}" #startDate="ngModel" (keydown)="blockKey($event)" ngModel required></md2-datepicker>
+          <span class="error_text f-s-10 p-l-10" *ngIf="startDate.touched && startDate.errors?.required">{{currentLanguageSet?.startDateIsRequired}}</span>
+        </div>
+
+        <div class="clearfix visible-sm"></div>
+        
+        
+         <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3 p-l-0">
+          <md2-datepicker [openOnFocus]="true" class="width100" restrictTyping name="endDate" placeholder="{{currentLanguageSet?.endDate}}" [(ngModel)]="eDate" [min]="startDate.value"(change)="setEndDate(eDate); validateDateRange(sDate, eDate)" (keydown)="blockKey($event)" #endDate="ngModel" ngModel required> </md2-datepicker>
+          <span class="error_text f-s-10 p-l-10" *ngIf="endDate.touched && endDate.errors?.required">{{currentLanguageSet?.dateIsRequired}}</span>
+          <span class="error_text f-s-10 p-l-10" *ngIf="(endDate.value < startDate.value) && endDate.dirty">{{currentLanguageSet?.endDateCannotBeBeforeStartDate}}</span>
+          <span class="error_text f-s-10 p-l-10" *ngIf="showDateValidation"> Date Range can not be greater than one week </span>
+        </div> 
+
+
+        
+
+        <div class="clearfix visible-md"></div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+            <md-select class="width100" placeholder="{{currentLanguageSet?.recordsType}}" name="recordsType" ngModel #recordsType="ngModel" required>
+              <md-option value="MOTHER_RECORDS">Mother Records</md-option>
+              <md-option value="CHILD_RECORDS">Child Records</md-option>
+            </md-select>
+        </div>
+      </form>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-12">
+        <button md-raised-button class="m-t-10 xs-pull-right sm-pull-right md-pull-left lg-pull-right" [disabled]="reallocationForm.invalid || (endDate.value < startDate.value) || showDateValidation " (click)="onSubmit()" color="accent">{{currentLanguageSet?.submit}}</button>
+
+      </div>
+    </div>
+    <div class="row c-b p-t-20" *ngIf="onAgentSelected">
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 border-r-1">
+        <table class="table table-bordered table-hover m-t-15" aria-describedby="agentDetails">
+          <thead>
+            <tr>
+              <th id="agentName">{{currentLanguageSet?.agentName}}</th>
+              <th id="noOfRecords">{{currentLanguageSet?.noofRecords}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of agentIDs;let i = index ">
+              <td>{{agentNames[i]}}</td>
+              <td>{{totalAgentsRecords[row].length}}
+                <button type="button" md-raised-button color="primary" (click)="moveToBin(totalAgentsRecords[row], $event)" class="pull-right m-r-5" [disabled]="!(totalAgentsRecords[row].length)">{{currentLanguageSet?.moveToBin}}</button>
+                <button type="button" md-raised-button color="primary" (click)="allocateCalls(agentNames[i], totalAgentsRecords[row], $event)" class="pull-right m-r-5" [disabled]="!(totalAgentsRecords[row].length)">{{currentLanguageSet?.reallocate}}</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" *ngIf="showFlag">
+        <app-agent-allocate-records [mctsOutboundCalls]="records" (refreshScreen)="reallocationDone()" [filterAgent]="selectedAgent"></app-agent-allocate-records>
+      </div>
+    </div>
+  </div>
+</div>

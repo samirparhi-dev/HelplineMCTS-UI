@@ -1,0 +1,26 @@
+<div id="leftNavSidebar">
+      <div style="position:absolute; z-index:1; left:190px;"> </div>
+      <ul class="nav sidebar-nav cu-nav" style="position:absolute;">
+       
+        <li *ngIf="role==='Supervisor'" routerLink="/InnerpageComponent" [queryParams]="{ number : 1}" title="Data Upload"> <a>
+          <div class="iconDiv m-r-10"><i class="fa fa-upload fa-lg f-s-25 m-r-10" aria-hidden="true"></i></div>
+        
+          </a> </li>
+        <li *ngIf="role==='Supervisor'" routerLink="/InnerpageComponent" [queryParams]="{ number : 6}" title="Configuration"> <a>
+          <div class="iconDiv m-r-10"><i class="fa fa-wrench f-s-25  m-r-10" aria-hidden="true"></i></div>
+        
+          </a> </li>
+        <li *ngIf="role==='Supervisor'" routerLink="/InnerpageComponent" [queryParams]="{ number : 2}" title="Activities"> <a>
+          <div class="iconDiv m-r-10"><i class="fa fa-book f-s-25 m-r-10" aria-hidden="true"></i></div>
+        
+          </a> </li>
+        <li *ngIf="role!='Supervisor'" routerLink="/outboundCallWorklist" title="WorkList"> <a>
+        <div class="iconDiv m-r-10"><i class="fa fa-book f-s-25 m-r-10" aria-hidden="true"></i></div>
+      
+        </a> </li>
+        <li title="Switch Role" routerLink="/MultiRoleScreenComponent" > <a>
+          <div class="iconDiv m-r-10"><i class="fa fa-cogs f-s-25 m-r-10" aria-hidden="true"></i></div>
+         
+          </a> </li>
+        </ul>
+      </div>

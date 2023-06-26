@@ -1,0 +1,163 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <button type="button" class="close" md-dialog-close>
+    <span class="pull-right">&times;</span>
+  </button>
+  <h4 md-dialog-title>{{currentLanguageSet?.editBeneficiaryDetails}}</h4>
+</div>
+<div class="m-b-10">
+  <form [formGroup]='editBenForm' autocomplete="off">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <md-input-container [style.width]="'100%'">
+        <input mdInput inputFieldValidator placeholder="{{currentLanguageSet?.motherName}}" name='motherName' id='motherName' formControlName='motherName'>
+        <md-hint *ngIf="editBenForm.get('motherName').hasError('required') && editBenForm.get('motherName').touched">
+          <span class="error_text">{{currentLanguageSet?.motherNameIsRequired}}</span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" *ngIf='ancFlag'>
+      <md-input-container [style.width]="'100%'">
+        <input mdInput inputFieldValidator placeholder="{{currentLanguageSet?.husbandName}}" name='husbandName' id='husbandName' formControlName='husbandName'>
+        <md-hint *ngIf="editBenForm.get('husbandName').hasError('required') && editBenForm.get('husbandName').touched">
+          <span class="error_text">{{currentLanguageSet?.husbandNameIsRequired}}</span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <md-input-container [style.width]="'100%'">
+        <input mdInput inputFieldValidator placeholder="{{currentLanguageSet?.districtName}}" name='districtName' id='districtName' formControlName='districtName'>
+        <md-hint *ngIf="editBenForm.get('districtName').hasError('required') && editBenForm.get('districtName').touched">
+          <span class="error_text">{{currentLanguageSet?.districtNameIsRequired}}</span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <md-input-container [style.width]="'100%'">
+        <input mdInput inputFieldValidator placeholder="{{currentLanguageSet?.talukName}}" name='talukName' id='talukName' formControlName='talukName'>
+        <md-hint *ngIf="editBenForm.get('talukName').hasError('required') && editBenForm.get('talukName').touched">
+          <span class="error_text">{{currentLanguageSet?.talukNameIsRequired}}</span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <md-input-container [style.width]="'100%'">
+        <input mdInput inputFieldValidator placeholder="{{currentLanguageSet?.healthBlock}}" name='healthBlock' id='healthBlock' formControlName='healthBlock'>
+        <md-hint *ngIf="editBenForm.get('healthBlock').hasError('required') && editBenForm.get('healthBlock').touched">
+          <span class="error_text">{{currentLanguageSet?.healthBlockIsRequired}}</span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <md-input-container [style.width]="'100%'">
+        <input mdInput inputFieldValidator placeholder="{{currentLanguageSet?.phcName}}" name='phcName' id='phcName' formControlName='phcName'>
+        <md-hint *ngIf="editBenForm.get('phcName').hasError('required') && editBenForm.get('phcName').touched">
+          <span class="error_text">{{currentLanguageSet?.phcNameIsRequired}}</span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <md-input-container [style.width]="'100%'">
+        <input mdInput inputFieldValidator placeholder="{{currentLanguageSet?.subfacilitySubcenter}}" name='sfName' id='sfName' formControlName='sfName'>
+        <md-hint *ngIf="editBenForm.get('sfName').hasError('required') && editBenForm.get('sfName').touched">
+          <span class="error_text">{{currentLanguageSet?.subfacilitySubcentreNameIsRequired}}</span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <md-input-container [style.width]="'100%'">
+        <input mdInput inputFieldValidator placeholder="{{currentLanguageSet?.gpVillage}}" name='gpVillage' id='gpVillage' formControlName='gpVillage'>
+       
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <md-input-container [style.width]="'100%'">
+        <input mdInput myMobileNumber placeholder="{{currentLanguageSet?.phoneNo}}" maxlength="10" name='phoneNo' id='phoneNo' formControlName='phoneNo'>
+        <md-hint *ngIf="editBenForm.get('phoneNo').hasError('required') && editBenForm.get('phoneNo').touched">
+          <span class="error_text">{{currentLanguageSet?.phoneNoIsNotValidRequired}}</span>
+        </md-hint>
+      </md-input-container>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 p-b-1-5">
+    
+        <md-select class="width100" placeholder="{{currentLanguageSet?.phoneNoType}}" name='phoneNoType' id='phoneNoType' formControlName='phoneNoType'>
+          <md-option *ngFor='let phoneNoType of phoneNoTypes' [value]="phoneNoType">{{phoneNoType}}</md-option>
+        </md-select>
+       
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <md-input-container [style.width]="'100%'">
+        <input mdInput inputFieldValidator placeholder="{{currentLanguageSet?.ashaName}}" name='ashaName' id='ashaName' formControlName='ashaName'>
+        <md-hint *ngIf="editBenForm.get('ashaName').hasError('required') && editBenForm.get('ashaName').touched">
+          <span class="error_text">{{currentLanguageSet?.ashaNameIsRequired}}</span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <div class="clearfix visible-sm"></div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <md-input-container [style.width]="'100%'">
+        <input mdInput inputFieldValidator placeholder="{{currentLanguageSet?.anmName}}" name='anmName' id='anmName' formControlName='anmName'>
+        <md-hint *ngIf="editBenForm.get('anmName').hasError('required') && editBenForm.get('anmName').touched">
+          <span class="error_text">{{currentLanguageSet?.anmNameIsRequired}}</span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <div class="clearfix visible-lg visible-sm" *ngIf='ancFlag'></div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <md-input-container [style.width]="'100%'" >
+        <input mdInput myMobileNumber placeholder="{{currentLanguageSet?.ashaPhoneNo}}" maxlength="10" name='ashaPhoneNo' id='ashaPhoneNo' formControlName='ashaPhoneNo'>
+      
+      </md-input-container>
+    </div>
+    <div class="clearfix visible-lg visible-sm" *ngIf='flagForClearFix'></div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <md-input-container [style.width]="'100%'" >
+        <input mdInput myMobileNumber placeholder="{{currentLanguageSet?.anmPhoneNo}}" maxlength="10" name='anmPhoneNo' id='anmPhoneNo' formControlName='anmPhoneNo'>
+        <md-hint *ngIf="editBenForm.get('anmPhoneNo').hasError('required') && editBenForm.get('anmPhoneNo').touched">
+          <span class="error_text">{{currentLanguageSet?.anmPhoneNoIsRequired}}</span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" *ngIf='pncFlag'>
+      <md-input-container [style.width]="'100%'">
+        <input mdInput inputFieldValidator placeholder="{{currentLanguageSet?.childName}}" name='childName' id='childName' formControlName='childName'>
+        <md-hint *ngIf="editBenForm.get('childName').hasError('required') && editBenForm.get('childName').touched">
+          <span class="error_text">{{currentLanguageSet?.childNameIsRequired}}</span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" *ngIf='ancFlag'>
+     
+      <md2-datepicker [openOnFocus]="true" class="width100" restrictTyping (keydown)="blockey($event)" placeholder="{{currentLanguageSet?.lmpDate}}" name='lmpDate' id='lmpDate' formControlName='lmpDate' (change)='calculateEDD()'
+        required></md2-datepicker>
+    </div>
+    <div class="clearfix visible-sm"></div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" *ngIf='ancFlag'>
+      <md2-datepicker [openOnFocus]="true" class="width100" restrictTyping (keydown)="blockKey($event)" [disabled]="true" placeholder="{{currentLanguageSet?.edd}}" name="edd" id='edd' formControlName='edd'
+        required></md2-datepicker>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" *ngIf='pncFlag'>
+      <md2-datepicker [openOnFocus]="true" class="width100" restrictTyping (keydown)="blockey($event)" placeholder="{{currentLanguageSet?.dob}}" name="dob" id='dob' formControlName='dob'
+        required></md2-datepicker>
+    </div>
+    <div class="clearfix visible-md visible-lg" *ngIf='pncFlag || ancFlag'></div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+      <md-input-container class="width100">
+        <textarea mdInput myAddress  rows="2" placeholder="{{currentLanguageSet?.address}}" name="address" id='address' formControlName='address' required></textarea>
+        <md-hint *ngIf="editBenForm.get('address').hasError('required') && editBenForm.get('address').touched">
+          <span class="error_text">{{currentLanguageSet?.addressIsRequired}}</span>
+        </md-hint>
+      </md-input-container>
+    </div>
+  </form>
+</div>
+<div class="clearfix "></div>
+<div class="overlay" *ngIf="showProgressBar">
+   <div>
+      <md-spinner></md-spinner>
+    </div>
+</div>
+<div class="m-t-10 m-b-5">
+  <button md-raised-button color="accent" class="m-l-15 m-r-15 pull-right" (click)="saveBenDetails()">{{currentLanguageSet?.update}}</button>
+  <button md-raised-button class="m-l-15 pull-right" md-dialog-close>{{currentLanguageSet?.close}}</button>
+</div>

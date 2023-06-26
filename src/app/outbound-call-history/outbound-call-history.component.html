@@ -1,0 +1,144 @@
+<h4>{{currentLanguageSet?.beneficiaryDetails}}</h4>
+<div class="table-responsive" class="horizontal-scrolbar-hidden">
+  <table class="table table-bordered" aria-describedby="benDetails">
+    <thead>
+      <tr>
+        <th id="motherID">{{currentLanguageSet?.motherId}}</th>
+        <th id="motherName">{{currentLanguageSet?.motherName}}</th>
+        <th id="childID">{{currentLanguageSet?.childId}}</th>
+        <th id="childName">{{currentLanguageSet?.childName}}</th>
+        <th id="benID">{{currentLanguageSet?.beneficiaryId}}</th>
+        <th id="phc">{{currentLanguageSet?.phcName}}</th>
+        <th id="phoneNoType">{{currentLanguageSet?.phoneNoType}}</th>
+        <th id="phoneNo">{{currentLanguageSet?.phoneNo}}</th>
+        <th id="asha">{{currentLanguageSet?.asha}}</th>
+        <th id="anm">{{currentLanguageSet?.anm}}</th>
+        <th id="age" *ngIf="!pncFlag">{{currentLanguageSet?.age}}</th>
+        <th id="ageofMother" *ngIf="pncFlag">{{currentLanguageSet?.ageOfMother}}</th>
+        <th id="edd" *ngIf="!pncFlag">{{currentLanguageSet?.edd}}</th>
+        <th id="dob" *ngIf="pncFlag">{{currentLanguageSet?.dob}}</th>
+        <th id="lmpDate">{{currentLanguageSet?.lmpDate}}</th>
+        <th id="nextANCPNCDate">{{currentLanguageSet?.nextAncPncDate}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{(historyDetails?.childValidDataHandler)? historyDetails?.childValidDataHandler?.Mother_ID : historyDetails?.mctsDataReaderDetail?.MCTSID_no}}</td>
+        <td>{{(historyDetails?.childValidDataHandler)? historyDetails?.childValidDataHandler?.Mother_Name : historyDetails?.mctsDataReaderDetail?.Name}}</td>
+        <td>{{(historyDetails?.childValidDataHandler)? historyDetails?.childValidDataHandler?.MCTSID_no_Child_ID: historyDetails?.mctsDataReaderDetail?.Child_ID}}</td>
+        <td>{{(historyDetails?.childValidDataHandler)? historyDetails?.childValidDataHandler?.Child_Name: historyDetails?.mctsDataReaderDetail?.Child_Name}}</td>
+        <td>{{(historyDetails?.childValidDataHandler)? historyDetails?.childValidDataHandler?.beneficiaryID: historyDetails?.mctsDataReaderDetail?.beneficiaryID}}</td>
+        <td>{{(historyDetails?.childValidDataHandler)? historyDetails?.childValidDataHandler?.PHC_Name : historyDetails?.mctsDataReaderDetail?.PHC_Name}}</td>
+        <td>{{(historyDetails?.childValidDataHandler)? historyDetails?.childValidDataHandler?.Phone_No_of : historyDetails?.mctsDataReaderDetail?.PhoneNo_Of_Whom}}</td>
+        <td>{{(historyDetails?.childValidDataHandler)? historyDetails?.childValidDataHandler?.Phone_No : historyDetails?.mctsDataReaderDetail?.Whom_PhoneNo}}</td>
+        <td>{{(historyDetails?.childValidDataHandler)? historyDetails?.childValidDataHandler?.ASHA_Name: historyDetails?.mctsDataReaderDetail?.ASHA_Name}}</td>
+        <td>{{(historyDetails?.childValidDataHandler)? historyDetails?.childValidDataHandler?.ANM_Name: historyDetails?.mctsDataReaderDetail?.ANM_Name}}</td>
+        <td *ngIf="!pncFlag">{{((historyDetails?.childValidDataHandler)? historyDetails?.childValidDataHandler?.age : historyDetails?.mctsDataReaderDetail.Age)}}</td>
+        <td *ngIf="pncFlag">{{((historyDetails?.childValidDataHandler)? historyDetails?.childValidDataHandler?.age : historyDetails?.mctsDataReaderDetail.Age)}}</td>
+        <td *ngIf="!pncFlag">{{((historyDetails?.childValidDataHandler)? historyDetails?.childValidDataHandler?.edd : historyDetails?.mctsDataReaderDetail.EDD)|date:'dd/MM/yyyy'}}</td>
+        <td *ngIf="pncFlag">{{((historyDetails?.childValidDataHandler)? historyDetails?.childValidDataHandler?.DOB: historyDetails?.mctsDataReaderDetail?.DOB)|date:'dd/MM/yyyy'}}</td>
+        <td>{{((historyDetails?.childValidDataHandler)? historyDetails?.childValidDataHandler?.lmpDate : historyDetails?.mctsDataReaderDetail?.LMP_Date)|date:'dd/MM/yyyy'}}</td>
+        <td>{{nextCallDate|date:'dd/MM/yyyy'}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div>
+  </div>
+  <button md-raised-button class="pull-left" color="primary" (click)="viewComplaintsHistory()">{{currentLanguageSet?.complaintsHistory}}</button>
+  <button md-raised-button class="pull-left m-l-10" color="primary" *ngIf="pncFlag" (click)="viewCongenitalHistory()">{{currentLanguageSet?.congenitalHistory}}</button>
+  <div *ngIf="!disableBack && isDialPreferenceManual == true">
+    <button md-raised-button class="pull-right" color="primary" (click)="navigateToPrev()" [disabled]="disableBack">{{currentLanguageSet?.back}}</button>
+  </div>
+</div>
+<div class="clearfix"></div>
+<h4 class="f-l m-t-30 " *ngIf="!disableBack && isDialPreferenceManual == true">
+  {{currentLanguageSet?.currentCall}}
+  <span>
+    <strong>{{historyDetails?.displayOBCallType ? historyDetails?.displayOBCallType : historyDetails?.outboundCallType}}</strong>
+  </span>
+  <span (click)="navigateToNext(historyDetails)">
+    <img class="cursorPointer" src="assets/images/transferCallIcon.png" alt="Transfer Icon" md-tooltip="{{currentLanguageSet?.callBeneficiary}}" />
+  </span>
+</h4>
+<label *ngIf="isDialPreferenceManual == false && sec > 0" class="error_text m-t-20">
+  <span>{{currentLanguageSet?.callToStartIn}} {{sec}} {{currentLanguageSet?.seconds}}</span>
+</label>
+<div *ngIf="disableBack">
+  <h4 class="f-l m-t-30 ">{{currentLanguageSet?.currentCall}}:
+    <span>
+      <strong>{{historyDetails?.displayOBCallType ? historyDetails?.displayOBCallType : historyDetails?.outboundCallType}}</strong>
+    </span>
+  </h4>
+  <button md-raised-button color="primary" class="pull-right m-b-5" (click)="navigateNext()">{{currentLanguageSet?.backToCallScreen}}</button>
+</div>
+<div class="clearfix"></div>
+<h5 *ngIf="historyDetails?.prefferedCallDate!undefined">
+  <span>{{currentLanguageSet?.preferredCallDate}} :
+    <strong>{{historyDetails?.prefferedCallDate | utcDate | date: 'dd-MM-yyyy'}}</strong>
+  </span>
+</h5>
+<h5 *ngIf="historyDetails?.prefferedCallDate===undefined">
+  <span>{{currentLanguageSet?.preferredCallDate}} :
+    <strong>-</strong>
+  </span>
+</h5>
+<div class="clearfix"></div>
+<md-tab-group>
+  <md-tab label="{{currentLanguageSet?.mctsCallHistory}}">
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered" [md2Data]="callHistory" #md2="md2DataTable" [rowsPerPage]="5" aria-describedby="callHistory">
+        <thead>
+          <tr>
+            <th id="sno">{{currentLanguageSet?.sno}}</th>
+            <th id="callType">{{currentLanguageSet?.callType}}</th>
+            <th id="callDate">{{currentLanguageSet?.callDateTime}}</th>
+            <th id="dataUpdate">{{currentLanguageSet?.dataUpdate}}</th>
+            <th id="callStatus">{{currentLanguageSet?.callStatus}}</th>
+            <th id="callType">{{currentLanguageSet?.callType}}</th>
+            <th id="smsAdvice">{{currentLanguageSet?.smsAdvice}}</th>
+            <th id="remarks">{{currentLanguageSet?.remarks}}</th>
+            <th id="actions">{{currentLanguageSet?.actions}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="callHistory?.length==0">
+            <td colspan="8" class="record-not-found">
+             {{currentLanguageSet?.noRecordFound}}
+            </td>
+          </tr>
+          <tr *ngFor="let row of md2.data;let i = index ">
+            <td>{{(md2.activePage-1)*(md2.rowsPerPage)+i+1}}</td>
+            <td>{{row?.mctsOutboundCall?.displayOBCallType ? row.mctsOutboundCall.displayOBCallType : row.outboundCallType}}</td>
+            <td>{{row.createdDate | utcDate | date: 'dd-MM-yyyy hh:mm a'}}</td>
+            <td>{{row?.changeLog?.split('|').join(',')}}</td>
+            <td>{{row?.callType?.callGroupType}}</td>
+            <td>{{row?.callType?.callType}}</td>
+            <td>{{row?.smsAdvice}}</td>
+            <td>{{row.remark}}</td>
+            <td>
+              <button md-raised-button color="primary" class="md-small" (click)="openDialog(row.callDetailID)">{{currentLanguageSet?.viewQandA}}</button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="9">
+              <md2-pagination></md2-pagination>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </md-tab>
+  <md-tab label="{{currentLanguageSet?.oneZeroFourHistory}}">
+    <app-medical-history-dialog [benRegID]="beneficiaryRegID"></app-medical-history-dialog>
+  </md-tab>
+
+  <md-tab label="{{currentLanguageSet?.eHealthFacilityHistory}}">
+    <app-mmu-history [benRegID]="beneficiaryRegID" [tm]="false"></app-mmu-history>
+  </md-tab>
+
+  <md-tab label="{{currentLanguageSet?.tmHistory}}">
+    <app-mmu-history [benRegID]="beneficiaryRegID" [tm]="true"></app-mmu-history>
+  </md-tab>
+</md-tab-group>

@@ -1,0 +1,54 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <button type="button" class="close" md-dialog-close>
+    <span class="pull-right">&times;</span>
+  </button>
+  <h4 md-dialog-title>{{currentLanguageSet?.mapQuestionnaire}}</h4>
+</div>
+
+<form #mapQuestionaireForm="ngForm">
+
+<div class="m-b-10">
+  <div class="col-xs-15" style="margin-top: 1%; padding: 2%;">
+    <label>{{currentLanguageSet?.parentQuestion}}:</label>   
+      <md-form-field class="width100">
+        <input inputFieldValidator autocomplete="off" type="text" name="questionOne" mdInput [(ngModel)]="questionOne" placeholder="{{currentLanguageSet?.parentQuestion}}" 
+          (keyup)="filterQuestionsList(questionOne,'parent')" (click)="filterQuestionsList(questionOne,'parent')" required [mdAutocomplete]="autoGroup" (ngModelChange)='onChange(1)'>
+        <md-autocomplete #autoGroup="mdAutocomplete" [displayWith]="displayFn">
+          <md-option *ngFor="let item of questionrows" [value]="item">
+               {{item.questionnaireDetail.question}}
+          </md-option>
+        </md-autocomplete>
+      </md-form-field>
+        <md-select [style.width]="'100%'" placeholder="{{currentLanguageSet?.answerType}}" name="answerType" [(ngModel)]="answerType" required>
+          <ng-container *ngFor="let ans of answerTypeOne">
+          <md-option *ngIf="ans !=undefined" [value]="ans" >
+            {{ans}}
+          </md-option>
+        </ng-container>
+        </md-select>
+</div>
+</div>
+<div class="m-b-10">
+  <div class="col-xs-15" style="margin-top: 1%; padding: 2%;">
+    <label>{{currentLanguageSet?.childQuestion}}:</label>
+    <md-form-field class="width100">
+      <input inputFieldValidator autocomplete="off" type="text" name="questionTwo" mdInput [(ngModel)]="questionTwo" #input placeholder="{{currentLanguageSet?.childQuestion}}" 
+        (keyup)="filterQuestionsList(questionTwo,'child')" (click)="filterQuestionsList(questionTwo,'child')"  required [mdAutocomplete]="autoGroup" (ngModelChange)='onChange(2)'>
+      <md-autocomplete #autoGroup="mdAutocomplete" [displayWith]="displayFn">
+        <ng-container *ngFor="let items of questionrows">
+        <md-option *ngIf="items.questionnaireDetail.question!==(questionOne!= null ? (questionOne.questionnaireDetail !==undefined ? questionOne.questionnaireDetail.question : null) :null)" [value]="items">
+          {{items.questionnaireDetail.question}}
+        </md-option></ng-container>
+      </md-autocomplete>
+    </md-form-field>
+</div>
+</div>
+</form>
+
+<div class="col-xs-12 col-sm-12 m-b-10 m-t-10 p-r-0">
+  <button md-raised-button class="m-l-10 pull-right" color="accent" (click)="saveMappedQuestions(mapQuestionaireForm.value)" [disabled]="(mapQuestionaireForm.invalid)">{{currentLanguageSet?.save}}</button>
+  <button md-raised-button class="m-l-10 pull-right" md-dialog-close>
+    {{currentLanguageSet?.close}}</button>
+</div>
+
+

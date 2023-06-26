@@ -1,0 +1,118 @@
+<div class="container col-lg-12">
+  <div class="row col-xs-12">
+    <h2 class="text-center">{{currentLanguageSet?.anc}}</h2>
+    <hr/>
+  </div>
+
+  <div class="row m-t-10">
+    <div class="col-xs-12">
+      <h4>{{currentLanguageSet?.ancDetails}}</h4>
+    </div>
+
+    <div class="col-xs-12">
+      <table class="table table-no-border casesheet-table" aria-describedby="anc">
+
+        <tr>
+          <th id="primiGravida">{{currentLanguageSet?.primiGravida}}:</th>
+          <td> {{ (aNCDetailsAndFormula?.primiGravida == undefined) ? null : (aNCDetailsAndFormula?.primiGravida ? 'Yes' : 'No')
+            }} </td>
+          <th id="lastMenstrualPeriod_LMP">{{currentLanguageSet?.lastMenstrualPeriod}}:</th>
+          <td> {{ aNCDetailsAndFormula?.lastMenstrualPeriod_LMP}} </td>
+        </tr>
+
+        <tr>
+          <th id="gestationalAgeOrPeriodofAmenorrhea_POA">{{currentLanguageSet?.gestationalAgeOrPeriodOfAmenorrheapoa}}:</th>
+          <td> {{ aNCDetailsAndFormula?.gestationalAgeOrPeriodofAmenorrhea_POA }} </td>
+          <th id="expectedDateofDelivery">{{currentLanguageSet?.expectedDateOfDelivery}}:</th>
+          <td> {{ aNCDetailsAndFormula?.expectedDateofDelivery}} </td>
+        </tr>
+
+        <tr>
+          <th id="duration">{{currentLanguageSet?.periodOfPregnancy}}:</th>
+          <td> {{ aNCDetailsAndFormula?.duration }} </td>
+          <th id="trimesterNumber"> {{currentLanguageSet?.trimesterNumber}}:</th>
+          <td> {{ aNCDetailsAndFormula?.trimesterNumber}} </td>
+        </tr>
+
+
+      </table>
+    </div>
+  </div>
+
+  <div class="row m-t-10">
+    <div class="col-xs-12">
+      <h4>{{currentLanguageSet?.obstetricFormula}}</h4>
+    </div>
+
+    <div class="col-xs-12">
+      <table class="table table-no-border casesheet-table" aria-describedby="obstetricFormula">
+        <tr>
+          <th id="gravida_G">{{currentLanguageSet?.gravidaGTPA}}:</th>
+          <td> {{ aNCDetailsAndFormula?.gravida_G }} </td>
+          <th id="termDeliveries_T">{{currentLanguageSet?.termDeliveriest}}:</th>
+          <td> {{ aNCDetailsAndFormula?.termDeliveries_T}} </td>
+        </tr>
+
+        <tr>
+          <th id="pretermDeliveries_P">{{currentLanguageSet?.preTermDeliveriesp}}:</th>
+          <td> {{ aNCDetailsAndFormula?.pretermDeliveries_P }} </td>
+          <th id="abortions_A">{{currentLanguageSet?.abortionsa}}:</th>
+          <td> {{ aNCDetailsAndFormula?.abortions_A}} </td>
+        </tr>
+
+        <tr>
+          <th id="livebirths_L">{{currentLanguageSet?.livebirthsl}}:</th>
+          <td> {{ aNCDetailsAndFormula?.livebirths_L }} </td>
+          <th id="bloodGroup">{{currentLanguageSet?.bloodGroupType}}:</th>
+          <td> {{ aNCDetailsAndFormula?.bloodGroup}} </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+
+  <div class="row m-t-10">
+    <div class="col-xs-12">
+      <h4>{{currentLanguageSet?.ancImmunization}}</h4>
+    </div>
+    <div class="col-xs-12">
+      <table class="table table-bordered table-striped" aria-describedby="ttName">
+        <thead>
+          <tr>
+            <th style="width : 5%" id="sno">{{currentLanguageSet?.sno}}</th>
+            <th style="width : 20%"id="ttName">{{currentLanguageSet?.ttname}}</th>
+            <th style="width : 25%" id="ttStatus">{{currentLanguageSet?.ttStatus}}</th>
+            <th style="width : 25%" id="dateOfReceived">{{currentLanguageSet?.dateOfReceived}}</th>
+            <th style="width : 25%" id="facilityName">{{currentLanguageSet?.facilityName}}</th>
+          </tr>
+        </thead>
+        <ng-container>
+          <tbody>
+            <tr>
+              <th id="1"> 1 </th>
+              <th id="tt1"> {{currentLanguageSet?.tt1}} </th>
+              <td>{{ aNCImmunization?.tT_1Status }}</td>
+              <td>{{ aNCImmunization?.dateReceivedForTT_1 }}</td>
+              <td>{{ aNCImmunization?.facilityNameOfTT_1 }}</td>
+            </tr>
+            <tr>
+              <th id="1"> 2 </th>
+              <th id="2"> {{currentLanguageSet?.tt2}} </th>
+              <td>{{ aNCImmunization?.tT_2Status }}</td>
+              <td>{{ aNCImmunization?.dateReceivedForTT_2 }}</td>
+              <td>{{ aNCImmunization?.facilityNameOfTT_2 }}</td>
+            </tr>
+            <tr>
+              <th id="3"> 3 </th>
+              <th id="ttBooster"> {{currentLanguageSet?.ttBooster}} </th>
+              <td>{{ aNCImmunization?.tT_3Status }}</td>
+              <td>{{ aNCImmunization?.dateReceivedForTT_3 }}</td>
+              <td>{{ aNCImmunization?.facilityNameOfTT_3 }}</td>
+            </tr>
+          </tbody>
+        </ng-container>
+      </table>
+    </div>
+  </div>
+
+</div>

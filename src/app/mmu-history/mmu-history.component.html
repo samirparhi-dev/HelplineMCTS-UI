@@ -1,0 +1,41 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <div class="table-responsive">
+  <table class="m-b-20 table table-striped table-bordered table-hover" [md2Data]="medHistoryMMU" #md2medicalHistory="md2DataTable" [rowsPerPage]="8" aria-describedby="mmuHistory">
+    <thead>
+      <tr>
+        <th style="width: 10%;">{{currentLanguageSet?.visitNo}}</th>
+        <th style="width: 20%;">{{currentLanguageSet?.date}}</th>
+        <th style="width: 20%;">{{currentLanguageSet?.visitReason}} </th>
+        <th style="width: 20%;">{{currentLanguageSet?.visitCategory}}</th>
+        <th style="width: 10%;">{{currentLanguageSet?.visitCode}}</th>
+        <th style="width: 10%;">{{currentLanguageSet?.preview}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="medHistoryMMU?.length == 0">
+        <td colspan="11" class="record-not-found">
+          {{currentLanguageSet?.noRecordFound}}
+        </td>
+      </tr>
+      <tr *ngFor="let visit of md2medicalHistory.data">
+          <td style="width:300px;max-width:120px; word-break: normal; vertical-align:middle">{{visit?.benVisitNo}}</td>
+          <td style="width:300px;max-width:120px; word-break: normal; vertical-align:middle">{{visit?.benVisitDate | date: 'dd/MM/yyyy hh:mm a'}}</td>
+          <td style="width:110px; word-break: normal; vertical-align:middle ">{{visit?.VisitReason}}</td>
+          <td style="width:150px; word-break: normal; vertical-align:middle">{{visit?.VisitCategory}}</td>
+          <td style="max-width:150px; word-break: normal; vertical-align:middle">{{visit?.visitCode}}</td>
+          <td>
+          <i class="material-icons cursorPointer" (click)="getVisitDetails(visit)">visibility</i>
+          </td>
+      </tr>
+    </tbody>
+
+    <tfoot>
+      <tr>
+        <td colspan="10">
+          <md2-pagination></md2-pagination>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+  </div>
+</div>

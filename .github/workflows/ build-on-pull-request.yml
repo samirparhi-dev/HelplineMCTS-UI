@@ -40,5 +40,5 @@ jobs:
             npm install node-sass
             npm install --force
             npm run build
-            mvn clean install    
+            
          

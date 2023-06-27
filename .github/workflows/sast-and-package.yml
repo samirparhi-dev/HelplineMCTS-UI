@@ -85,11 +85,11 @@ jobs:
                
         
     - name: Create WAR file 
-      run: mvn -B package --file pom.xml
+      run: jar -cvf adminui-v1.0.war -C dist .
       
     - name: Upload WAR file as artifact
       uses: actions/upload-artifact@v2 
       with:
-        name: HWC-UI
-        path: target/mctsui-v1.0.war  
+        name: HelplineMCTS-UI
+        path: mctsui-v1.0.war  
         

@@ -85,11 +85,11 @@ jobs:
                
         
     - name: Create WAR file 
-      run: jar -cvf adminui-v1.0.war -C dist .
+      run: jar -cvf mcts-ui-v1.0.war -C dist .
       
     - name: Upload WAR file as artifact
       uses: actions/upload-artifact@v2 
       with:
         name: HelplineMCTS-UI
-        path: mcts-ui-v1.0 
+        path: mcts-ui-v1.0.war 
         

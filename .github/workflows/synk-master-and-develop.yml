@@ -1,22 +1,23 @@
-name: Sync Master and Develop
+name: Sync master and develop
 
 on:
   push:
     branches:
-      - master
+      - develop
 
 jobs:
   sync:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out repository
+      - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Sync develop branch
+      - name: Sync master branch
         run: |
-          git fetch --prune
-          git checkout develop
-          git merge origin/master --ff-only
-          git push origin develop
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git checkout master
+          git merge --no-edit develop
+          git push origin master
 

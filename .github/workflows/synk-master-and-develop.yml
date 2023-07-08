@@ -1,0 +1,22 @@
+name: Sync Master and Develop
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Sync develop branch
+        run: |
+          git fetch --prune
+          git checkout develop
+          git merge origin/master --ff-only
+          git push origin develop
+

@@ -21,28 +21,31 @@
 */
 
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AgentAllocateRecordsComponent } from './agent-allocate-records.component';
+module.exports = function(grunt) {
 
-describe('AgentAllocateRecordsComponent', () => {
-  let component: AgentAllocateRecordsComponent;
-  let fixture: ComponentFixture<AgentAllocateRecordsComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ AgentAllocateRecordsComponent ]
-    })
-    .compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(AgentAllocateRecordsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  grunt.loadNpmTasks('grunt-war');
+  // Project configuration.
+  grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+    war: {
+      target: {
+        options: {
+          war_dist_folder: 'target',
+          /* Folder where to generate the WAR. */
+          war_name: 'mctsui-v1.0',
+          /* The name fo the WAR file (.war will be the extension) */
+          webxml_display_name: 'mctsui-v1.0',
+        },
+        files: [{
+          expand: true,
+          cwd: 'dist',
+          src: ['**'],
+          dest: ''
+        }]
+      }
+    }
   });
 
-  it('should be created', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  grunt.registerTask('default', ['war']);
+};

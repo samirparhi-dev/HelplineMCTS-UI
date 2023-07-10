@@ -67,6 +67,6 @@
     "uglify-js": "2.8.0",
     "webpack": "2.6.1",
     "grunt": "1.0.3",
-    "grunt-war": "0.5.1",
+    "grunt-war": "0.5.1"
   }
 }

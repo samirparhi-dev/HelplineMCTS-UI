@@ -10,9 +10,9 @@ module.exports = function(grunt) {
         options: {
           war_dist_folder: 'target',
           /* Folder where to generate the WAR. */
-          war_name: 'tmui-v1.0',
+          war_name: 'mctsui-v1.0',
           /* The name fo the WAR file (.war will be the extension) */
-          webxml_display_name: 'tmui-v1.0',
+          webxml_display_name: 'mctsui-v1.0',
         },
         files: [{
           expand: true,

@@ -60,4 +60,4 @@ jobs:
       uses: actions/upload-artifact@v2 
       with:
         name: HelplineMCTS-UI
-        path: target/mcts-ui-v1.0.war 
+        path: target/
